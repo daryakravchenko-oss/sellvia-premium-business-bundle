@@ -929,15 +929,17 @@ section { padding: 120px 24px; }
   .how-step + .how-step { border-left: none; border-top: 1px solid rgba(0,0,0,0.06); }
 }
 
-/* ════ SECTION 4: WHAT DO I GET — Stripe-style modular bento (light) ════ */
-.get-sec {
+/* ════ SECTION 4: BONUS — Stripe-style modular bento (light, 7-in-1 Premium Bundle) ════ */
+/* Selectors target #bonus / .bonus-section. The legacy reference rule for
+   .bonus-section (background + padding) above is harmless — both rules merge cleanly. */
+.bonus-section.is-bento {
   background: var(--c-lightbg);
   position: relative;
   overflow: hidden;
 }
-.get-sec .sec-in { position: relative; z-index: 2; }
-.get-sec .sec-title-xl { color: var(--c-near); }
-.get-sec .sec-body { color: var(--c-gray2); }
+.bonus-section.is-bento .sec-in { position: relative; z-index: 2; }
+.bonus-section.is-bento .sec-title-xl { color: var(--c-near); }
+.bonus-section.is-bento .sec-body { color: var(--c-gray2); }
 
 /* ── Section title block (Stripe section-title pattern: left-aligned, max ~ 8/12 cols) ── */
 .get-head {
@@ -1873,8 +1875,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </a>
     <!-- CENTER: links -->
     <ul class="nav-links">
-      <li><a href="#get">What's included</a></li>
-      <li><a href="#bonus">Bonus</a></li>
+      <li><a href="#bonus">7-in-1 Bundle</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
     <!-- RIGHT: actions -->
@@ -2740,126 +2741,77 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 @media(max-width:480px){ .bonus-section{padding:56px 16px} .bullet-item { gap: 10px; } }
 </style>
 
-<section class="bonus-section" id="bonus">
-  <div class="bonus-inner">
-
-    <!-- LEFT -->
-    <div class="bonus-left">
-      <span class="bonus-pill">STEP 2 — PREMIUM BUNDLE · $2,599 FREE</span>
-      <h2 class="bonus-heading">Today's bonus.<br>Yours, on us.</h2>
-      <p class="bonus-sub">Hover the highlights to see what's inside the bundle.</p>
-      <ul class="bullets" id="bulletList">
-        <li class="bullet-item active" data-panel="0">
-          <span class="bullet-text">Premium store + Amazon Seller Kit, set up for you</span>
-          <svg class="bullet-arrow" viewBox="0 0 24 24" fill="none"><path d="M8.91 19.92l6.52-6.52c.77-.77.77-2.03 0-2.8L8.91 4.08" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </li>
-        <li class="bullet-item" data-panel="1">
-          <span class="bullet-text">A real human manager guiding your launch</span>
-          <svg class="bullet-arrow" viewBox="0 0 24 24" fill="none"><path d="M8.91 19.92l6.52-6.52c.77-.77.77-2.03 0-2.8L8.91 4.08" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </li>
-        <li class="bullet-item" data-panel="2">
-          <span class="bullet-text">$40 ad credit + Google promotion to bring real buyers</span>
-          <svg class="bullet-arrow" viewBox="0 0 24 24" fill="none"><path d="M8.91 19.92l6.52-6.52c.77-.77.77-2.03 0-2.8L8.91 4.08" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </li>
-      </ul>
-      <div class="cta-wrap"><a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled">Claim my free bundle</a></div>
+<section class="bonus-section is-bento" id="bonus">
+  <div class="sec-in">
+    <div class="get-head appear">
+      <span class="sec-label">7-in-1 Premium Bundle · $2,599 value</span>
+      <h2>Flexible solutions for<br>every business launch.</h2>
+      <p>Seven done-for-you assets that normally cost thousands — built to work individually, designed to work together. Yours the moment you sign up.</p>
     </div>
-
-    <!-- RIGHT -->
-    <div class="bonus-right" id="panelWrap">
-
-      <!-- PANEL 0 -->
-      <div class="panel visible" id="panel-0">
-        <img class="panel-photo" src="img/Bonus/2148.webp" alt="Woman with laptop" style="top:-100px; height:calc(100% + 100px); object-position:center top;">
-        <div class="lcard card-steps" data-brownian data-delay="0.7">
-          <div class="card-label">Bundle activated</div>
-          <div class="step-row"><div class="step-num">1</div><div class="step-text">Premium store live</div><span class="step-check">✓</span></div>
-          <div class="step-row"><div class="step-num">2</div><div class="step-text">Amazon Kit unlocked</div><span class="step-check">✓</span></div>
-          <div class="step-row"><div class="step-num">3</div><div class="step-text">Design applied</div><span class="step-check">✓</span></div>
-        </div>
+    <div class="get-grid">
+      <div class="get-card appear d1">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/shop.svg" alt=""></div>
+        <h3>Turnkey online store, ready in 60 seconds.</h3>
+        <p>A fully hosted ecommerce website with domain &amp; SSL — built, loaded with products, and live the moment you sign up.</p>
+        <span class="get-value"><del>$1,199</del> · Free</span>
       </div>
-
-      <!-- PANEL 1 — ТОЛЬКО ОДНА ПЛАШКА (bottom-left), аватарки с реальными фото -->
-      <div class="panel" id="panel-1">
-        <img class="panel-photo" src="img/Bonus/2149.webp?v=3" alt="Man with phone" style="top:-60px; height:calc(100% + 60px); object-position:center top;">
-        <div class="lcard card-users" data-brownian data-delay="0.3">
-          <!-- Аватарки с реальными лицами, без обводок -->
-          <div class="av-row">
-            <div class="av"><img src="img/Bonus/2122.webp" alt=""></div>
-            <div class="av"><img src="img/Bonus/2125.webp" alt=""></div>
-            <div class="av"><img src="img/Bonus/2126.webp" alt=""></div>
-            <div class="av"><img src="img/Bonus/2127.webp" alt=""></div>
-            <div class="av"><img src="img/Bonus/2129.webp" alt=""></div>
-          </div>
-          <!-- Разделитель -->
-          <div class="av-divider"></div>
-          <!-- Всё что под чертой -->
-          <div class="users-count">1-on-1</div>
-          <div class="users-label">Live coaching with your manager</div>
-          <div class="online-row">
-            <div class="online-dot"></div>
-            <span class="online-txt">Manager online</span>
-            <span class="online-num">Now</span>
-          </div>
-        </div>
+      <div class="get-card appear d2">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/card.svg" alt=""></div>
+        <h3>$40 ad credit on signup</h3>
+        <p>Free advertising credit so your first campaign costs you nothing.</p>
+        <span class="get-value"><del>$40</del> · Free</span>
       </div>
-
-      <!-- PANEL 2 -->
-      <div class="panel" id="panel-2">
-        <img class="panel-photo panel-2-photo" src="img/Bonus/2119.webp" alt="Happy woman" style="top:-30px; height:calc(100% + 30px); object-position:center top;">
-        <div class="lcard card-rev" data-brownian style="top:auto;right:auto;bottom:32px;left:20px;width:206px;">
-          <div class="rev-amount">$240</div>
-          <div class="rev-period">Ad credit + Google gift</div>
-          <div class="rev-chart">
-            <div class="rbar low" style="height:24%"></div>
-            <div class="rbar low" style="height:38%"></div>
-            <div class="rbar mid" style="height:32%"></div>
-            <div class="rbar mid" style="height:55%"></div>
-            <div class="rbar hi"  style="height:48%"></div>
-            <div class="rbar hi"  style="height:72%"></div>
-            <div class="rbar top" style="height:100%"></div>
-          </div>
-          <div class="rev-trend">
-            <span class="trend-badge">FREE</span>
-            <span class="trend-lbl">first buyers, on us</span>
-          </div>
-        </div>
+      <div class="get-card appear d3">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/shopping-bag.svg" alt=""></div>
+        <h3>Amazon Seller Kit</h3>
+        <p>Setup guide, ready product feed and Seller University access to expand to Amazon.</p>
+        <span class="get-value"><del>$499</del> · Free</span>
       </div>
-
-      <!--<div class="dot-nav">-->
-      <!--  <div class="dot active" data-dot="0"></div>-->
-      <!--  <div class="dot" data-dot="1"></div>-->
-      <!--  <div class="dot" data-dot="2"></div>-->
-      <!--</div>-->
+      <div class="get-card appear d4">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/designtools.svg" alt=""></div>
+        <h3>Premium store design</h3>
+        <p>Custom theme, polished layout, optimised for conversions on every device.</p>
+        <span class="get-value"><del>$299</del> · Free</span>
+      </div>
+      <div class="get-card appear d5">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/trend-up.svg" alt=""></div>
+        <h3>Google promotion gift</h3>
+        <p>A free ad campaign run by our team to bring real buyers from day one.</p>
+        <span class="get-value"><del>$199</del> · Free</span>
+      </div>
+      <div class="get-card appear d6">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/profile-tick.svg" alt=""></div>
+        <h3>Personal manager</h3>
+        <p>A real human in your corner for strategy, onboarding and growth.</p>
+        <span class="get-value"><del>$199</del> · Free</span>
+      </div>
+      <div class="get-card appear d6">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/24-support.svg" alt=""></div>
+        <h3>1-on-1 business training, live with your coach.</h3>
+        <p>Personal coaching sessions on marketing, sales and scaling — tailored to your store and your goals. Most people pay $399+ per session for this.</p>
+        <span class="get-value"><del>$399</del> · Free</span>
+      </div>
     </div>
-
+    <div style="text-align:center;margin-top:64px" class="appear">
+      <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled" id="bundleCtaBtn">Claim my free bundle</a>
+      <p style="margin-top:14px;font-size:13px;color:var(--c-gray3)">7 assets · $2,599 value · Yours at no cost</p>
+    </div>
   </div>
 </section>
 
 <script>
-/* ── Bonus block — isolated scope to avoid variable conflicts ── */
+/* ── Bonus / Premium Bundle — legacy panel-switching is no-op for the bento layout ── */
 ;(function() {
 
-  /* ── Panel switching (scoped per .bonus-section so multiple instances coexist) ── */
-  document.querySelectorAll('.bonus-section').forEach(section => {
-    const bullets = section.querySelectorAll('.bullet-item');
-    const panels  = section.querySelectorAll('.panel');
-    function activate(i) {
-      bullets.forEach(b => b.classList.remove('active'));
-      panels.forEach(p  => p.classList.remove('visible'));
-      bullets[i].classList.add('active');
-      panels[i].classList.add('visible');
-    }
-    bullets.forEach((b, i) => {
-      b.addEventListener('mouseenter', () => activate(i));
-      b.addEventListener('click', () => activate(i));
-    });
-  });
-
-  /* ── Brownian motion ──
-     Each card gets its own independent Ornstein-Uhlenbeck process:
-     smooth random walk that keeps cards close to their anchor position.
-  */
+  /* Brownian motion script kept for any data-brownian elements elsewhere on the page.
+     Bento has none, so the tick loop runs over an empty array. */
   class Brownian {
     constructor(el) {
       this.el = el;
@@ -3035,71 +2987,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 
-<!-- ═══ WHAT DO I GET — Stripe-style modular bento ═══ -->
-<section class="get-sec" id="get">
-  <div class="sec-in">
-    <div class="get-head appear">
-      <span class="sec-label">7-in-1 Premium Bundle · $2,599 value</span>
-      <h2>Flexible solutions for<br>every business launch.</h2>
-      <p>Seven done-for-you assets that normally cost thousands — built to work individually, designed to work together. Yours the moment you sign up.</p>
-    </div>
-    <div class="get-grid">
-      <div class="get-card appear d1">
-        <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/shop.svg" alt=""></div>
-        <h3>Turnkey online store, ready in 60 seconds.</h3>
-        <p>A fully hosted ecommerce website with domain &amp; SSL — built, loaded with products, and live the moment you sign up.</p>
-        <span class="get-value"><del>$1,199</del> · Free</span>
-      </div>
-      <div class="get-card appear d2">
-        <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/card.svg" alt=""></div>
-        <h3>$40 ad credit on signup</h3>
-        <p>Free advertising credit so your first campaign costs you nothing.</p>
-        <span class="get-value"><del>$40</del> · Free</span>
-      </div>
-      <div class="get-card appear d3">
-        <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/shopping-bag.svg" alt=""></div>
-        <h3>Amazon Seller Kit</h3>
-        <p>Setup guide, ready product feed and Seller University access to expand to Amazon.</p>
-        <span class="get-value"><del>$499</del> · Free</span>
-      </div>
-      <div class="get-card appear d4">
-        <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/designtools.svg" alt=""></div>
-        <h3>Premium store design</h3>
-        <p>Custom theme, polished layout, optimised for conversions on every device.</p>
-        <span class="get-value"><del>$299</del> · Free</span>
-      </div>
-      <div class="get-card appear d5">
-        <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/trend-up.svg" alt=""></div>
-        <h3>Google promotion gift</h3>
-        <p>A free ad campaign run by our team to bring real buyers from day one.</p>
-        <span class="get-value"><del>$199</del> · Free</span>
-      </div>
-      <div class="get-card appear d6">
-        <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/profile-tick.svg" alt=""></div>
-        <h3>Personal manager</h3>
-        <p>A real human in your corner for strategy, onboarding and growth.</p>
-        <span class="get-value"><del>$199</del> · Free</span>
-      </div>
-      <div class="get-card appear d6">
-        <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/24-support.svg" alt=""></div>
-        <h3>1-on-1 business training, live with your coach.</h3>
-        <p>Personal coaching sessions on marketing, sales and scaling — tailored to your store and your goals. Most people pay $399+ per session for this.</p>
-        <span class="get-value"><del>$399</del> · Free</span>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:64px" class="appear">
-      <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled" id="getCtaBtn">Claim my free bundle</a>
-      <p style="margin-top:14px;font-size:13px;color:var(--c-gray3)">7 assets · $2,599 value · Yours at no cost</p>
-    </div>
-  </div>
-</section>
 <!-- ═══ WHAT WILL I SELL ═══ -->
 <section class="sell-sec" id="sell">
   <div class="sec-in-wide">
