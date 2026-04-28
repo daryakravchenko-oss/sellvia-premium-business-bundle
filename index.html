@@ -1036,10 +1036,9 @@ section { padding: 120px 24px; }
 /* Inner content sits above the graphic */
 .get-card > .get-icon,
 .get-card > h3,
-.get-card > p,
-.get-card > .get-value { position: relative; z-index: 2; }
+.get-card > p { position: relative; z-index: 2; }
 
-/* ── Icon (Stripe dialog-entry style: small, with card colour) ── */
+/* ── Numbered badge (Stripe dialog-entry style: small, with card colour) ── */
 .get-icon {
   width: 44px;
   height: 44px;
@@ -1052,10 +1051,13 @@ section { padding: 120px 24px; }
   overflow: hidden;
   flex-shrink: 0;
 }
-.get-icon img {
-  width: 22px;
-  height: 22px;
-  filter: var(--card-icon-filter, invert(72%) sepia(60%) saturate(600%) hue-rotate(3deg) brightness(105%));
+.get-num {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--card-c1, var(--c-amber));
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ── Title — Stripe md heading on regular cards, lg on hero/wide ── */
@@ -1085,25 +1087,6 @@ section { padding: 120px 24px; }
 .get-card:nth-child(7) p {
   font-size: 16px;
   max-width: 540px;
-}
-
-/* ── Value badge ── */
-.get-value {
-  margin-top: 22px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--c-amber);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  align-self: flex-start;
-}
-.get-value del {
-  color: var(--c-gray3);
-  font-weight: 500;
-  letter-spacing: 0.02em;
 }
 
 /* ── Per-card colour palette (Stripe-style) ── */
@@ -2730,52 +2713,45 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="get-grid">
       <div class="get-card appear d1">
         <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/shop.svg" alt=""></div>
+        <div class="get-icon"><span class="get-num">1</span></div>
         <h3>Turnkey online store, ready in 60 seconds.</h3>
         <p>A fully hosted ecommerce website with domain &amp; SSL — built, loaded with products, and live the moment you sign up.</p>
-        <span class="get-value"><del>$1,199</del> · Free</span>
       </div>
       <div class="get-card appear d2">
         <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/card.svg" alt=""></div>
+        <div class="get-icon"><span class="get-num">2</span></div>
         <h3>$40 ad credit on signup</h3>
         <p>Free advertising credit so your first campaign costs you nothing.</p>
-        <span class="get-value"><del>$40</del> · Free</span>
       </div>
       <div class="get-card appear d3">
         <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/shopping-bag.svg" alt=""></div>
+        <div class="get-icon"><span class="get-num">3</span></div>
         <h3>Amazon Seller Kit</h3>
         <p>Setup guide, ready product feed and Seller University access to expand to Amazon.</p>
-        <span class="get-value"><del>$499</del> · Free</span>
       </div>
       <div class="get-card appear d4">
         <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/designtools.svg" alt=""></div>
+        <div class="get-icon"><span class="get-num">4</span></div>
         <h3>Premium store design</h3>
         <p>Custom theme, polished layout, optimised for conversions on every device.</p>
-        <span class="get-value"><del>$299</del> · Free</span>
       </div>
       <div class="get-card appear d5">
         <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/trend-up.svg" alt=""></div>
+        <div class="get-icon"><span class="get-num">5</span></div>
         <h3>Google promotion gift</h3>
         <p>A free ad campaign run by our team to bring real buyers from day one.</p>
-        <span class="get-value"><del>$199</del> · Free</span>
       </div>
       <div class="get-card appear d6">
         <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/profile-tick.svg" alt=""></div>
+        <div class="get-icon"><span class="get-num">6</span></div>
         <h3>Personal manager</h3>
         <p>A real human in your corner for strategy, onboarding and growth.</p>
-        <span class="get-value"><del>$199</del> · Free</span>
       </div>
       <div class="get-card appear d6">
         <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/24-support.svg" alt=""></div>
+        <div class="get-icon"><span class="get-num">7</span></div>
         <h3>1-on-1 business training, live with your coach.</h3>
         <p>Personal coaching sessions on marketing, sales and scaling — tailored to your store and your goals. Most people pay $399+ per session for this.</p>
-        <span class="get-value"><del>$399</del> · Free</span>
       </div>
     </div>
     <div style="text-align:center;margin-top:64px" class="appear">
