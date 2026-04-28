@@ -980,97 +980,243 @@ section { padding: 120px 24px; }
   .how-step + .how-step { border-left: none; border-top: 1px solid rgba(0,0,0,0.06); }
 }
 
-/* ════ SECTION 4: WHAT DO I GET (features) ════ */
-.get-sec { background: #000; position: relative; overflow: hidden; }
-.get-sec .sec-in { position: relative; z-index: 2; }
-.get-sec .sec-title-xl { color: #fff; }
-.get-sec .sec-body { color: rgba(255,255,255,0.6); }
-
-/* Cursor glow orb */
-.glow-orb {
-  position: absolute;
-  width: 600px; height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(245,166,35,0.7) 0%, rgba(245,166,35,0.25) 35%, rgba(245,166,35,0) 70%);
-  pointer-events: none;
-  z-index: 1;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  will-change: left, top, width, height, opacity;
-}
-.glow-orb.visible { opacity: 1; }
-/* Absorb into button */
-.glow-orb.btn-absorb {
-  transition: width 2s cubic-bezier(0.4,0,0.2,1),
-              height 2s cubic-bezier(0.4,0,0.2,1),
-              opacity 2s cubic-bezier(0.4,0,0.2,1),
-              left 0.15s ease, top 0.15s ease;
-}
-
-.get-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  margin-top: 72px;
-  background: rgba(255,255,255,0.06);
-  border-radius: 24px;
-  overflow: hidden;
+/* ════ SECTION 4: WHAT DO I GET — Stripe-style modular bento (light) ════ */
+.get-sec {
+  background: var(--c-lightbg);
   position: relative;
-  z-index: 2;
-}
-.get-card {
-  background: rgba(22,22,23,0.85);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-  padding: 44px 36px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  transition: background 0.3s;
-}
-.get-card:hover { background: rgba(29,29,31,0.85); }
-.get-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
-  background: rgba(245, 166, 35, 0.12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 24px;
   overflow: hidden;
 }
-.get-icon img { width: 26px; height: 26px; filter: invert(72%) sepia(60%) saturate(600%) hue-rotate(3deg) brightness(105%); }
-.get-card h3 {
-  font-size: 20px;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: -0.02em;
-  margin-bottom: 10px;
-  line-height: 1.25;
+.get-sec .sec-in { position: relative; z-index: 2; }
+.get-sec .sec-title-xl { color: var(--c-near); }
+.get-sec .sec-body { color: var(--c-gray2); }
+
+/* ── Section title block (Stripe section-title pattern: left-aligned, max ~ 8/12 cols) ── */
+.get-head {
+  max-width: 720px;
+  margin-bottom: 64px;
 }
-.get-card p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.65; }
-.get-value {
-  margin-top: 16px;
+.get-head .sec-label {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  background: rgba(245,166,35,0.1);
+  border: 1px solid rgba(245,166,35,0.25);
+  border-radius: 100px;
+  padding: 5px 14px;
   font-size: 12px;
   font-weight: 700;
   color: var(--c-amber);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  margin-bottom: 24px;
 }
-.get-value del { color: rgba(255,255,255,0.35); font-weight: 500; }
-.get-card-wide { grid-column: span 3; }
-@media(max-width:800px) {
-  .get-grid { grid-template-columns: 1fr 1fr; }
-  .get-card-wide { grid-column: span 2; }
+.get-head h2 {
+  font-size: clamp(36px, 5.5vw, 60px);
+  font-weight: 700;
+  color: var(--c-near);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 18px;
 }
-@media(max-width:500px) {
-  .get-grid { grid-template-columns: 1fr; }
-  .get-card-wide { grid-column: span 1; }
+.get-head p {
+  font-size: clamp(17px, 2vw, 21px);
+  color: var(--c-gray2);
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  max-width: 560px;
+}
+
+/* ── Bento grid: 6-col layout, 7 cards across 3 rows ── */
+.get-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: minmax(220px, auto);
+  gap: 16px;
+}
+/* Row 1: hero (4) + small (2) */
+.get-card:nth-child(1) { grid-column: span 4; }
+.get-card:nth-child(2) { grid-column: span 2; }
+/* Row 2: small + small + small */
+.get-card:nth-child(3) { grid-column: span 2; }
+.get-card:nth-child(4) { grid-column: span 2; }
+.get-card:nth-child(5) { grid-column: span 2; }
+/* Row 3: small + wide */
+.get-card:nth-child(6) { grid-column: span 2; }
+.get-card:nth-child(7) { grid-column: span 4; }
+
+/* ── Card: Stripe modular-solutions-bento-card pattern ── */
+.get-card {
+  position: relative;
+  background: #fff;
+  border-radius: 20px;
+  padding: 32px 32px 28px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.06);
+  isolation: isolate;
+  cursor: default;
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
+}
+.get-card::before {
+  /* Stripe-like gradient border on hover */
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 21px;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--card-c1, #f5a623), var(--card-c2, #ff6820));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+  pointer-events: none;
+  z-index: 1;
+}
+.get-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 48px rgba(0,0,0,0.08);
+  border-color: transparent;
+}
+.get-card:hover::before { opacity: 1; }
+
+/* ── Background graphic blob (Stripe bento-card __graphic equivalent) ── */
+.get-card-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+.get-card-bg::after {
+  content: '';
+  position: absolute;
+  width: 70%;
+  height: 130%;
+  right: -20%;
+  bottom: -30%;
+  background: radial-gradient(circle at center, var(--card-c1, #f5a623) 0%, var(--card-c2, #ff6820) 55%, transparent 75%);
+  opacity: 0.14;
+  filter: blur(20px);
+  transition: opacity 0.4s var(--ease), transform 0.6s var(--ease);
+}
+.get-card:hover .get-card-bg::after {
+  opacity: 0.22;
+  transform: scale(1.05);
+}
+
+/* Inner content sits above the graphic */
+.get-card > .get-icon,
+.get-card > h3,
+.get-card > p,
+.get-card > .get-value { position: relative; z-index: 2; }
+
+/* ── Icon (Stripe dialog-entry style: small, with card colour) ── */
+.get-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  background: var(--card-icon-bg, rgba(245,166,35,0.12));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 22px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.get-icon img {
+  width: 22px;
+  height: 22px;
+  filter: var(--card-icon-filter, invert(72%) sepia(60%) saturate(600%) hue-rotate(3deg) brightness(105%));
+}
+
+/* ── Title — Stripe md heading on regular cards, lg on hero/wide ── */
+.get-card h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--c-near);
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.get-card:nth-child(1) h3,
+.get-card:nth-child(7) h3 {
+  font-size: clamp(26px, 2.4vw, 32px);
+  letter-spacing: -0.025em;
+  margin-bottom: 12px;
+}
+.get-card p {
+  font-size: 15px;
+  color: var(--c-gray2);
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  flex: 1;
+  max-width: 460px;
+}
+.get-card:nth-child(1) p,
+.get-card:nth-child(7) p {
+  font-size: 16px;
+  max-width: 540px;
+}
+
+/* ── Value badge ── */
+.get-value {
+  margin-top: 22px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--c-amber);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  align-self: flex-start;
+}
+.get-value del {
+  color: var(--c-gray3);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* ── Per-card colour palette (Stripe-style) ── */
+.get-card:nth-child(1) { --card-c1: #f5a623; --card-c2: #ff6820; --card-icon-bg: rgba(245,166,35,0.12); }
+.get-card:nth-child(2) { --card-c1: #0071e3; --card-c2: #5eaaff; --card-icon-bg: rgba(0,113,227,0.12); --card-icon-filter: invert(34%) sepia(95%) saturate(2200%) hue-rotate(202deg) brightness(95%); }
+.get-card:nth-child(3) { --card-c1: #ff9900; --card-c2: #ffb84d; --card-icon-bg: rgba(255,153,0,0.14); --card-icon-filter: invert(60%) sepia(70%) saturate(2400%) hue-rotate(1deg) brightness(102%); }
+.get-card:nth-child(4) { --card-c1: #8b5cf6; --card-c2: #c084fc; --card-icon-bg: rgba(139,92,246,0.13); --card-icon-filter: invert(40%) sepia(72%) saturate(2200%) hue-rotate(238deg) brightness(95%); }
+.get-card:nth-child(5) { --card-c1: #34a853; --card-c2: #6dd58c; --card-icon-bg: rgba(52,168,83,0.13); --card-icon-filter: invert(48%) sepia(80%) saturate(540%) hue-rotate(85deg) brightness(95%); }
+.get-card:nth-child(6) { --card-c1: #14b8a6; --card-c2: #5eead4; --card-icon-bg: rgba(20,184,166,0.13); --card-icon-filter: invert(60%) sepia(85%) saturate(450%) hue-rotate(135deg) brightness(95%); }
+.get-card:nth-child(7) { --card-c1: #ec4899; --card-c2: #f0abfc; --card-icon-bg: rgba(236,72,153,0.12); --card-icon-filter: invert(50%) sepia(90%) saturate(2400%) hue-rotate(303deg) brightness(95%); }
+
+/* ── Tablet: 4-col grid, simpler asymmetry ── */
+@media (max-width: 1100px) {
+  .get-grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(200px, auto);
+  }
+  .get-card:nth-child(1) { grid-column: span 4; }
+  .get-card:nth-child(2),
+  .get-card:nth-child(3),
+  .get-card:nth-child(4),
+  .get-card:nth-child(5),
+  .get-card:nth-child(6) { grid-column: span 2; }
+  .get-card:nth-child(7) { grid-column: span 4; }
+}
+
+/* ── Mobile: single column ── */
+@media (max-width: 700px) {
+  .get-grid { grid-template-columns: 1fr; gap: 12px; grid-auto-rows: auto; }
+  .get-card,
+  .get-card:nth-child(1),
+  .get-card:nth-child(2),
+  .get-card:nth-child(3),
+  .get-card:nth-child(4),
+  .get-card:nth-child(5),
+  .get-card:nth-child(6),
+  .get-card:nth-child(7) { grid-column: span 1; }
+  .get-card { padding: 28px 26px 26px; }
+  .get-head { margin-bottom: 40px; }
 }
 
 /* ════ SECTION 5: BONUS (Amazon) ════ */
@@ -1195,9 +1341,20 @@ section { padding: 120px 24px; }
 .award-card + .award-card { border-left: 1px solid rgba(0,0,0,0.06); }
 .award-logo { height: 72px; margin-bottom: 18px; object-fit: contain; }
 
-/* Featured logos marquee */
+/* Featured logos marquee — own section */
+.featured-sec {
+  background: var(--c-near);
+  padding: 72px 0 56px;
+}
+@media(max-width:1200px) { .featured-sec { padding: 60px 0 48px; } }
+@media(max-width:860px)  { .featured-sec { padding: 48px 0 40px; } }
+@media(max-width:480px)  { .featured-sec { padding: 40px 0 32px; } }
+.featured-sec .sec-label {
+  color: rgba(255,255,255,0.35);
+  text-align: center;
+  margin-bottom: 28px;
+}
 .featured-marquee {
-  margin-bottom: 83px;
   overflow: hidden;
   position: relative;
   padding: 0 24px;
@@ -1687,9 +1844,6 @@ footer { background: #000; border-top: 1px solid rgba(255,255,255,0.08); }
   .ratings-sec {
     padding: 40px 10px;
   }
-  .featured-marquee {
-    margin-bottom: 40px;
-  }
   .rat-card {
     padding: 24px 14px;
   }
@@ -1877,6 +2031,105 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- ═══ FEATURED ON ═══ -->
+<section class="featured-sec">
+  <div class="sec-label">FEATURED ON</div>
+  <div class="featured-marquee">
+    <div class="featured-strip">
+      <img src="img/featured/forbes.svg" alt="Forbes">
+      <img src="img/featured/entrepreneur.svg" alt="Entrepreneur">
+      <img src="img/featured/inc.svg" alt="Inc.">
+      <img src="img/featured/nbc.svg" alt="NBC">
+      <img src="img/featured/business-com.svg" alt="Business.com">
+      <img src="img/featured/fox-news.svg" alt="Fox News">
+      <img src="img/featured/forbes.svg" alt="Forbes">
+      <img src="img/featured/entrepreneur.svg" alt="Entrepreneur">
+      <img src="img/featured/inc.svg" alt="Inc.">
+      <img src="img/featured/nbc.svg" alt="NBC">
+      <img src="img/featured/business-com.svg" alt="Business.com">
+      <img src="img/featured/fox-news.svg" alt="Fox News">
+      <img src="img/featured/forbes.svg" alt="Forbes">
+      <img src="img/featured/entrepreneur.svg" alt="Entrepreneur">
+      <img src="img/featured/inc.svg" alt="Inc.">
+      <img src="img/featured/nbc.svg" alt="NBC">
+      <img src="img/featured/business-com.svg" alt="Business.com">
+      <img src="img/featured/fox-news.svg" alt="Fox News">
+      <img src="img/featured/forbes.svg" alt="Forbes">
+      <img src="img/featured/entrepreneur.svg" alt="Entrepreneur">
+      <img src="img/featured/inc.svg" alt="Inc.">
+      <img src="img/featured/nbc.svg" alt="NBC">
+      <img src="img/featured/business-com.svg" alt="Business.com">
+      <img src="img/featured/fox-news.svg" alt="Fox News">
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHAT DO I GET — Stripe-style modular bento ═══ -->
+<section class="get-sec" id="get">
+  <div class="sec-in">
+    <div class="get-head appear">
+      <span class="sec-label">7-in-1 Premium Bundle · $2,599 value</span>
+      <h2>Flexible solutions for<br>every business launch.</h2>
+      <p>Seven done-for-you assets that normally cost thousands — built to work individually, designed to work together. Yours the moment you sign up.</p>
+    </div>
+    <div class="get-grid">
+      <div class="get-card appear d1">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/shop.svg" alt=""></div>
+        <h3>Turnkey online store, ready in 60 seconds.</h3>
+        <p>A fully hosted ecommerce website with domain &amp; SSL — built, loaded with products, and live the moment you sign up.</p>
+        <span class="get-value"><del>$1,199</del> · Free</span>
+      </div>
+      <div class="get-card appear d2">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/card.svg" alt=""></div>
+        <h3>$40 ad credit on signup</h3>
+        <p>Free advertising credit so your first campaign costs you nothing.</p>
+        <span class="get-value"><del>$40</del> · Free</span>
+      </div>
+      <div class="get-card appear d3">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/shopping-bag.svg" alt=""></div>
+        <h3>Amazon Seller Kit</h3>
+        <p>Setup guide, ready product feed and Seller University access to expand to Amazon.</p>
+        <span class="get-value"><del>$499</del> · Free</span>
+      </div>
+      <div class="get-card appear d4">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/designtools.svg" alt=""></div>
+        <h3>Premium store design</h3>
+        <p>Custom theme, polished layout, optimised for conversions on every device.</p>
+        <span class="get-value"><del>$299</del> · Free</span>
+      </div>
+      <div class="get-card appear d5">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/trend-up.svg" alt=""></div>
+        <h3>Google promotion gift</h3>
+        <p>A free ad campaign run by our team to bring real buyers from day one.</p>
+        <span class="get-value"><del>$199</del> · Free</span>
+      </div>
+      <div class="get-card appear d6">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/profile-tick.svg" alt=""></div>
+        <h3>Personal manager</h3>
+        <p>A real human in your corner for strategy, onboarding and growth.</p>
+        <span class="get-value"><del>$199</del> · Free</span>
+      </div>
+      <div class="get-card appear d6">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/24-support.svg" alt=""></div>
+        <h3>1-on-1 business training, live with your coach.</h3>
+        <p>Personal coaching sessions on marketing, sales and scaling — tailored to your store and your goals. Most people pay $399+ per session for this.</p>
+        <span class="get-value"><del>$399</del> · Free</span>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:64px" class="appear">
+      <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled" id="getCtaBtn">Claim my free bundle</a>
+      <p style="margin-top:14px;font-size:13px;color:var(--c-gray3)">7 assets · $2,599 value · Yours at no cost</p>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ STAT BAR ═══ -->
 <div class="stat-bar">
   <div class="stat-bar-inner">
@@ -1950,35 +2203,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- ═══ RATINGS (moved up for early social proof) ═══ -->
 <div class="ratings-sec">
-  <div class="sec-label" style="color:rgba(255,255,255,0.35);text-align:center;margin-bottom:24px">FEATURED ON:</div>
-  <div class="featured-marquee">
-    <div class="featured-strip">
-      <img src="img/featured/forbes.svg" alt="Forbes">
-      <img src="img/featured/entrepreneur.svg" alt="Entrepreneur">
-      <img src="img/featured/inc.svg" alt="Inc.">
-      <img src="img/featured/nbc.svg" alt="NBC">
-      <img src="img/featured/business-com.svg" alt="Business.com">
-      <img src="img/featured/fox-news.svg" alt="Fox News">
-      <img src="img/featured/forbes.svg" alt="Forbes">
-      <img src="img/featured/entrepreneur.svg" alt="Entrepreneur">
-      <img src="img/featured/inc.svg" alt="Inc.">
-      <img src="img/featured/nbc.svg" alt="NBC">
-      <img src="img/featured/business-com.svg" alt="Business.com">
-      <img src="img/featured/fox-news.svg" alt="Fox News">
-      <img src="img/featured/forbes.svg" alt="Forbes">
-      <img src="img/featured/entrepreneur.svg" alt="Entrepreneur">
-      <img src="img/featured/inc.svg" alt="Inc.">
-      <img src="img/featured/nbc.svg" alt="NBC">
-      <img src="img/featured/business-com.svg" alt="Business.com">
-      <img src="img/featured/fox-news.svg" alt="Fox News">
-      <img src="img/featured/forbes.svg" alt="Forbes">
-      <img src="img/featured/entrepreneur.svg" alt="Entrepreneur">
-      <img src="img/featured/inc.svg" alt="Inc.">
-      <img src="img/featured/nbc.svg" alt="NBC">
-      <img src="img/featured/business-com.svg" alt="Business.com">
-      <img src="img/featured/fox-news.svg" alt="Fox News">
-    </div>
-  </div>
   <div class="ratings-inner">
     <div class="rat-card appear d1"><img class="rat-logo" src="img/ratings/sitejabber.svg" alt="Sitejabber"><div class="rat-stars">★★★★★</div><div class="rat-score">4.8</div><div class="rat-count">824 reviews</div></div>
     <div class="rat-card appear d2"><img class="rat-logo" src="img/ratings/trustpilot.svg" alt="Trustpilot"><div class="rat-stars">★★★★★</div><div class="rat-score">4.6</div><div class="rat-count">1,115 reviews</div></div>
@@ -2094,81 +2318,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 </section>
-
-<!-- ═══ WHAT DO I GET ═══ -->
-<section class="get-sec" id="get">
-  <div class="glow-orb" id="glowOrb"></div>
-  <div class="sec-in">
-    <div class="appear" style="text-align:center">
-      <div class="sec-label" style="color:var(--c-amber)">7-in-1 Premium Bundle · $2,599 value</div>
-      <h2 class="sec-title-xl" style="color:#fff">One Premium bundle.<br>Yours for free.</h2>
-      <p style="font-size:19px;color:rgba(255,255,255,0.55);line-height:1.5;max-width:540px;margin:0 auto">Seven done-for-you assets that normally cost thousands. Bundled into a single launch — yours the moment you sign up.</p>
-    </div>
-    <div class="get-grid">
-      <div class="get-card appear d1">
-        <div class="get-icon">
-          <img src="img/icons/shop.svg" alt="store">
-        </div>
-        <h3>Turnkey online store</h3>
-        <p>A fully hosted ecommerce website with domain &amp; SSL — built, loaded with products, and ready the moment you sign up.</p>
-        <span class="get-value"><del>$1,199</del> · Free</span>
-      </div>
-      <div class="get-card appear d2">
-        <div class="get-icon">
-          <img src="img/icons/card.svg" alt="ad credit">
-        </div>
-        <h3>$40 ad credit</h3>
-        <p>Free advertising credit added to your account on signup so your very first campaign costs you nothing.</p>
-        <span class="get-value"><del>$40</del> · Free</span>
-      </div>
-      <div class="get-card appear d3">
-        <div class="get-icon">
-          <img src="img/icons/shopping-bag.svg" alt="amazon kit">
-        </div>
-        <h3>Amazon Seller Kit</h3>
-        <p>Setup guide, ready product feed, and Seller University access — everything you need to expand to Amazon.</p>
-        <span class="get-value"><del>$499</del> · Free</span>
-      </div>
-      <div class="get-card appear d4">
-        <div class="get-icon">
-          <img src="img/icons/designtools.svg" alt="design">
-        </div>
-        <h3>Premium store design</h3>
-        <p>Custom theme, polished layout, optimized for conversions — looks great on every device.</p>
-        <span class="get-value"><del>$299</del> · Free</span>
-      </div>
-      <div class="get-card appear d5">
-        <div class="get-icon">
-          <img src="img/icons/trend-up.svg" alt="google promo">
-        </div>
-        <h3>Google promotion gift</h3>
-        <p>A free ad campaign launched by our team to bring real buyers to your store from day one.</p>
-        <span class="get-value"><del>$199</del> · Free</span>
-      </div>
-      <div class="get-card appear d6">
-        <div class="get-icon">
-          <img src="img/icons/profile-tick.svg" alt="manager">
-        </div>
-        <h3>Personal manager</h3>
-        <p>Your own ecommerce expert for strategy, onboarding, and growth — a real human in your corner.</p>
-        <span class="get-value"><del>$199</del> · Free</span>
-      </div>
-      <div class="get-card get-card-wide appear d6">
-        <div class="get-icon">
-          <img src="img/icons/24-support.svg" alt="training">
-        </div>
-        <h3>1-on-1 business training</h3>
-        <p>Live coaching sessions on marketing, sales, and scaling — tailored to your store and your goals. Most people pay $399+ per session for this.</p>
-        <span class="get-value"><del>$399</del> · Free</span>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:56px" class="appear">
-      <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled" id="getCtaBtn">Claim my free bundle</a>
-      <p style="margin-top:12px;font-size:13px;color:rgba(255,255,255,0.3)">7 assets · $2,599 value · Yours at no cost</p>
-    </div>
-  </div>
-</section>
-
 
 <!-- ═══ STORE DESIGNS MARQUEE ═══ -->
 <style>
