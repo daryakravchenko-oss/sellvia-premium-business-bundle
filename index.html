@@ -398,20 +398,22 @@ button { cursor: pointer; font-family: var(--font); outline: none; border: none;
   padding: 18px 20px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
 }
-.hf-card-snap { width: 180px; }
-.hf-snap-head {
+.hf-card-snap { width: 220px; }
+.hf-snap-row {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 8px;
+  gap: 12px;
+  margin-bottom: 12px;
 }
+.hf-snap-info { flex: 1; min-width: 0; }
 .hf-dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: #22c55e;
-  box-shadow: 0 0 8px rgba(34, 197, 94, 0.8);
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.85);
   animation: hf-pulse 1.6s ease-in-out infinite;
+  flex-shrink: 0;
 }
 @keyframes hf-pulse {
   0%, 100% { opacity: 1;   transform: scale(1); }
@@ -425,24 +427,22 @@ button { cursor: pointer; font-family: var(--font); outline: none; border: none;
   color: rgba(255, 255, 255, 0.7);
 }
 .hf-snap-val {
-  font-size: 32px;
+  font-size: 24px;
   font-weight: 800;
   color: #fff;
   letter-spacing: -0.02em;
-  line-height: 1;
+  line-height: 1.1;
   text-align: left;
-  margin-left: -2px;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 .hf-snap-sub {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 10px;
   text-align: left;
-  margin-left: -2px;
+  line-height: 1.35;
 }
 .hf-spark {
-  height: 30px;
+  height: 40px;
   opacity: 0.9;
   overflow: visible;
 }
@@ -774,13 +774,6 @@ section { padding: 120px 24px; }
   will-change: opacity, transform;
 }
 .appear.in { opacity: 1; transform: none; }
-/* why-sec: fade-only, no translateY to avoid clipping artifacts */
-.why-sec .appear {
-  transform: none;
-}
-.why-sec .appear.in {
-  transform: none;
-}
 .appear-l { opacity:0; transform:translateX(-40px); transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out); }
 .appear-r { opacity:0; transform:translateX(40px);  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out); }
 .appear-l.in, .appear-r.in { opacity:1; transform:none; }
@@ -788,50 +781,6 @@ section { padding: 120px 24px; }
 .appear-scale.in { opacity:1; transform:none; }
 .d1{transition-delay:0.1s} .d2{transition-delay:0.2s} .d3{transition-delay:0.3s}
 .d4{transition-delay:0.4s} .d5{transition-delay:0.5s} .d6{transition-delay:0.6s}
-
-/* ════ SECTION 1: WHY ════ */
-/* Apple-style: light bg, 3 features in a row */
-.why-sec { background: #f5f5f7; text-align: center; }
-.why-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  margin-top: 72px;
-  background: #f5f5f7;
-}
-.why-card {
-  background: #f5f5f7;
-  padding: 52px 44px 48px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-.why-card + .why-card { border-left: 1px solid rgba(0,0,0,0.06); }
-.why-icon {
-  width: 56px;
-  height: 56px;
-  margin: 0 auto 28px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #1d1d1f 0%, #2d2d2f 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-.why-icon img { width: 28px; height: 28px; filter: invert(1) brightness(0) invert(1); }
-.why-card h3 {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--c-near);
-  margin-bottom: 12px;
-  line-height: 1.2;
-}
-.why-card p { font-size: 15px; color: var(--c-gray2); line-height: 1.6; }
-@media(max-width:760px) {
-  .why-grid { grid-template-columns: 1fr; }
-  .why-card + .why-card { border-left: none; border-top: 1px solid var(--c-gray5); }
-}
 
 /* ════ SECTION 2: WHAT WILL I SELL (scroll-pinned) ════ */
 .sell-sec { background: #000; }
@@ -1341,20 +1290,9 @@ section { padding: 120px 24px; }
 .award-card + .award-card { border-left: 1px solid rgba(0,0,0,0.06); }
 .award-logo { height: 72px; margin-bottom: 18px; object-fit: contain; }
 
-/* Featured logos marquee — own section */
-.featured-sec {
-  background: var(--c-near);
-  padding: 72px 0 56px;
-}
-@media(max-width:1200px) { .featured-sec { padding: 60px 0 48px; } }
-@media(max-width:860px)  { .featured-sec { padding: 48px 0 40px; } }
-@media(max-width:480px)  { .featured-sec { padding: 40px 0 32px; } }
-.featured-sec .sec-label {
-  color: rgba(255,255,255,0.35);
-  text-align: center;
-  margin-bottom: 28px;
-}
+/* Featured logos marquee */
 .featured-marquee {
+  margin-bottom: 83px;
   overflow: hidden;
   position: relative;
   padding: 0 24px;
@@ -1832,17 +1770,12 @@ footer { background: #000; border-top: 1px solid rgba(255,255,255,0.08); }
       padding-right: 15px;
   }
 
-  /* Why section: remove top gap and last card bottom padding */
-  .why-grid {
-    margin-top: 0;
-  }
-  .why-card:last-child {
-    padding-bottom: 0;
-  }
-
   /* Ratings section: compact for narrow screens */
   .ratings-sec {
     padding: 40px 10px;
+  }
+  .featured-marquee {
+    margin-bottom: 40px;
   }
   .rat-card {
     padding: 24px 14px;
@@ -1940,9 +1873,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </a>
     <!-- CENTER: links -->
     <ul class="nav-links">
-      <li><a href="#why">Why Sellvia</a></li>
-      <li><a href="#get">7-in-1 Bundle</a></li>
-      <li><a href="#bonus">Premium Value</a></li>
+      <li><a href="#get">What's included</a></li>
+      <li><a href="#bonus">Bonus</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
     <!-- RIGHT: actions -->
@@ -1973,18 +1905,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <img class="hp-amz hp-amz-mr1" src="img/Hero/Amazon_round.webp" alt="">
   </div>
 
-  <!-- LEFT: glass card with mini stats snapshot -->
-  <div class="hero-float hero-float-left" aria-hidden="true">
+  <!-- LEFT: glass card — live social proof (new stores started today) -->
+  <div class="hero-float hero-float-left">
     <div class="hf-card hf-card-snap">
-      <div class="hf-snap-head">
+      <div class="hf-snap-row">
         <span class="hf-dot"></span>
-        <span class="hf-snap-lbl">Live</span>
+        <div class="hf-snap-info">
+          <div class="hf-snap-val"><span id="heroLiveCount">847</span> people</div>
+          <div class="hf-snap-sub">started their store today</div>
+        </div>
       </div>
-      <div class="hf-snap-val">$247</div>
-      <div class="hf-snap-sub">shoppers today</div>
       <div class="hf-spark">
-        <svg viewBox="0 0 100 30" preserveAspectRatio="none">
-          <polyline points="0,22 12,18 24,20 36,14 48,16 60,8 72,10 84,4 100,6" fill="none" stroke="#F8A54D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg viewBox="0 0 100 40" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="hfSparkGrad" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0%"  stop-color="#F8A54D"/>
+              <stop offset="100%" stop-color="#22c55e"/>
+            </linearGradient>
+          </defs>
+          <polyline points="0,37 12,35 24,33 36,29 48,24 60,17 72,10 84,5 100,2" fill="none" stroke="url(#hfSparkGrad)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
     </div>
@@ -2069,356 +2008,431 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 </div>
-
-
-<!-- ═══ AWARDS (moved up for early social proof) ═══ -->
-<section class="awards-sec">
-  <div class="sec-in">
-    <div class="appear">
-      <div class="sec-label">Recognition</div>
-      <h2 class="sec-title-xl on-light">Award-winning quality.</h2>
-      <p class="sec-body" style="max-width:520px;margin:0 auto">Here's just a part of the industry rewards our turnkey stores and ecommerce platform have achieved.</p>
-    </div>
-    <div class="awards-grid">
-      <div class="award-card appear d1">
-        <img class="award-logo" src="img/Awards/1_logo_m.webp" alt="Hermes Awards">
-        <h3>Hermes Awards</h3>
-        <p>Best IT Product 2025–2026</p>
-        <span class="award-medal gold">Gold Winner</span>
-      </div>
-      <div class="award-card appear d2">
-        <img class="award-logo" src="img/Awards/2_logo_m.webp?v=2" alt="MarCom Awards">
-        <h3>MarCom Awards</h3>
-        <p>Best Ecommerce Platform</p>
-        <span class="award-medal plat">Platinum Winner</span>
-      </div>
-      <div class="award-card appear d3">
-        <img class="award-logo" src="img/Awards/3_logo_m.webp" alt="dotCOMM Awards">
-        <h3>dotCOMM Awards</h3>
-        <p>Best Ecommerce Ecosystem</p>
-        <span class="award-medal gold">Gold Winner</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FEATURED ON ═══ -->
-<section class="featured-sec">
-  <div class="sec-label">FEATURED ON</div>
-  <div class="featured-marquee">
-    <div class="featured-strip">
-      <img src="img/featured/forbes.svg" alt="Forbes">
-      <img src="img/featured/entrepreneur.svg" alt="Entrepreneur">
-      <img src="img/featured/inc.svg" alt="Inc.">
-      <img src="img/featured/nbc.svg" alt="NBC">
-      <img src="img/featured/business-com.svg" alt="Business.com">
-      <img src="img/featured/fox-news.svg" alt="Fox News">
-      <img src="img/featured/forbes.svg" alt="Forbes">
-      <img src="img/featured/entrepreneur.svg" alt="Entrepreneur">
-      <img src="img/featured/inc.svg" alt="Inc.">
-      <img src="img/featured/nbc.svg" alt="NBC">
-      <img src="img/featured/business-com.svg" alt="Business.com">
-      <img src="img/featured/fox-news.svg" alt="Fox News">
-      <img src="img/featured/forbes.svg" alt="Forbes">
-      <img src="img/featured/entrepreneur.svg" alt="Entrepreneur">
-      <img src="img/featured/inc.svg" alt="Inc.">
-      <img src="img/featured/nbc.svg" alt="NBC">
-      <img src="img/featured/business-com.svg" alt="Business.com">
-      <img src="img/featured/fox-news.svg" alt="Fox News">
-      <img src="img/featured/forbes.svg" alt="Forbes">
-      <img src="img/featured/entrepreneur.svg" alt="Entrepreneur">
-      <img src="img/featured/inc.svg" alt="Inc.">
-      <img src="img/featured/nbc.svg" alt="NBC">
-      <img src="img/featured/business-com.svg" alt="Business.com">
-      <img src="img/featured/fox-news.svg" alt="Fox News">
-    </div>
-  </div>
-</section>
-
-<!-- ═══ RATINGS (moved up for early social proof) ═══ -->
-<div class="ratings-sec">
-  <div class="ratings-inner">
-    <div class="rat-card appear d1"><img class="rat-logo" src="img/ratings/sitejabber.svg" alt="Sitejabber"><div class="rat-stars">★★★★★</div><div class="rat-score">4.8</div><div class="rat-count">824 reviews</div></div>
-    <div class="rat-card appear d2"><img class="rat-logo" src="img/ratings/trustpilot.svg" alt="Trustpilot"><div class="rat-stars">★★★★★</div><div class="rat-score">4.6</div><div class="rat-count">1,115 reviews</div></div>
-    <div class="rat-card appear d3"><img class="rat-logo" src="img/ratings/facebook.svg" alt="Facebook"><div class="rat-stars">★★★★★</div><div class="rat-score">96%</div><div class="rat-count">510 reviews</div></div>
-    <div class="rat-card appear d4"><img class="rat-logo" src="img/ratings/g2.svg" alt="G2"><div class="rat-stars">★★★★★</div><div class="rat-score">4.7</div><div class="rat-count">249 reviews</div></div>
-  </div>
-</div>
-
-<!-- ═══ WHY ═══ -->
-<section class="why-sec" id="why">
-  <div class="sec-in">
-    <div class="appear" style="text-align:center">
-      <div class="sec-label">Why thousands choose us</div>
-      <h2 class="sec-title-xl on-light">Most people spend months<br>figuring out what they need.</h2>
-      <p class="sec-body" style="max-width:540px;margin:0 auto">We did it for you. One Premium bundle, seven done-for-you assets, zero guesswork — yours the moment you launch.</p>
-    </div>
-    <div class="why-grid">
-      <div class="why-card appear d1">
-        <div class="why-icon">
-          <img src="img/icons/shield-tick.svg" alt="check">
-        </div>
-        <h3>100% hassle-free</h3>
-        <p>We build, load, and launch your store for you. You focus on earning – we take care of the rest.</p>
-      </div>
-      <div class="why-card appear d2">
-        <div class="why-icon">
-          <img src="img/icons/user.svg" alt="user">
-        </div>
-        <h3>Start with zero experience</h3>
-        <p>Your store will bring profits on autopilot and the management is totally beginner friendly.</p>
-      </div>
-      <div class="why-card appear d3">
-        <div class="why-icon">
-          <img src="img/icons/trend-up.svg" alt="trend">
-        </div>
-        <h3>$2,599 in value, free</h3>
-        <p>Seven premium assets — store, ad credit, design, training, and a real human manager — all included at no cost.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ WHAT WILL I SELL ═══ -->
-<section class="sell-sec" id="sell">
-  <div class="sec-in-wide">
-    <div class="appear" style="text-align:center">
-      <div class="sec-label" style="color:var(--c-amber)">Your product catalog</div>
-      <h2 class="sec-title-xl" style="color:#fff">Products people<br>actually search for.</h2>
-      <p class="sec-body" style="color:rgba(255,255,255,0.6);max-width:500px;margin:0 auto">Your store comes pre-loaded with 100+ proven digital products buyers are already looking for.</p>
-    </div>
-  </div>
-
-  <div class="wix-carousel appear d2">
-    <div class="wix-track">
-      <div class="wix-card"><img src="img/products/0-discover-your-next-big-business-idea.webp" alt="Discover Your Next Big Business Idea"></div>
-      <div class="wix-card"><img src="img/products/1-critical-thinking-amp-problem-solving-ebook.webp" alt="Critical Thinking & Problem Solving eBook"></div>
-      <div class="wix-card"><img src="img/products/2-5-days-to-unshakable-dating-confidence.webp" alt="5 Days to Unshakable Dating Confidence"></div>
-      <div class="wix-card"><img src="img/products/3-top-10-must-see-u-s-national-parks-fast-facts.webp" alt="Top 10 Must-See U.S. National Parks + Fast Facts"></div>
-      <div class="wix-card"><img src="img/products/4-first-time-parent-survival-guide.webp" alt="First-Time Parent Survival Guide"></div>
-      <div class="wix-card"><img src="img/products/5-sleep-reset-guided-audio-course-for-restful-nights.webp" alt="Sleep Reset: Guided Audio Course for Restful Nights"></div>
-      <div class="wix-card"><img src="img/products/6-pet-travel-essentials-checklist-for-safe-trips.webp" alt="Pet Travel Essentials Checklist for Safe Trips"></div>
-      <div class="wix-card"><img src="img/products/7-the-empowered-budgeting-toolkit.webp" alt="The Empowered Budgeting Toolkit"></div>
-      <div class="wix-card"><img src="img/products/8-healthy-meal-plan-amp-recipe-collection.webp" alt="Healthy Meal Plan & Recipe Collection"></div>
-      <div class="wix-card"><img src="img/products/9-step-by-step-career-development-guide.webp" alt="Step-by-Step Career Development Guide"></div>
-      <!-- Duplicate for seamless loop -->
-      <div class="wix-card"><img src="img/products/0-discover-your-next-big-business-idea.webp" alt="Discover Your Next Big Business Idea"></div>
-      <div class="wix-card"><img src="img/products/1-critical-thinking-amp-problem-solving-ebook.webp" alt="Critical Thinking & Problem Solving eBook"></div>
-      <div class="wix-card"><img src="img/products/2-5-days-to-unshakable-dating-confidence.webp" alt="5 Days to Unshakable Dating Confidence"></div>
-      <div class="wix-card"><img src="img/products/3-top-10-must-see-u-s-national-parks-fast-facts.webp" alt="Top 10 Must-See U.S. National Parks + Fast Facts"></div>
-      <div class="wix-card"><img src="img/products/4-first-time-parent-survival-guide.webp" alt="First-Time Parent Survival Guide"></div>
-      <div class="wix-card"><img src="img/products/5-sleep-reset-guided-audio-course-for-restful-nights.webp" alt="Sleep Reset: Guided Audio Course for Restful Nights"></div>
-      <div class="wix-card"><img src="img/products/6-pet-travel-essentials-checklist-for-safe-trips.webp" alt="Pet Travel Essentials Checklist for Safe Trips"></div>
-      <div class="wix-card"><img src="img/products/7-the-empowered-budgeting-toolkit.webp" alt="The Empowered Budgeting Toolkit"></div>
-      <div class="wix-card"><img src="img/products/8-healthy-meal-plan-amp-recipe-collection.webp" alt="Healthy Meal Plan & Recipe Collection"></div>
-      <div class="wix-card"><img src="img/products/9-step-by-step-career-development-guide.webp" alt="Step-by-Step Career Development Guide"></div>
-    </div>
-  </div>
-
-  <div style="text-align:center;margin-top:48px;" class="appear">
-    <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled">Claim my free bundle</a>
-    <p style="margin-top:14px;font-size:12px;color:rgba(255,255,255,0.35)">All products are pre-loaded in your store – no extra cost</p>
-  </div>
-</section>
-
-
-<!-- ═══ HOW IT WORKS ═══ -->
-<section class="how-sec">
-  <div class="sec-in">
-    <div class="appear" style="text-align:center">
-      <div class="sec-label">How it works</div>
-      <h2 class="sec-title-xl on-light">From zero to sale<br>in 3 simple steps.</h2>
-      <p class="sec-body" style="max-width:540px;margin:0 auto">No experience, no tech skills, no inventory needed.</p>
-    </div>
-    <div class="how-steps">
-      <div class="how-step appear d1">
-        <div class="how-step-num">01</div>
-        <h3>We build your store</h3>
-        <p>Sign up free and we immediately set up a complete online store for you – loaded with digital products people actually buy. Your store is live in minutes, not months.</p>
-        <span class="how-step-tag">Done for you</span>
-      </div>
-      <div class="how-step appear d2">
-        <div class="how-step-num">02</div>
-        <h3>Activate your bundle</h3>
-        <p>Your $40 ad credit, Google promotion gift, premium design and 1-on-1 training unlock the moment your store goes live. No setup, no fiddling.</p>
-        <span class="how-step-tag">Done for you</span>
-      </div>
-      <div class="how-step appear d3">
-        <div class="how-step-num">03</div>
-        <h3>Get paid, keep 60–70%</h3>
-        <p>When a customer buys from your store, you keep 60–70% of every sale as your profit. Products deliver instantly – no shipping, no hassle from your side.</p>
-        <span class="how-step-tag">Your profit</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ WHAT DO I GET — Stripe-style modular bento ═══ -->
-<section class="get-sec" id="get">
-  <div class="sec-in">
-    <div class="get-head appear">
-      <span class="sec-label">7-in-1 Premium Bundle · $2,599 value</span>
-      <h2>Flexible solutions for<br>every business launch.</h2>
-      <p>Seven done-for-you assets that normally cost thousands — built to work individually, designed to work together. Yours the moment you sign up.</p>
-    </div>
-    <div class="get-grid">
-      <div class="get-card appear d1">
-        <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/shop.svg" alt=""></div>
-        <h3>Turnkey online store, ready in 60 seconds.</h3>
-        <p>A fully hosted ecommerce website with domain &amp; SSL — built, loaded with products, and live the moment you sign up.</p>
-        <span class="get-value"><del>$1,199</del> · Free</span>
-      </div>
-      <div class="get-card appear d2">
-        <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/card.svg" alt=""></div>
-        <h3>$40 ad credit on signup</h3>
-        <p>Free advertising credit so your first campaign costs you nothing.</p>
-        <span class="get-value"><del>$40</del> · Free</span>
-      </div>
-      <div class="get-card appear d3">
-        <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/shopping-bag.svg" alt=""></div>
-        <h3>Amazon Seller Kit</h3>
-        <p>Setup guide, ready product feed and Seller University access to expand to Amazon.</p>
-        <span class="get-value"><del>$499</del> · Free</span>
-      </div>
-      <div class="get-card appear d4">
-        <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/designtools.svg" alt=""></div>
-        <h3>Premium store design</h3>
-        <p>Custom theme, polished layout, optimised for conversions on every device.</p>
-        <span class="get-value"><del>$299</del> · Free</span>
-      </div>
-      <div class="get-card appear d5">
-        <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/trend-up.svg" alt=""></div>
-        <h3>Google promotion gift</h3>
-        <p>A free ad campaign run by our team to bring real buyers from day one.</p>
-        <span class="get-value"><del>$199</del> · Free</span>
-      </div>
-      <div class="get-card appear d6">
-        <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/profile-tick.svg" alt=""></div>
-        <h3>Personal manager</h3>
-        <p>A real human in your corner for strategy, onboarding and growth.</p>
-        <span class="get-value"><del>$199</del> · Free</span>
-      </div>
-      <div class="get-card appear d6">
-        <div class="get-card-bg"></div>
-        <div class="get-icon"><img src="img/icons/24-support.svg" alt=""></div>
-        <h3>1-on-1 business training, live with your coach.</h3>
-        <p>Personal coaching sessions on marketing, sales and scaling — tailored to your store and your goals. Most people pay $399+ per session for this.</p>
-        <span class="get-value"><del>$399</del> · Free</span>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:64px" class="appear">
-      <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled" id="getCtaBtn">Claim my free bundle</a>
-      <p style="margin-top:14px;font-size:13px;color:var(--c-gray3)">7 assets · $2,599 value · Yours at no cost</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ STORE DESIGNS MARQUEE ═══ -->
+<!-- ═══ FREEBASIC ═══ -->
 <style>
-.store-sec { background: #000; padding: 120px 0; overflow: hidden; }
-@media(max-width:1200px) { .store-sec { padding: 100px 0; } }
-@media(max-width:860px)  { .store-sec { padding: 72px 0; } }
-@media(max-width:480px)  { .store-sec { padding: 56px 0; } }
-.store-sec-head { text-align: center; padding: 0 24px; margin-bottom: 60px; }
+.freebasic-section {
+  background: #ffffff;
+  padding: 120px 24px;
+  width: 100%;
+}
+@media(max-width:1200px){ .freebasic-section{padding:100px 24px} }
+@media(max-width:860px){
+  .freebasic-section{padding:72px 24px}
+  .freebasic-inner{grid-template-columns:1fr;gap:48px}
+  .freebasic-inner .bonus-right { order: -1; }
+}
+@media(max-width:480px){ .freebasic-section{padding:56px 16px} }
+/* Clean bullet list (no separator lines / no active indicator / no right-arrow) */
+.freebasic-section .bullets { border-top: none; margin-bottom: 36px; }
+.freebasic-section .bullet-item {
+  border-bottom: none;
+  justify-content: flex-start;
+  padding: 8px 0;
+  gap: 12px;
+  cursor: default;
+}
+.freebasic-section .bullet-item::before { display: none; }
+/* tick-circle icon (Vuesax linear) before the text */
+.freebasic-section .bullet-check {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: #1d1d1f;
+}
+.freebasic-section .bonus-sub { line-height: 1.54; }
 
-/* Horizontal infinite marquee — Wix Studio style */
-.store-marquee {
+/* ── Phone mockup + 4 floating stat cards (vector, editable, light-bg adapted) ── */
+/* Allow floating cards to overflow .bonus-right's container */
+.freebasic-section .bonus-right.pv-stage {
   position: relative;
-  overflow: clip;
-  overflow-clip-margin: 20px;
-  padding: 20px 0;
-  margin: -20px 0;
-}
-.store-marquee::before,
-.store-marquee::after {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 120px;
-  z-index: 2;
-  pointer-events: none;
-}
-.store-marquee::before { left: 0; background: linear-gradient(to right, #000, transparent); }
-.store-marquee::after  { right: 0; background: linear-gradient(to left, #000, transparent); }
-
-.store-strip {
+  height: auto;
+  background: transparent;
+  border-radius: 0;
+  overflow: visible;
   display: flex;
-  gap: 20px;
-  width: max-content;
-  cursor: grab;
-  user-select: none;
+  align-items: center;
+  justify-content: center;
+  min-height: 640px;
+  opacity: 1;          /* override base bonus-right fadeUp animation start state */
+  animation: none;     /* keep instant render */
+}
+.freebasic-section .pv-phone-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-60px);
+}
+@media (max-width: 768px) {
+  .freebasic-section .pv-phone-wrap { transform: translateX(0); }
+}
+.freebasic-section .pv-phone {
+  position: relative;
+  width: 280px;
+  height: 604px;
+  background: transparent;
+  border-radius: 18px;
+  padding: 0;
+  box-shadow: 0 40px 100px rgba(0,0,0,.18);
+  overflow: hidden;
+  z-index: 2;
+}
+@keyframes pvScreenFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+.freebasic-section .pv-phone-screen {
+  width: 100%; height: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  position: relative;
+  background: #ffffff;     /* Shopify-style white store page */
+}
+/* Phone-screen mock screenshot with smooth auto-scroll loop */
+.freebasic-section .pv-screen-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Image native ratio 1535:3853 → at 280px wide ≈ 703px tall.
+     Phone screen is 604px → scroll range ≈ -100px. */
+  animation: pvScreenScroll 18s ease-in-out 0.6s infinite;
   will-change: transform;
 }
-.store-strip.dragging { cursor: grabbing; }
-
-.store-card {
-  flex-shrink: 0;
-  width: 720px;
-  aspect-ratio: 16/9;
-  border-radius: 20px;
+@keyframes pvScreenScroll {
+  0%,   8%   { transform: translateY(0); }                  /* hold at top */
+  50%, 58%   { transform: translateY(calc(-100% + 604px)); } /* hold at bottom */
+  100%       { transform: translateY(0); }                  /* back to top */
+}
+/* Nav bar — white */
+.freebasic-section .pv-store-nav-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 28px 14px 10px;
+  background: #ffffff;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.freebasic-section .pv-store-nav-bar { color: rgba(0,0,0,.6); }
+.freebasic-section .pv-store-nav-bar svg { width: 18px; height: 18px; display: block; }
+.freebasic-section .pv-brand {
+  font-family: var(--font); font-size: 14px; font-weight: 700; color: #111114;
+}
+.freebasic-section .pv-brand span { color: #14b8a6; }
+/* Hero — white product card: image area on top, white body below */
+.freebasic-section .pv-store-hero {
+  position: relative;
+  height: auto;
+  margin: 10px 12px 0;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,.07);
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
-  transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
 }
-.store-card:hover { transform: scale(1.03); }
-.store-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.freebasic-section .pv-hero-img {
+  position: relative;
+  height: 132px;          /* +20% vs the original 110px image area */
+  overflow: hidden;
+}
+.freebasic-section .pv-hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(120% 90% at 30% 30%, rgba(20,184,166,.35) 0%, transparent 60%),
+    linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 60%, #14b8a6 140%);
+}
+.freebasic-section .pv-hero-grad { display: none; }
+.freebasic-section .pv-hero-badge {
+  position: absolute; top: 8px; left: 8px; z-index: 2;
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(255,255,255,.92);
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 20px;
+  padding: 3px 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+}
+.freebasic-section .pv-hero-badge-dot {
+  width: 5px; height: 5px;
+  background: #14b8a6; border-radius: 50%;
+  box-shadow: 0 0 5px rgba(20,184,166,.6);
+}
+.freebasic-section .pv-hero-badge-txt {
+  font-size: 8px; font-weight: 700; color: #0d9488;
+  text-transform: uppercase; letter-spacing: .08em;
+}
+.freebasic-section .pv-hero-body {
+  padding: 10px 12px 12px;
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 8px;
+}
+.freebasic-section .pv-hero-name {
+  font-size: 13px; font-weight: 800; color: #111114;
+  line-height: 1.25; margin-bottom: 5px;
+  letter-spacing: -0.01em;
+}
+.freebasic-section .pv-hero-prices {
+  display: flex; align-items: center; gap: 6px;
+}
+.freebasic-section .pv-hero-price { font-size: 13px; font-weight: 800; color: #111114; }
+.freebasic-section .pv-hero-price-old {
+  font-size: 9px; color: rgba(0,0,0,.4); text-decoration: line-through;
+}
+.freebasic-section .pv-hero-disc {
+  font-size: 8px; font-weight: 700; color: #15803d;
+  background: rgba(34,197,94,.12);
+  border: 1px solid rgba(34,197,94,.22);
+  border-radius: 4px; padding: 1px 5px;
+}
+.freebasic-section .pv-hero-cta {
+  background: #111114; border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 10px; font-weight: 700; color: #ffffff;
+  white-space: nowrap; flex-shrink: 0;
+  box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+/* Product list — white cards with subtle borders */
+.freebasic-section .pv-store-list { padding: 12px 12px 0; }
+.freebasic-section .pv-list-label {
+  font-size: 9px; font-weight: 700; color: rgba(0,0,0,.4);
+  text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px;
+}
+.freebasic-section .pv-store-items { display: flex; flex-direction: column; gap: 6px; }
+.freebasic-section .pv-store-item {
+  display: flex; align-items: center; gap: 10px; padding: 8px;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,.07);
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(0,0,0,.03);
+}
+.freebasic-section .pv-item-thumb { width: 44px; height: 44px; border-radius: 8px; flex-shrink: 0; }
+.freebasic-section .pv-thumb-1 { background: linear-gradient(135deg, #f59e0b, #b45309); }
+.freebasic-section .pv-thumb-2 { background: linear-gradient(135deg, #22c55e, #15803d); }
+.freebasic-section .pv-thumb-3 { background: linear-gradient(135deg, #3b82f6, #1e40af); }
+.freebasic-section .pv-store-item-info { flex: 1; min-width: 0; }
+.freebasic-section .pv-item-name { font-size: 10px; font-weight: 700; color: #111114; }
+.freebasic-section .pv-item-sub  { font-size: 9px; color: rgba(0,0,0,.45); margin-top: 2px; }
+.freebasic-section .pv-item-price{ font-size: 12px; font-weight: 800; color: #14b8a6; flex-shrink: 0; }
+/* New Arrival — light teal tinted card */
+.freebasic-section .pv-new-arrival {
+  margin: 8px 12px 0; padding: 10px 12px;
+  background: linear-gradient(135deg, rgba(20,184,166,.10), rgba(20,184,166,.02));
+  border: 1px solid rgba(20,184,166,.22);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.freebasic-section .pv-new-label {
+  font-size: 8px; font-weight: 700; color: #0d9488;
+  text-transform: uppercase; letter-spacing: .08em;
+}
+.freebasic-section .pv-new-name { font-size: 11px; font-weight: 700; color: #111114; margin-top: 2px; }
+.freebasic-section .pv-new-right { text-align: right; }
+.freebasic-section .pv-new-price{ font-size: 13px; font-weight: 800; color: #14b8a6; }
+.freebasic-section .pv-new-just { font-size: 8px; color: rgba(0,0,0,.4); margin-top: 1px; }
+/* Floating stat cards (4) — adapted for light section bg */
+.freebasic-section .pv-float-card {
+  position: absolute; z-index: 5;
+  width: 140px; box-sizing: border-box;
+  background: rgba(255,255,255,.96);
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 18px;
+  padding: 14px 16px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.10), 0 1px 0 rgba(255,255,255,.6) inset;
+  overflow: hidden;
+}
+/* Temporarily hidden — Monthly revenue / Store rating / Orders this month.
+   Remove this rule to bring the floating cards back. */
+.freebasic-section .pv-fc-1,
+.freebasic-section .pv-fc-2,
+.freebasic-section .pv-fc-3 { display: none; }
+
+
+/* Stat-card overlays (sit on top of the phone & backdrop) */
+.freebasic-section .pv-stat {
+  position: absolute;
+  z-index: 5;
   display: block;
+  height: auto;
+  pointer-events: none;
+  filter: drop-shadow(0 18px 40px rgba(0,0,0,.16));
 }
-
-
-.store-sec .store-cta { text-align: center; margin-top: 56px; }
-
-@media(max-width:760px) {
-  .store-card { width: 510px; }
-  .store-strip { gap: 14px; }
-  .store-marquee::before, .store-marquee::after { width: 60px; }
+.freebasic-section .pv-stat-new {
+  top: 6%;
+  right: -140px;
+  width: 216px;          /* −10% from 240 */
+  border-radius: 30px;
+  animation: pvStatFloat1 5s ease-in-out 0s infinite;
 }
-@media(max-width:480px) {
-  .store-card { width: 420px; }
+.freebasic-section .pv-stat-today {
+  /* Sits on the left, in the slot previously occupied by 6184 backdrop */
+  top: calc(6% + 100px);
+  left: -215px;
+  width: 253px;          /* +15% from 220 */
+  border-radius: 30px;
+  animation: pvStatFloat2 5.5s ease-in-out 1.6s infinite;
+}
+@keyframes pvStatFloat1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+@keyframes pvStatFloat2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+@media (max-width: 1100px) {
+  .freebasic-section .pv-stat-new   { right: -70px; width: 198px; }
+  .freebasic-section .pv-stat-today { left: -160px; width: 230px; }
+}
+@media (max-width: 768px) {
+  .freebasic-section .pv-stat-new   { right: -40px; width: 180px; }
+  .freebasic-section .pv-stat-today { left: -50px;  width: 200px; top: calc(6% + 60px); }
+}
+.freebasic-section .pv-float-card-top {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+}
+.freebasic-section .pv-float-card-icon {
+  width: 22px; height: 22px; flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.freebasic-section .pv-float-card-icon svg { width: 100%; height: 100%; display: block; }
+.freebasic-section .pv-fc-1 .pv-float-card-icon { color: #15803d; }
+.freebasic-section .pv-fc-2 .pv-float-card-icon { color: #f59e0b; }
+.freebasic-section .pv-fc-3 .pv-float-card-icon { color: #7c3aed; }
+.freebasic-section .pv-fc-4 .pv-float-card-icon { color: #0d9488; }
+.freebasic-section .pv-float-card-badge {
+  font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 50px;
+  color: #15803d; background: rgba(34,197,94,.14); border: 1px solid rgba(34,197,94,.2);
+}
+.freebasic-section .pv-float-card-val {
+  font-size: 22px; font-weight: 800; color: #111114; line-height: 1;
+}
+.freebasic-section .pv-float-card-label {
+  font-size: 9px; color: rgba(0,0,0,.5); margin-top: 4px;
+  text-transform: uppercase; letter-spacing: .06em;
+}
+/* Per-card position + animation (matches p-store layout) */
+.freebasic-section .pv-fc-1 { top: 4%;    right: -60px; animation: pvFloat1 5.0s ease-in-out 0.0s infinite; }
+.freebasic-section .pv-fc-2 { bottom: 8%; left:  -70px; animation: pvFloat2 5.5s ease-in-out 1.5s infinite; }
+.freebasic-section .pv-fc-3 { top: 38%;   left:  -80px; animation: pvFloat3 5.0s ease-in-out 3.0s infinite; }
+.freebasic-section .pv-fc-4 { top: 4%;    left:  -60px; animation: pvFloat4 5.5s ease-in-out 2.4s infinite; }
+.freebasic-section .pv-fc-2 .pv-float-card-badge {
+  color: #7c3aed; background: rgba(167,139,250,.14); border-color: rgba(167,139,250,.22);
+}
+.freebasic-section .pv-fc-3 .pv-float-card-badge {
+  color: #7c3aed; background: rgba(167,139,250,.14); border-color: rgba(167,139,250,.22);
+}
+.freebasic-section .pv-fc-4 .pv-float-card-badge {
+  color: #0d9488; background: rgba(20,184,166,.14); border-color: rgba(20,184,166,.22);
+}
+@keyframes pvFloat1 { 0%,100%{transform:rotate(2deg) translateY(0)}    50%{transform:rotate(2deg) translateY(-10px)} }
+@keyframes pvFloat2 { 0%,100%{transform:rotate(-1.5deg) translateY(0)} 50%{transform:rotate(-1.5deg) translateY(-8px)} }
+@keyframes pvFloat3 { 0%,100%{transform:rotate(1deg) translateY(0) translateX(0)} 50%{transform:rotate(1deg) translateY(-12px) translateX(4px)} }
+@keyframes pvFloat4 { 0%,100%{transform:rotate(0deg) translateY(0)}    50%{transform:rotate(0deg) translateY(-6px)} }
+
+@media(max-width:860px){
+  .freebasic-section .pv-fc-1 { right: -10px; }
+  .freebasic-section .pv-fc-2 { left:  -10px; }
+  .freebasic-section .pv-fc-3 { left:  -10px; }
+  .freebasic-section .pv-fc-4 { left:  -10px; }
 }
 </style>
-<div class="store-sec" id="stores">
-  <div class="store-sec-head">
-    <div style="font-size:12px;font-weight:600;color:var(--c-amber);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:16px" class="appear">Your store interface</div>
-    <div style="font-size:clamp(32px,5vw,52px);font-weight:700;color:#fff;letter-spacing:-0.03em;margin-bottom:16px;max-width:700px;margin-left:auto;margin-right:auto" class="appear d1">
-      Imagine telling people<br>"check out my store."
-    </div>
-    <div style="font-size:19px;color:rgba(255,255,255,0.55);line-height:1.5;max-width:500px;margin-left:auto;margin-right:auto" class="appear d2">
-      Switchable premium designs that turn heads and look perfect on any device — included free with your bundle.
-    </div>
-  </div>
 
-  <div class="store-marquee appear-scale d2">
-    <div class="store-strip">
-      <div class="store-card"><img src="img/stores/2639.webp" alt="Dating store – Find Your Connection"></div>
-      <div class="store-card"><img src="img/stores/3934.webp" alt="Parenting store – Parenting Made Easier"></div>
-      <div class="store-card"><img src="img/stores/2635.webp" alt="Health & Wellness store – Your Wellness Journey"></div>
-      <div class="store-card"><img src="img/stores/2637.webp" alt="Business & Career store – Build Your Career"></div>
-      <div class="store-card"><img src="img/stores/3945.webp" alt="Self-improvement store – Unlock Your Best Self"></div>
-      <div class="store-card"><img src="img/stores/2638.webp" alt="Pet Care store – Happy Pets, Happy Life"></div>
-      <!-- Duplicate set for seamless loop -->
-      <div class="store-card"><img src="img/stores/2639.webp" alt="Dating store – Find Your Connection"></div>
-      <div class="store-card"><img src="img/stores/3934.webp" alt="Parenting store – Parenting Made Easier"></div>
-      <div class="store-card"><img src="img/stores/2635.webp" alt="Health & Wellness store – Your Wellness Journey"></div>
-      <div class="store-card"><img src="img/stores/2637.webp" alt="Business & Career store – Build Your Career"></div>
-      <div class="store-card"><img src="img/stores/3945.webp" alt="Self-improvement store – Unlock Your Best Self"></div>
-      <div class="store-card"><img src="img/stores/2638.webp" alt="Pet Care store – Happy Pets, Happy Life"></div>
-    </div>
-  </div>
+<section class="freebasic-section" id="freebasic">
+  <div class="bonus-inner freebasic-inner">
 
-  <div class="store-cta appear d3">
-    <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled">Claim my free bundle</a>
+    <!-- LEFT — phone mockup with editable HTML cards (vector, no raster) -->
+    <div class="bonus-right pv-stage" aria-label="Store visual">
+      <div class="pv-phone-wrap">
+
+        <!-- Stat overlays on top of phone -->
+        <img class="pv-stat pv-stat-new"   src="img/freebasic/New%20order.webp"      alt="New order received">
+        <img class="pv-stat pv-stat-today" src="img/freebasic/Today's%20Orders.webp" alt="Today's orders summary">
+
+        <!-- Top-right floating card: revenue (Figma: dollar-circle) -->
+        <div class="pv-float-card pv-fc-1">
+          <div class="pv-float-card-top">
+            <span class="pv-float-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M8.67188 14.3298C8.67188 15.6198 9.66188 16.6598 10.8919 16.6598H13.4019C14.4719 16.6598 15.3419 15.7498 15.3419 14.6298C15.3419 13.4098 14.8119 12.9798 14.0219 12.6998L9.99187 11.2998C9.20187 11.0198 8.67188 10.5898 8.67188 9.36984C8.67188 8.24984 9.54187 7.33984 10.6119 7.33984H13.1219C14.3519 7.33984 15.3419 8.37984 15.3419 9.66984" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 6V18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="pv-float-card-badge">↑ 18%</span>
+          </div>
+          <div class="pv-float-card-val">$4,340</div>
+          <div class="pv-float-card-label">Monthly revenue</div>
+        </div>
+
+        <!-- Bottom-left floating card: store rating (Figma: star) -->
+        <div class="pv-float-card pv-fc-2">
+          <div class="pv-float-card-top">
+            <span class="pv-float-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M15.39 5.21L16.8 8.02999C16.99 8.41999 17.5 8.78999 17.93 8.86999L20.48 9.28999C22.11 9.55999 22.49 10.74 21.32 11.92L19.33 13.91C19 14.24 18.81 14.89 18.92 15.36L19.49 17.82C19.94 19.76 18.9 20.52 17.19 19.5L14.8 18.08C14.37 17.82 13.65 17.82 13.22 18.08L10.83 19.5C9.12 20.51 8.08001 19.76 8.53001 17.82L9.10002 15.36C9.21002 14.9 9.02001 14.25 8.69001 13.91L6.70002 11.92C5.53002 10.75 5.91002 9.56999 7.54002 9.28999L10.09 8.86999C10.52 8.79999 11.03 8.41999 11.22 8.02999L12.63 5.21C13.38 3.68 14.62 3.68 15.39 5.21Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 5H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M5 19H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 12H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="pv-float-card-badge">Top rated</span>
+          </div>
+          <div class="pv-float-card-val">4.9</div>
+          <div class="pv-float-card-label">Store rating</div>
+        </div>
+
+        <!-- Mid-left floating card: orders (Figma: box) -->
+        <div class="pv-float-card pv-fc-3">
+          <div class="pv-float-card-top">
+            <span class="pv-float-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3.17001 7.44L12 12.55L20.77 7.46997" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 21.61V12.54" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9.92999 2.48L4.59 5.45003C3.38 6.12003 2.39001 7.80001 2.39001 9.18001V14.83C2.39001 16.21 3.38 17.89 4.59 18.56L9.92999 21.53C11.07 22.16 12.94 22.16 14.08 21.53L19.42 18.56C20.63 17.89 21.62 16.21 21.62 14.83V9.18001C21.62 7.80001 20.63 6.12003 19.42 5.45003L14.08 2.48C12.93 1.84 11.07 1.84 9.92999 2.48Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M17 13.24V9.58002L7.51001 4.09998" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="pv-float-card-badge">↑ 24%</span>
+          </div>
+          <div class="pv-float-card-val">187</div>
+          <div class="pv-float-card-label">Orders this month</div>
+        </div>
+
+        <!-- Phone -->
+        <div class="pv-phone">
+          <div class="pv-phone-screen">
+            <img class="pv-screen-img" src="img/freebasic/screen.webp" alt="Mobile store screen">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RIGHT (text) -->
+    <div class="bonus-left">
+      <span class="bonus-pill">STEP 1 — YOUR STORE</span>
+      <h2 class="bonus-heading">Your own online store,<br>ready to sell.</h2>
+      <p class="bonus-sub">A complete done-for-you online store — custom domain, mobile-ready design, payment system, and 100+ best-selling products already inside. Yours from day one, no setup needed.</p>
+      <ul class="bullets">
+        <li class="bullet-item">
+          <svg class="bullet-check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7.75 12L10.58 14.83L16.25 9.17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="bullet-text">Your own website with custom domain</span>
+        </li>
+        <li class="bullet-item">
+          <svg class="bullet-check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7.75 12L10.58 14.83L16.25 9.17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="bullet-text">Personal manager to guide your launch</span>
+        </li>
+        <li class="bullet-item">
+          <svg class="bullet-check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7.75 12L10.58 14.83L16.25 9.17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="bullet-text">100+ digital products ready to sell</span>
+        </li>
+        <li class="bullet-item">
+          <svg class="bullet-check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7.75 12L10.58 14.83L16.25 9.17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="bullet-text">Step-by-step setup guidance included</span>
+        </li>
+      </ul>
+      <div class="cta-wrap"><a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled">Get my free store</a></div>
+    </div>
+
   </div>
-</div>
+</section>
 
 <!-- ═══ BONUS ═══ -->
 <style>
@@ -2731,7 +2745,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <!-- LEFT -->
     <div class="bonus-left">
-      <span class="bonus-pill">$2,599 PREMIUM BUNDLE · FREE</span>
+      <span class="bonus-pill">STEP 2 — PREMIUM BUNDLE · $2,599 FREE</span>
       <h2 class="bonus-heading">Today's bonus.<br>Yours, on us.</h2>
       <p class="bonus-sub">Hover the highlights to see what's inside the bundle.</p>
       <ul class="bullets" id="bulletList">
@@ -2826,24 +2840,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 /* ── Bonus block — isolated scope to avoid variable conflicts ── */
 ;(function() {
 
-  /* ── Panel switching ── */
-  const bullets = document.querySelectorAll('.bullet-item');
-  const panels  = document.querySelectorAll('.panel');
-//   const bonusDots = document.querySelectorAll('.dot');
-
-  function activate(i) {
-    bullets.forEach(b => b.classList.remove('active'));
-    panels.forEach(p  => p.classList.remove('visible'));
-    // bonusDots.forEach(d => d.classList.remove('active'));
-    bullets[i].classList.add('active');
-    panels[i].classList.add('visible');
-    // bonusDots[i].classList.add('active');
-  }
-  bullets.forEach((b, i) => {
-    b.addEventListener('mouseenter', () => activate(i));
-    b.addEventListener('click', () => activate(i));
+  /* ── Panel switching (scoped per .bonus-section so multiple instances coexist) ── */
+  document.querySelectorAll('.bonus-section').forEach(section => {
+    const bullets = section.querySelectorAll('.bullet-item');
+    const panels  = section.querySelectorAll('.panel');
+    function activate(i) {
+      bullets.forEach(b => b.classList.remove('active'));
+      panels.forEach(p  => p.classList.remove('visible'));
+      bullets[i].classList.add('active');
+      panels[i].classList.add('visible');
+    }
+    bullets.forEach((b, i) => {
+      b.addEventListener('mouseenter', () => activate(i));
+      b.addEventListener('click', () => activate(i));
+    });
   });
-//   bonusDots.forEach((d, i) => d.addEventListener('click', () => activate(i)));
 
   /* ── Brownian motion ──
      Each card gets its own independent Ornstein-Uhlenbeck process:
@@ -2891,6 +2902,317 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 })();
 </script>
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="how-sec">
+  <div class="sec-in">
+    <div class="appear" style="text-align:center">
+      <div class="sec-label">How it works</div>
+      <h2 class="sec-title-xl on-light">From zero to sale<br>in 3 simple steps.</h2>
+      <p class="sec-body" style="max-width:540px;margin:0 auto">No experience, no tech skills, no inventory needed.</p>
+    </div>
+    <div class="how-steps">
+      <div class="how-step appear d1">
+        <div class="how-step-num">01</div>
+        <h3>We build your store</h3>
+        <p>Sign up free and we immediately set up a complete online store for you – loaded with digital products people actually buy. Your store is live in minutes, not months.</p>
+        <span class="how-step-tag">Done for you</span>
+      </div>
+      <div class="how-step appear d2">
+        <div class="how-step-num">02</div>
+        <h3>Activate your bundle</h3>
+        <p>Your $40 ad credit, Google promotion gift, premium design and 1-on-1 training unlock the moment your store goes live. No setup, no fiddling.</p>
+        <span class="how-step-tag">Done for you</span>
+      </div>
+      <div class="how-step appear d3">
+        <div class="how-step-num">03</div>
+        <h3>Get paid, keep 60–70%</h3>
+        <p>When a customer buys from your store, you keep 60–70% of every sale as your profit. Products deliver instantly – no shipping, no hassle from your side.</p>
+        <span class="how-step-tag">Your profit</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORE DESIGNS MARQUEE ═══ -->
+<style>
+.store-sec { background: #000; padding: 120px 0; overflow: hidden; }
+@media(max-width:1200px) { .store-sec { padding: 100px 0; } }
+@media(max-width:860px)  { .store-sec { padding: 72px 0; } }
+@media(max-width:480px)  { .store-sec { padding: 56px 0; } }
+.store-sec-head { text-align: center; padding: 0 24px; margin-bottom: 60px; }
+
+/* Horizontal infinite marquee — Wix Studio style */
+.store-marquee {
+  position: relative;
+  overflow: clip;
+  overflow-clip-margin: 20px;
+  padding: 20px 0;
+  margin: -20px 0;
+}
+.store-marquee::before,
+.store-marquee::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+.store-marquee::before { left: 0; background: linear-gradient(to right, #000, transparent); }
+.store-marquee::after  { right: 0; background: linear-gradient(to left, #000, transparent); }
+
+.store-strip {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  cursor: grab;
+  user-select: none;
+  will-change: transform;
+}
+.store-strip.dragging { cursor: grabbing; }
+
+.store-card {
+  flex-shrink: 0;
+  width: 720px;
+  aspect-ratio: 16/9;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.store-card:hover { transform: scale(1.03); }
+.store-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+.store-sec .store-cta { text-align: center; margin-top: 56px; }
+
+@media(max-width:760px) {
+  .store-card { width: 510px; }
+  .store-strip { gap: 14px; }
+  .store-marquee::before, .store-marquee::after { width: 60px; }
+}
+@media(max-width:480px) {
+  .store-card { width: 420px; }
+}
+</style>
+<div class="store-sec" id="stores">
+  <div class="store-sec-head">
+    <div style="font-size:12px;font-weight:600;color:var(--c-amber);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:16px" class="appear">Your store interface</div>
+    <div style="font-size:clamp(32px,5vw,52px);font-weight:700;color:#fff;letter-spacing:-0.03em;margin-bottom:16px;max-width:700px;margin-left:auto;margin-right:auto" class="appear d1">
+      What will my store look like?
+    </div>
+    <div style="font-size:19px;color:rgba(255,255,255,0.55);line-height:1.5;max-width:500px;margin-left:auto;margin-right:auto" class="appear d2">
+      Enjoy switchable professional designs that turn heads and look perfect on any device!
+    </div>
+  </div>
+
+  <div class="store-marquee appear-scale d2">
+    <div class="store-strip">
+      <div class="store-card"><img src="img/stores/2639.webp" alt="Dating store – Find Your Connection"></div>
+      <div class="store-card"><img src="img/stores/3934.webp" alt="Parenting store – Parenting Made Easier"></div>
+      <div class="store-card"><img src="img/stores/2635.webp" alt="Health & Wellness store – Your Wellness Journey"></div>
+      <div class="store-card"><img src="img/stores/2637.webp" alt="Business & Career store – Build Your Career"></div>
+      <div class="store-card"><img src="img/stores/3945.webp" alt="Self-improvement store – Unlock Your Best Self"></div>
+      <div class="store-card"><img src="img/stores/2638.webp" alt="Pet Care store – Happy Pets, Happy Life"></div>
+      <!-- Duplicate set for seamless loop -->
+      <div class="store-card"><img src="img/stores/2639.webp" alt="Dating store – Find Your Connection"></div>
+      <div class="store-card"><img src="img/stores/3934.webp" alt="Parenting store – Parenting Made Easier"></div>
+      <div class="store-card"><img src="img/stores/2635.webp" alt="Health & Wellness store – Your Wellness Journey"></div>
+      <div class="store-card"><img src="img/stores/2637.webp" alt="Business & Career store – Build Your Career"></div>
+      <div class="store-card"><img src="img/stores/3945.webp" alt="Self-improvement store – Unlock Your Best Self"></div>
+      <div class="store-card"><img src="img/stores/2638.webp" alt="Pet Care store – Happy Pets, Happy Life"></div>
+    </div>
+  </div>
+
+  <div class="store-cta appear d3">
+    <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled">Claim my free bundle</a>
+  </div>
+</div>
+
+
+<!-- ═══ WHAT DO I GET — Stripe-style modular bento ═══ -->
+<section class="get-sec" id="get">
+  <div class="sec-in">
+    <div class="get-head appear">
+      <span class="sec-label">7-in-1 Premium Bundle · $2,599 value</span>
+      <h2>Flexible solutions for<br>every business launch.</h2>
+      <p>Seven done-for-you assets that normally cost thousands — built to work individually, designed to work together. Yours the moment you sign up.</p>
+    </div>
+    <div class="get-grid">
+      <div class="get-card appear d1">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/shop.svg" alt=""></div>
+        <h3>Turnkey online store, ready in 60 seconds.</h3>
+        <p>A fully hosted ecommerce website with domain &amp; SSL — built, loaded with products, and live the moment you sign up.</p>
+        <span class="get-value"><del>$1,199</del> · Free</span>
+      </div>
+      <div class="get-card appear d2">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/card.svg" alt=""></div>
+        <h3>$40 ad credit on signup</h3>
+        <p>Free advertising credit so your first campaign costs you nothing.</p>
+        <span class="get-value"><del>$40</del> · Free</span>
+      </div>
+      <div class="get-card appear d3">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/shopping-bag.svg" alt=""></div>
+        <h3>Amazon Seller Kit</h3>
+        <p>Setup guide, ready product feed and Seller University access to expand to Amazon.</p>
+        <span class="get-value"><del>$499</del> · Free</span>
+      </div>
+      <div class="get-card appear d4">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/designtools.svg" alt=""></div>
+        <h3>Premium store design</h3>
+        <p>Custom theme, polished layout, optimised for conversions on every device.</p>
+        <span class="get-value"><del>$299</del> · Free</span>
+      </div>
+      <div class="get-card appear d5">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/trend-up.svg" alt=""></div>
+        <h3>Google promotion gift</h3>
+        <p>A free ad campaign run by our team to bring real buyers from day one.</p>
+        <span class="get-value"><del>$199</del> · Free</span>
+      </div>
+      <div class="get-card appear d6">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/profile-tick.svg" alt=""></div>
+        <h3>Personal manager</h3>
+        <p>A real human in your corner for strategy, onboarding and growth.</p>
+        <span class="get-value"><del>$199</del> · Free</span>
+      </div>
+      <div class="get-card appear d6">
+        <div class="get-card-bg"></div>
+        <div class="get-icon"><img src="img/icons/24-support.svg" alt=""></div>
+        <h3>1-on-1 business training, live with your coach.</h3>
+        <p>Personal coaching sessions on marketing, sales and scaling — tailored to your store and your goals. Most people pay $399+ per session for this.</p>
+        <span class="get-value"><del>$399</del> · Free</span>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:64px" class="appear">
+      <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled" id="getCtaBtn">Claim my free bundle</a>
+      <p style="margin-top:14px;font-size:13px;color:var(--c-gray3)">7 assets · $2,599 value · Yours at no cost</p>
+    </div>
+  </div>
+</section>
+<!-- ═══ WHAT WILL I SELL ═══ -->
+<section class="sell-sec" id="sell">
+  <div class="sec-in-wide">
+    <div class="appear" style="text-align:center">
+      <div class="sec-label" style="color:var(--c-amber)">Your product catalog</div>
+      <h2 class="sec-title-xl" style="color:#fff">What will I sell?</h2>
+      <p class="sec-body" style="color:rgba(255,255,255,0.6);max-width:500px;margin:0 auto">Your store comes pre-loaded with 100+ best-selling AI toolkits! Check some examples.</p>
+    </div>
+  </div>
+
+  <div class="wix-carousel appear d2">
+    <div class="wix-track">
+      <div class="wix-card"><img src="img/products/0-discover-your-next-big-business-idea.webp" alt="Discover Your Next Big Business Idea"></div>
+      <div class="wix-card"><img src="img/products/1-critical-thinking-amp-problem-solving-ebook.webp" alt="Critical Thinking & Problem Solving eBook"></div>
+      <div class="wix-card"><img src="img/products/2-5-days-to-unshakable-dating-confidence.webp" alt="5 Days to Unshakable Dating Confidence"></div>
+      <div class="wix-card"><img src="img/products/3-top-10-must-see-u-s-national-parks-fast-facts.webp" alt="Top 10 Must-See U.S. National Parks + Fast Facts"></div>
+      <div class="wix-card"><img src="img/products/4-first-time-parent-survival-guide.webp" alt="First-Time Parent Survival Guide"></div>
+      <div class="wix-card"><img src="img/products/5-sleep-reset-guided-audio-course-for-restful-nights.webp" alt="Sleep Reset: Guided Audio Course for Restful Nights"></div>
+      <div class="wix-card"><img src="img/products/6-pet-travel-essentials-checklist-for-safe-trips.webp" alt="Pet Travel Essentials Checklist for Safe Trips"></div>
+      <div class="wix-card"><img src="img/products/7-the-empowered-budgeting-toolkit.webp" alt="The Empowered Budgeting Toolkit"></div>
+      <div class="wix-card"><img src="img/products/8-healthy-meal-plan-amp-recipe-collection.webp" alt="Healthy Meal Plan & Recipe Collection"></div>
+      <div class="wix-card"><img src="img/products/9-step-by-step-career-development-guide.webp" alt="Step-by-Step Career Development Guide"></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="wix-card"><img src="img/products/0-discover-your-next-big-business-idea.webp" alt="Discover Your Next Big Business Idea"></div>
+      <div class="wix-card"><img src="img/products/1-critical-thinking-amp-problem-solving-ebook.webp" alt="Critical Thinking & Problem Solving eBook"></div>
+      <div class="wix-card"><img src="img/products/2-5-days-to-unshakable-dating-confidence.webp" alt="5 Days to Unshakable Dating Confidence"></div>
+      <div class="wix-card"><img src="img/products/3-top-10-must-see-u-s-national-parks-fast-facts.webp" alt="Top 10 Must-See U.S. National Parks + Fast Facts"></div>
+      <div class="wix-card"><img src="img/products/4-first-time-parent-survival-guide.webp" alt="First-Time Parent Survival Guide"></div>
+      <div class="wix-card"><img src="img/products/5-sleep-reset-guided-audio-course-for-restful-nights.webp" alt="Sleep Reset: Guided Audio Course for Restful Nights"></div>
+      <div class="wix-card"><img src="img/products/6-pet-travel-essentials-checklist-for-safe-trips.webp" alt="Pet Travel Essentials Checklist for Safe Trips"></div>
+      <div class="wix-card"><img src="img/products/7-the-empowered-budgeting-toolkit.webp" alt="The Empowered Budgeting Toolkit"></div>
+      <div class="wix-card"><img src="img/products/8-healthy-meal-plan-amp-recipe-collection.webp" alt="Healthy Meal Plan & Recipe Collection"></div>
+      <div class="wix-card"><img src="img/products/9-step-by-step-career-development-guide.webp" alt="Step-by-Step Career Development Guide"></div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:48px;" class="appear">
+    <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled">Claim my free bundle</a>
+    <p style="margin-top:14px;font-size:12px;color:rgba(255,255,255,0.35)">All products are pre-loaded in your store – no extra cost</p>
+  </div>
+</section>
+
+
+<!-- ═══ AWARDS ═══ -->
+<section class="awards-sec">
+  <div class="sec-in">
+    <div class="appear">
+      <div class="sec-label">Recognition</div>
+      <h2 class="sec-title-xl on-light">Award-winning quality.</h2>
+      <p class="sec-body" style="max-width:520px;margin:0 auto">Here's just a part of the industry rewards our turnkey stores and ecommerce platform have achieved.</p>
+    </div>
+    <div class="awards-grid">
+      <div class="award-card appear d1">
+        <img class="award-logo" src="img/Awards/1_logo_m.webp" alt="Hermes Awards">
+        <h3>Hermes Awards</h3>
+        <p>Best IT Product 2025–2026</p>
+        <span class="award-medal gold">Gold Winner</span>
+      </div>
+      <div class="award-card appear d2">
+        <img class="award-logo" src="img/Awards/2_logo_m.webp?v=2" alt="MarCom Awards">
+        <h3>MarCom Awards</h3>
+        <p>Best Ecommerce Platform</p>
+        <span class="award-medal plat">Platinum Winner</span>
+      </div>
+      <div class="award-card appear d3">
+        <img class="award-logo" src="img/Awards/3_logo_m.webp" alt="dotCOMM Awards">
+        <h3>dotCOMM Awards</h3>
+        <p>Best Ecommerce Ecosystem</p>
+        <span class="award-medal gold">Gold Winner</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RATINGS ═══ -->
+<div class="ratings-sec">
+  <div class="sec-label" style="color:rgba(255,255,255,0.35);text-align:center;margin-bottom:24px">FEATURED ON:</div>
+  <div class="featured-marquee">
+    <div class="featured-strip">
+      <img src="img/featured/forbes.svg" alt="Forbes">
+      <img src="img/featured/entrepreneur.svg" alt="Entrepreneur">
+      <img src="img/featured/inc.svg" alt="Inc.">
+      <img src="img/featured/nbc.svg" alt="NBC">
+      <img src="img/featured/business-com.svg" alt="Business.com">
+      <img src="img/featured/fox-news.svg" alt="Fox News">
+      <img src="img/featured/forbes.svg" alt="Forbes">
+      <img src="img/featured/entrepreneur.svg" alt="Entrepreneur">
+      <img src="img/featured/inc.svg" alt="Inc.">
+      <img src="img/featured/nbc.svg" alt="NBC">
+      <img src="img/featured/business-com.svg" alt="Business.com">
+      <img src="img/featured/fox-news.svg" alt="Fox News">
+      <img src="img/featured/forbes.svg" alt="Forbes">
+      <img src="img/featured/entrepreneur.svg" alt="Entrepreneur">
+      <img src="img/featured/inc.svg" alt="Inc.">
+      <img src="img/featured/nbc.svg" alt="NBC">
+      <img src="img/featured/business-com.svg" alt="Business.com">
+      <img src="img/featured/fox-news.svg" alt="Fox News">
+      <img src="img/featured/forbes.svg" alt="Forbes">
+      <img src="img/featured/entrepreneur.svg" alt="Entrepreneur">
+      <img src="img/featured/inc.svg" alt="Inc.">
+      <img src="img/featured/nbc.svg" alt="NBC">
+      <img src="img/featured/business-com.svg" alt="Business.com">
+      <img src="img/featured/fox-news.svg" alt="Fox News">
+    </div>
+  </div>
+  <div class="ratings-inner">
+    <div class="rat-card appear d1"><img class="rat-logo" src="img/ratings/sitejabber.svg" alt="Sitejabber"><div class="rat-stars">★★★★★</div><div class="rat-score">4.8</div><div class="rat-count">824 reviews</div></div>
+    <div class="rat-card appear d2"><img class="rat-logo" src="img/ratings/trustpilot.svg" alt="Trustpilot"><div class="rat-stars">★★★★★</div><div class="rat-score">4.6</div><div class="rat-count">1,115 reviews</div></div>
+    <div class="rat-card appear d3"><img class="rat-logo" src="img/ratings/facebook.svg" alt="Facebook"><div class="rat-stars">★★★★★</div><div class="rat-score">96%</div><div class="rat-count">510 reviews</div></div>
+    <div class="rat-card appear d4"><img class="rat-logo" src="img/ratings/g2.svg" alt="G2"><div class="rat-stars">★★★★★</div><div class="rat-score">4.7</div><div class="rat-count">249 reviews</div></div>
+  </div>
+</div>
+
 
 <!-- ═══ TESTIMONIALS ═══ -->
 <section class="test-sec">
@@ -3205,12 +3527,16 @@ document.querySelectorAll('.faq-q').forEach(btn => {
 });
 
 
-// ── FAQ SOCIAL PROOF ──
+// ── LIVE SOCIAL PROOF (hero glass card + FAQ — same number on both) ──
 ;(function() {
-  const el = document.getElementById('faqProof');
-  if (!el) return;
   const base = 700 + Math.floor(Math.random() * 400);
-  el.textContent = base.toLocaleString('en-US') + ' people started their store today';
+  const num  = base.toLocaleString('en-US');
+
+  const heroEl = document.getElementById('heroLiveCount');
+  if (heroEl) heroEl.textContent = num;
+
+  const faqEl = document.getElementById('faqProof');
+  if (faqEl) faqEl.textContent = num + ' people started their store today';
 })();
 
 // ── MARQUEE DRAG-TO-SCROLL (JS-driven) ──
