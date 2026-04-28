@@ -947,21 +947,10 @@ section { padding: 120px 24px; }
   margin-bottom: 64px;
 }
 .get-head .bonus-pill { margin-bottom: 24px; }
-.get-head h2 {
-  font-size: clamp(36px, 5.5vw, 60px);
-  font-weight: 700;
-  color: var(--c-near);
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  margin-bottom: 18px;
-}
-.get-head p {
-  font-size: clamp(17px, 2vw, 21px);
-  color: var(--c-gray2);
-  line-height: 1.5;
-  letter-spacing: -0.005em;
-  max-width: 560px;
-}
+/* Heading + subhead inherit styles from .bonus-heading / .bonus-sub
+   (defined in the FREEBASIC/BONUS shared style block) so STEP 1 and
+   STEP 2 share identical typography. */
+.get-head .bonus-sub { max-width: 560px; }
 
 /* ── Bento grid: 6-col layout, 7 cards across 3 rows ── */
 .get-grid {
@@ -2731,8 +2720,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="sec-in">
     <div class="get-head appear">
       <span class="bonus-pill">STEP 2 — 7-IN-1 PREMIUM BUNDLE</span>
-      <h2>Flexible solutions for<br>every business launch.</h2>
-      <p>Seven done-for-you assets that normally cost thousands — built to work individually, designed to work together. Yours the moment you sign up.</p>
+      <h2 class="bonus-heading">Flexible solutions for<br>every business launch.</h2>
+      <p class="bonus-sub">Seven done-for-you assets that normally cost thousands — built to work individually, designed to work together. Yours the moment you sign up.</p>
     </div>
     <div class="get-grid">
       <div class="get-card appear d1">
