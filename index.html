@@ -1140,12 +1140,16 @@ section { padding: 120px 24px; }
   letter-spacing: -0.07em;
 }
 
-/* ── Title & body — back to natural positions; they overlay the watermark ── */
+/* ── Title & body — pinned to the bottom of each card via margin-top: auto.
+   The auto margin absorbs all free space above h3 in the flex column, so
+   title + lead sit at the bottom while the watermark number stays anchored
+   at the top-right. ── */
 .get-card h3 {
   font-size: 22px;
   font-weight: 700;
   color: var(--c-near);
   letter-spacing: -0.02em;
+  margin-top: auto;
   margin-bottom: 10px;
   line-height: 1.2;
 }
@@ -1160,7 +1164,6 @@ section { padding: 120px 24px; }
   color: var(--c-gray2);
   line-height: 1.55;
   letter-spacing: -0.005em;
-  flex: 1;
   max-width: 460px;
 }
 .get-card:nth-child(1) p,
