@@ -2263,7 +2263,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   display: flex;
   align-items: center;
   gap: 26px;
-  flex-wrap: wrap;
+  /* No flex-wrap on desktop — the link sits to the right of the button on the same row */
 }
 .hero--devin-v2 .cta-fine {
   font-size: 13px;
@@ -2283,6 +2283,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   backface-visibility: hidden; -webkit-backface-visibility: hidden;
   animation: dvCtaPulse 3s ease-in-out 2s infinite;
   text-decoration: none;
+  flex-shrink: 0;
 }
 .hero--devin-v2 .cta:hover { background: #d4891a; transform: scale(1.02); }
 /* Secondary text link — copies the reference's .hero-link-cta look:
@@ -2325,7 +2326,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .hero--devin-v2 .copy { padding-right: 0; order: 1; }
   .hero--devin-v2 .copy h1 { font-size: clamp(40px, 8vw, 60px); }
   .hero--devin-v2 .cta { width: 100%; max-width: 360px; }
-  .hero--devin-v2 .actions { justify-content: center; }
+  /* On narrow viewports allow the row to wrap, with both items centred */
+  .hero--devin-v2 .actions { justify-content: center; flex-wrap: wrap; }
   .hero--devin-v2 .cta-fine { text-align: center; }
   .hero--devin-v2 .limited,
   .hero--devin-v2 .copy h1,
