@@ -972,58 +972,136 @@ section { padding: 120px 24px; }
 .get-card:nth-child(6) { grid-column: span 2; }
 .get-card:nth-child(7) { grid-column: span 4; }
 
-/* ── Card: 3 large light-gold blobs, shared via background-attachment: fixed
-   so the gradient appears as one continuous fill across all cards. The
-   section's own bg stays pure white, hiding the gradient between cards. ── */
+/* ── Card: per-card static gold blob (positions form a trail 1→2→5→4→3→6→7
+   matching the reference). Card 4 stays clean — the trail passes through. ── */
 .get-card {
   position: relative;
   background-color: #ffffff;
-  background-image:
-    radial-gradient(60% 55% at 18% 28%, rgba(212, 160, 74, 0.32) 0%, rgba(212, 160, 74, 0.18) 25%, transparent 70%),
-    radial-gradient(50% 50% at 75% 60%, rgba(255, 215, 130, 0.30) 0%, rgba(255, 215, 130, 0.16) 25%, transparent 70%),
-    radial-gradient(58% 50% at 50% 92%, rgba(245, 197, 96, 0.28) 0%, rgba(245, 197, 96, 0.14) 25%, transparent 70%);
-  background-attachment: fixed;
+  background-image: var(--card-blob, none);
   border-radius: 20px;
   padding: 32px 32px 28px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid rgba(0,0,0,0.05);
+  border: 1px solid rgba(184, 134, 46, 0.10);
   isolation: isolate;
   cursor: default;
-  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
-}
-.get-card::before {
-  /* Soft gold gradient border on hover (single hue, tied to the gold theme) */
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: 21px;
-  padding: 1px;
-  background: linear-gradient(135deg, rgba(212, 160, 74, 0.7), rgba(255, 215, 130, 0.85), rgba(212, 160, 74, 0.7));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.35s var(--ease);
-  pointer-events: none;
-  z-index: 1;
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
 }
 .get-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 18px 48px rgba(184, 134, 46, 0.10);
-  border-color: transparent;
-}
-.get-card:hover::before { opacity: 1; }
-/* iOS Safari falls back to local attachment — graceful degradation:
-   each card just shows the gradient relative to itself. */
-@supports (-webkit-touch-callout: none) {
-  .get-card { background-attachment: scroll; }
 }
 
-/* The empty .get-card-bg div is no longer used for visuals — keep it
-   inert in case it's referenced elsewhere. */
+/* Per-card blob positions — match reference image (trail of light) */
+.get-card:nth-child(1) {
+  --card-blob: radial-gradient(45% 70% at 32% 62%,
+    rgba(255, 215, 130, 0.55) 0%,
+    rgba(245, 197, 96, 0.22) 30%,
+    transparent 65%);
+}
+.get-card:nth-child(2) {
+  --card-blob: radial-gradient(80% 100% at 95% 95%,
+    rgba(255, 215, 130, 0.55) 0%,
+    rgba(245, 197, 96, 0.20) 30%,
+    transparent 65%);
+}
+.get-card:nth-child(3) {
+  --card-blob: radial-gradient(80% 100% at 15% 22%,
+    rgba(255, 215, 130, 0.55) 0%,
+    rgba(245, 197, 96, 0.20) 30%,
+    transparent 65%);
+}
+.get-card:nth-child(4) {
+  /* Clean — trail passes through, no blob */
+  --card-blob: none;
+}
+.get-card:nth-child(5) {
+  --card-blob: radial-gradient(80% 100% at 88% 22%,
+    rgba(255, 215, 130, 0.55) 0%,
+    rgba(245, 197, 96, 0.20) 30%,
+    transparent 65%);
+}
+.get-card:nth-child(6) {
+  --card-blob: radial-gradient(80% 100% at 92% 92%,
+    rgba(255, 215, 130, 0.55) 0%,
+    rgba(245, 197, 96, 0.20) 30%,
+    transparent 65%);
+}
+.get-card:nth-child(7) {
+  --card-blob: radial-gradient(40% 75% at 23% 58%,
+    rgba(255, 215, 130, 0.55) 0%,
+    rgba(245, 197, 96, 0.22) 30%,
+    transparent 65%);
+}
+
+/* The empty .get-card-bg div is inert — kept for HTML compatibility */
 .get-card-bg { display: none; }
+
+/* ── Animated border ring — flows 1 → 2 → 5 → 4 → 3 → 6 → 7
+   Each card has its own active window (2s out of 14s cycle), then the
+   bright spot rotates around its perimeter once before fading. The
+   conic-gradient rotates counter-clockwise to read "down then right"
+   from the top-left starting position. ── */
+@property --ring-from {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: -90deg;
+}
+
+.get-card::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: 22px;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--ring-from),
+    transparent 0%,
+    rgba(255, 220, 130, 0.45) 5%,
+    rgba(255, 245, 200, 1) 10%,
+    rgba(255, 220, 130, 0.55) 16%,
+    transparent 24%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+  animation: bentoRingFlow 14s linear infinite;
+}
+
+/* Sequential animation-delays: cycle 1 → 2 → 5 → 4 → 3 → 6 → 7 */
+.get-card:nth-child(1)::before { animation-delay: 0s; }
+.get-card:nth-child(2)::before { animation-delay: -12s; } /* active at +2s */
+.get-card:nth-child(5)::before { animation-delay: -10s; } /* +4s */
+.get-card:nth-child(4)::before { animation-delay: -8s; }  /* +6s */
+.get-card:nth-child(3)::before { animation-delay: -6s; }  /* +8s */
+.get-card:nth-child(6)::before { animation-delay: -4s; }  /* +10s */
+.get-card:nth-child(7)::before { animation-delay: -2s; }  /* +12s */
+
+/* Hover: also ignite the ring instantly */
+.get-card:hover::before { opacity: 1; animation-play-state: paused; }
+
+@keyframes bentoRingFlow {
+  /* 14s cycle. The active window is the first ~14% (≈2s).
+     During active window: fade in, rotate -360deg (CCW = down-right
+     from top-left), fade out. After: invisible. */
+  0%   { opacity: 0;    --ring-from: -90deg; }
+  3%   { opacity: 0.5;  --ring-from: -90deg; }
+  6%   { opacity: 1;    --ring-from: -180deg; }
+  10%  { opacity: 1;    --ring-from: -360deg; }
+  13%  { opacity: 0.5;  --ring-from: -450deg; }
+  16%  { opacity: 0;    --ring-from: -450deg; }
+  100% { opacity: 0;    --ring-from: -450deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .get-card::before { animation: none; opacity: 0; }
+  .get-card:hover::before { opacity: 1; }
+}
 
 /* Inner content (h3, p) sits above the watermark number */
 .get-card > h3,
@@ -1056,31 +1134,26 @@ section { padding: 120px 24px; }
   font-variant-numeric: tabular-nums;
   text-align: right;
 }
-/* Hero / wide cards (1 and 7) get even bigger numbers — they have more space */
 .get-card:nth-child(1) .get-num,
 .get-card:nth-child(7) .get-num {
   font-size: clamp(120px, 12vw, 200px);
   letter-spacing: -0.07em;
 }
 
-/* ── Title & body ── */
+/* ── Title & body — back to natural positions; they overlay the watermark ── */
 .get-card h3 {
   font-size: 22px;
   font-weight: 700;
   color: var(--c-near);
   letter-spacing: -0.02em;
   margin-bottom: 10px;
-  margin-top: 28px;
   line-height: 1.2;
-  /* Leave room next to the watermark number on the right */
-  padding-right: 20px;
 }
 .get-card:nth-child(1) h3,
 .get-card:nth-child(7) h3 {
   font-size: clamp(26px, 2.4vw, 32px);
   letter-spacing: -0.025em;
   margin-bottom: 12px;
-  margin-top: 36px;
 }
 .get-card p {
   font-size: 15px;
