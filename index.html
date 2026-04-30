@@ -2277,34 +2277,34 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span class="stat-n"
             data-countup
             data-prefix=""
-            data-suffix=""
-            data-from="0"
-            data-to="7"
+            data-suffix="+"
+            data-from="700"
+            data-to="1500000"
             data-decimals="0"
-            data-duration="1800">7</span>
-      <span class="stat-l">Premium assets in the bundle</span>
+            data-duration="1800">1,500,000+</span>
+      <span class="stat-l">Stores launched worldwide</span>
     </div>
     <div class="stat-item">
       <span class="stat-n"
             data-countup
             data-prefix="$"
-            data-suffix=""
+            data-suffix="B+"
             data-from="0"
-            data-to="2599"
-            data-decimals="0"
-            data-duration="1800">$2,599</span>
-      <span class="stat-l">Total value — yours for free</span>
+            data-to="1.5"
+            data-decimals="1"
+            data-duration="1800">$1.5B+</span>
+      <span class="stat-l">Earned by store owners</span>
     </div>
     <div class="stat-item">
       <span class="stat-n"
             data-countup
             data-prefix=""
-            data-suffix="+"
+            data-suffix="★"
             data-from="0"
-            data-to="1500000"
-            data-decimals="0"
-            data-duration="1800">1,500,000+</span>
-      <span class="stat-l">Stores already launched</span>
+            data-to="4.8"
+            data-decimals="1"
+            data-duration="1800">4.8★</span>
+      <span class="stat-l">Average customer rating</span>
     </div>
   </div>
 </div>
@@ -2369,7 +2369,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 .freebasic-section .pv-phone {
   position: relative;
   width: 280px;
-  height: 604px;
+  height: var(--pv-phone-h, 604px);
   background: transparent;
   border-radius: 18px;
   padding: 0;
@@ -2399,9 +2399,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   will-change: transform;
 }
 @keyframes pvScreenScroll {
-  0%,   8%   { transform: translateY(0); }                  /* hold at top */
-  50%, 58%   { transform: translateY(calc(-100% + 604px)); } /* hold at bottom */
-  100%       { transform: translateY(0); }                  /* back to top */
+  0%,   8%   { transform: translateY(0); }                                    /* hold at top */
+  50%, 58%   { transform: translateY(calc(-100% + var(--pv-phone-h, 604px))); } /* hold at bottom */
+  100%       { transform: translateY(0); }                                    /* back to top */
 }
 /* Nav bar — white */
 .freebasic-section .pv-store-nav-bar {
@@ -2573,8 +2573,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .freebasic-section .pv-stat-today { left: -160px; width: 230px; }
 }
 @media (max-width: 768px) {
-  .freebasic-section .pv-stat-new   { right: -40px; width: 180px; }
-  .freebasic-section .pv-stat-today { left: -50px;  width: 200px; top: calc(6% + 60px); }
+  .freebasic-section .pv-stat-new   { right: -40px; width: 180px; top: calc(6% + 100px); }
+  .freebasic-section .pv-stat-today { left: -45px;  width: 200px; top: calc(6% + 240px); }
+  /* Phone is 200px shorter on mobile — keyframe distance auto-adapts via --pv-phone-h */
+  .freebasic-section .pv-phone        { --pv-phone-h: 404px; }
+  .freebasic-section .pv-screen-img   { --pv-phone-h: 404px; }
+  /* Tighten the stage to the actual content (phone + overflowing cards) */
+  .freebasic-section .bonus-right.pv-stage { min-height: 510px; }
 }
 .freebasic-section .pv-float-card-top {
   display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
@@ -2634,8 +2639,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="pv-phone-wrap">
 
         <!-- Stat overlays on top of phone -->
-        <img class="pv-stat pv-stat-new"   src="img/freebasic/New%20order.webp"      alt="New order received">
-        <img class="pv-stat pv-stat-today" src="img/freebasic/Today's%20Orders.webp" alt="Today's orders summary">
+        <img class="pv-stat pv-stat-new"   src="img/freebasic/New%20order.webp"      alt="New order received" width="640" height="196" loading="lazy">
+        <picture>
+          <source media="(max-width: 768px)" srcset="img/freebasic/Today's%20Orders_m.webp">
+          <img class="pv-stat pv-stat-today" src="img/freebasic/Today's%20Orders.webp" alt="Today's orders summary" width="700" height="937" loading="lazy">
+        </picture>
 
         <!-- Top-right floating card: revenue (Figma: dollar-circle) -->
         <div class="pv-float-card pv-fc-1">
@@ -2690,7 +2698,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- Phone -->
         <div class="pv-phone">
           <div class="pv-phone-screen">
-            <img class="pv-screen-img" src="img/freebasic/screen.webp" alt="Mobile store screen">
+            <img class="pv-screen-img" src="img/freebasic/screen2.webp" alt="Mobile store screen" width="1200" height="3011" loading="lazy">
           </div>
         </div>
 
@@ -2700,7 +2708,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- RIGHT (text) -->
     <div class="bonus-left">
       <span class="bonus-pill">STEP 1 — YOUR STORE</span>
-      <h2 class="bonus-heading">Your own online store,<br>ready to sell.</h2>
+      <h2 class="bonus-heading">Your own ecommerce site,<br>ready to sell.</h2>
       <p class="bonus-sub">A complete done-for-you online store — custom domain, mobile-ready design, payment system, and 100+ best-selling products already inside. Yours from day one, no setup needed.</p>
       <ul class="bullets">
         <li class="bullet-item">
@@ -3261,19 +3269,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="store-marquee appear-scale d2">
     <div class="store-strip">
-      <div class="store-card"><img src="img/stores/2639.webp" alt="Dating store – Find Your Connection"></div>
-      <div class="store-card"><img src="img/stores/3934.webp" alt="Parenting store – Parenting Made Easier"></div>
-      <div class="store-card"><img src="img/stores/2635.webp" alt="Health & Wellness store – Your Wellness Journey"></div>
-      <div class="store-card"><img src="img/stores/2637.webp" alt="Business & Career store – Build Your Career"></div>
-      <div class="store-card"><img src="img/stores/3945.webp" alt="Self-improvement store – Unlock Your Best Self"></div>
-      <div class="store-card"><img src="img/stores/2638.webp" alt="Pet Care store – Happy Pets, Happy Life"></div>
+      <div class="store-card"><img src="img/stores/2639.webp" alt="Dating store – Find Your Connection" width="1376" height="768"></div>
+      <div class="store-card"><img src="img/stores/3934.webp" alt="Parenting store – Parenting Made Easier" width="2752" height="1536"></div>
+      <div class="store-card"><img src="img/stores/2635.webp" alt="Health & Wellness store – Your Wellness Journey" width="1376" height="768"></div>
+      <div class="store-card"><img src="img/stores/2637.webp" alt="Business & Career store – Build Your Career" width="1376" height="768"></div>
+      <div class="store-card"><img src="img/stores/3945.webp" alt="Self-improvement store – Unlock Your Best Self" width="2752" height="1536"></div>
+      <div class="store-card"><img src="img/stores/2638.webp" alt="Pet Care store – Happy Pets, Happy Life" width="1376" height="768"></div>
       <!-- Duplicate set for seamless loop -->
-      <div class="store-card"><img src="img/stores/2639.webp" alt="Dating store – Find Your Connection"></div>
-      <div class="store-card"><img src="img/stores/3934.webp" alt="Parenting store – Parenting Made Easier"></div>
-      <div class="store-card"><img src="img/stores/2635.webp" alt="Health & Wellness store – Your Wellness Journey"></div>
-      <div class="store-card"><img src="img/stores/2637.webp" alt="Business & Career store – Build Your Career"></div>
-      <div class="store-card"><img src="img/stores/3945.webp" alt="Self-improvement store – Unlock Your Best Self"></div>
-      <div class="store-card"><img src="img/stores/2638.webp" alt="Pet Care store – Happy Pets, Happy Life"></div>
+      <div class="store-card"><img src="img/stores/2639.webp" alt="Dating store – Find Your Connection" width="1376" height="768"></div>
+      <div class="store-card"><img src="img/stores/3934.webp" alt="Parenting store – Parenting Made Easier" width="2752" height="1536"></div>
+      <div class="store-card"><img src="img/stores/2635.webp" alt="Health & Wellness store – Your Wellness Journey" width="1376" height="768"></div>
+      <div class="store-card"><img src="img/stores/2637.webp" alt="Business & Career store – Build Your Career" width="1376" height="768"></div>
+      <div class="store-card"><img src="img/stores/3945.webp" alt="Self-improvement store – Unlock Your Best Self" width="2752" height="1536"></div>
+      <div class="store-card"><img src="img/stores/2638.webp" alt="Pet Care store – Happy Pets, Happy Life" width="1376" height="768"></div>
     </div>
   </div>
 
@@ -3295,27 +3303,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <div class="wix-carousel appear d2">
     <div class="wix-track">
-      <div class="wix-card"><img src="img/products/0-discover-your-next-big-business-idea.webp" alt="Discover Your Next Big Business Idea"></div>
-      <div class="wix-card"><img src="img/products/1-critical-thinking-amp-problem-solving-ebook.webp" alt="Critical Thinking & Problem Solving eBook"></div>
-      <div class="wix-card"><img src="img/products/2-5-days-to-unshakable-dating-confidence.webp" alt="5 Days to Unshakable Dating Confidence"></div>
-      <div class="wix-card"><img src="img/products/3-top-10-must-see-u-s-national-parks-fast-facts.webp" alt="Top 10 Must-See U.S. National Parks + Fast Facts"></div>
-      <div class="wix-card"><img src="img/products/4-first-time-parent-survival-guide.webp" alt="First-Time Parent Survival Guide"></div>
-      <div class="wix-card"><img src="img/products/5-sleep-reset-guided-audio-course-for-restful-nights.webp" alt="Sleep Reset: Guided Audio Course for Restful Nights"></div>
-      <div class="wix-card"><img src="img/products/6-pet-travel-essentials-checklist-for-safe-trips.webp" alt="Pet Travel Essentials Checklist for Safe Trips"></div>
-      <div class="wix-card"><img src="img/products/7-the-empowered-budgeting-toolkit.webp" alt="The Empowered Budgeting Toolkit"></div>
-      <div class="wix-card"><img src="img/products/8-healthy-meal-plan-amp-recipe-collection.webp" alt="Healthy Meal Plan & Recipe Collection"></div>
-      <div class="wix-card"><img src="img/products/9-step-by-step-career-development-guide.webp" alt="Step-by-Step Career Development Guide"></div>
+      <div class="wix-card"><img src="img/products/0-discover-your-next-big-business-idea.webp" alt="Discover Your Next Big Business Idea" width="600" height="730"></div>
+      <div class="wix-card"><img src="img/products/1-critical-thinking-amp-problem-solving-ebook.webp" alt="Critical Thinking & Problem Solving eBook" width="600" height="730"></div>
+      <div class="wix-card"><img src="img/products/2-5-days-to-unshakable-dating-confidence.webp" alt="5 Days to Unshakable Dating Confidence" width="600" height="730"></div>
+      <div class="wix-card"><img src="img/products/3-top-10-must-see-u-s-national-parks-fast-facts.webp" alt="Top 10 Must-See U.S. National Parks + Fast Facts" width="600" height="730"></div>
+      <div class="wix-card"><img src="img/products/4-first-time-parent-survival-guide.webp" alt="First-Time Parent Survival Guide" width="600" height="730"></div>
+      <div class="wix-card"><img src="img/products/5-sleep-reset-guided-audio-course-for-restful-nights.webp" alt="Sleep Reset: Guided Audio Course for Restful Nights" width="600" height="730"></div>
+      <div class="wix-card"><img src="img/products/6-pet-travel-essentials-checklist-for-safe-trips.webp" alt="Pet Travel Essentials Checklist for Safe Trips" width="600" height="730"></div>
+      <div class="wix-card"><img src="img/products/7-the-empowered-budgeting-toolkit.webp" alt="The Empowered Budgeting Toolkit" width="600" height="730"></div>
+      <div class="wix-card"><img src="img/products/8-healthy-meal-plan-amp-recipe-collection.webp" alt="Healthy Meal Plan & Recipe Collection" width="600" height="730"></div>
+      <div class="wix-card"><img src="img/products/9-step-by-step-career-development-guide.webp" alt="Step-by-Step Career Development Guide" width="600" height="730"></div>
       <!-- Duplicate for seamless loop -->
-      <div class="wix-card"><img src="img/products/0-discover-your-next-big-business-idea.webp" alt="Discover Your Next Big Business Idea"></div>
-      <div class="wix-card"><img src="img/products/1-critical-thinking-amp-problem-solving-ebook.webp" alt="Critical Thinking & Problem Solving eBook"></div>
-      <div class="wix-card"><img src="img/products/2-5-days-to-unshakable-dating-confidence.webp" alt="5 Days to Unshakable Dating Confidence"></div>
-      <div class="wix-card"><img src="img/products/3-top-10-must-see-u-s-national-parks-fast-facts.webp" alt="Top 10 Must-See U.S. National Parks + Fast Facts"></div>
-      <div class="wix-card"><img src="img/products/4-first-time-parent-survival-guide.webp" alt="First-Time Parent Survival Guide"></div>
-      <div class="wix-card"><img src="img/products/5-sleep-reset-guided-audio-course-for-restful-nights.webp" alt="Sleep Reset: Guided Audio Course for Restful Nights"></div>
-      <div class="wix-card"><img src="img/products/6-pet-travel-essentials-checklist-for-safe-trips.webp" alt="Pet Travel Essentials Checklist for Safe Trips"></div>
-      <div class="wix-card"><img src="img/products/7-the-empowered-budgeting-toolkit.webp" alt="The Empowered Budgeting Toolkit"></div>
-      <div class="wix-card"><img src="img/products/8-healthy-meal-plan-amp-recipe-collection.webp" alt="Healthy Meal Plan & Recipe Collection"></div>
-      <div class="wix-card"><img src="img/products/9-step-by-step-career-development-guide.webp" alt="Step-by-Step Career Development Guide"></div>
+      <div class="wix-card"><img src="img/products/0-discover-your-next-big-business-idea.webp" alt="Discover Your Next Big Business Idea" width="600" height="730"></div>
+      <div class="wix-card"><img src="img/products/1-critical-thinking-amp-problem-solving-ebook.webp" alt="Critical Thinking & Problem Solving eBook" width="600" height="730"></div>
+      <div class="wix-card"><img src="img/products/2-5-days-to-unshakable-dating-confidence.webp" alt="5 Days to Unshakable Dating Confidence" width="600" height="730"></div>
+      <div class="wix-card"><img src="img/products/3-top-10-must-see-u-s-national-parks-fast-facts.webp" alt="Top 10 Must-See U.S. National Parks + Fast Facts" width="600" height="730"></div>
+      <div class="wix-card"><img src="img/products/4-first-time-parent-survival-guide.webp" alt="First-Time Parent Survival Guide" width="600" height="730"></div>
+      <div class="wix-card"><img src="img/products/5-sleep-reset-guided-audio-course-for-restful-nights.webp" alt="Sleep Reset: Guided Audio Course for Restful Nights" width="600" height="730"></div>
+      <div class="wix-card"><img src="img/products/6-pet-travel-essentials-checklist-for-safe-trips.webp" alt="Pet Travel Essentials Checklist for Safe Trips" width="600" height="730"></div>
+      <div class="wix-card"><img src="img/products/7-the-empowered-budgeting-toolkit.webp" alt="The Empowered Budgeting Toolkit" width="600" height="730"></div>
+      <div class="wix-card"><img src="img/products/8-healthy-meal-plan-amp-recipe-collection.webp" alt="Healthy Meal Plan & Recipe Collection" width="600" height="730"></div>
+      <div class="wix-card"><img src="img/products/9-step-by-step-career-development-guide.webp" alt="Step-by-Step Career Development Guide" width="600" height="730"></div>
     </div>
   </div>
 
@@ -3336,19 +3344,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="awards-grid">
       <div class="award-card appear d1">
-        <img class="award-logo" src="img/Awards/1_logo_m.webp" alt="Hermes Awards">
+        <img class="award-logo" src="img/Awards/1_logo_m.webp" alt="Hermes Awards" width="1300" height="500" loading="lazy">
         <h3>Hermes Awards</h3>
         <p>Best IT Product 2025–2026</p>
         <span class="award-medal gold">Gold Winner</span>
       </div>
       <div class="award-card appear d2">
-        <img class="award-logo" src="img/Awards/2_logo_m.webp?v=2" alt="MarCom Awards">
+        <img class="award-logo" src="img/Awards/2_logo_m.webp?v=2" alt="MarCom Awards" width="941" height="500" loading="lazy">
         <h3>MarCom Awards</h3>
         <p>Best Ecommerce Platform</p>
         <span class="award-medal plat">Platinum Winner</span>
       </div>
       <div class="award-card appear d3">
-        <img class="award-logo" src="img/Awards/3_logo_m.webp" alt="dotCOMM Awards">
+        <img class="award-logo" src="img/Awards/3_logo_m.webp" alt="dotCOMM Awards" width="1311" height="501" loading="lazy">
         <h3>dotCOMM Awards</h3>
         <p>Best Ecommerce Ecosystem</p>
         <span class="award-medal gold">Gold Winner</span>
@@ -3389,10 +3397,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
   <div class="ratings-inner">
-    <div class="rat-card appear d1"><img class="rat-logo" src="img/ratings/sitejabber.svg" alt="Sitejabber"><div class="rat-stars">★★★★★</div><div class="rat-score">4.8</div><div class="rat-count">824 reviews</div></div>
-    <div class="rat-card appear d2"><img class="rat-logo" src="img/ratings/trustpilot.svg" alt="Trustpilot"><div class="rat-stars">★★★★★</div><div class="rat-score">4.6</div><div class="rat-count">1,115 reviews</div></div>
-    <div class="rat-card appear d3"><img class="rat-logo" src="img/ratings/facebook.svg" alt="Facebook"><div class="rat-stars">★★★★★</div><div class="rat-score">96%</div><div class="rat-count">510 reviews</div></div>
-    <div class="rat-card appear d4"><img class="rat-logo" src="img/ratings/g2.svg" alt="G2"><div class="rat-stars">★★★★★</div><div class="rat-score">4.7</div><div class="rat-count">249 reviews</div></div>
+    <div class="rat-card appear d1"><img class="rat-logo" src="img/ratings/sitejabber.svg" alt="Sitejabber" loading="lazy"><div class="rat-stars">★★★★★</div><div class="rat-score">4.8</div><div class="rat-count">824 reviews</div></div>
+    <div class="rat-card appear d2"><img class="rat-logo" src="img/ratings/trustpilot.svg" alt="Trustpilot" loading="lazy"><div class="rat-stars">★★★★★</div><div class="rat-score">4.6</div><div class="rat-count">1,115 reviews</div></div>
+    <div class="rat-card appear d3"><img class="rat-logo" src="img/ratings/facebook.svg" alt="Facebook" loading="lazy"><div class="rat-stars">★★★★★</div><div class="rat-score">96%</div><div class="rat-count">510 reviews</div></div>
+    <div class="rat-card appear d4"><img class="rat-logo" src="img/ratings/g2.svg" alt="G2" loading="lazy"><div class="rat-stars">★★★★★</div><div class="rat-score">4.7</div><div class="rat-count">249 reviews</div></div>
   </div>
 </div>
 
@@ -3407,7 +3415,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="test-grid">
       <div class="test-card appear d1">
         <div class="test-thumb" data-video="https://sellvia.com/wp-content/uploads/reviews/ruby_review%20(1080p).mp4" data-poster="img/reviews/ruby.webp">
-          <img src="img/reviews/ruby.webp" alt="Ruby" loading="lazy">
+          <img src="img/reviews/ruby.webp" alt="Ruby" loading="lazy" width="394" height="393">
           <div class="test-play"><div class="play-ring"><div class="play-tri"></div></div></div>
         </div>
         <div class="test-body">
@@ -3419,7 +3427,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="test-card appear d2">
         <div class="test-thumb" data-video="https://sellvia.com/wp-content/uploads/reviews/christina_review%20(1080p).mp4" data-poster="img/reviews/christina.webp">
-          <img src="img/reviews/christina.webp" alt="Christina" loading="lazy">
+          <img src="img/reviews/christina.webp" alt="Christina" loading="lazy" width="394" height="393">
           <div class="test-play"><div class="play-ring"><div class="play-tri"></div></div></div>
         </div>
         <div class="test-body">
@@ -3431,7 +3439,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="test-card appear d3">
         <div class="test-thumb" data-video="https://sellvia.com/wp-content/uploads/reviews/rodney_review_2_(1080p).mp4" data-poster="img/reviews/rodney.webp">
-          <img src="img/reviews/rodney.webp" alt="Rodney" loading="lazy">
+          <img src="img/reviews/rodney.webp" alt="Rodney" loading="lazy" width="394" height="393">
           <div class="test-play"><div class="play-ring"><div class="play-tri"></div></div></div>
         </div>
         <div class="test-body">
@@ -3443,7 +3451,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="test-card appear d1">
         <div class="test-thumb" data-video="https://sellvia.com/wp-content/uploads/reviews/jack_review%20(1080p).mp4" data-poster="img/reviews/jack.webp">
-          <img src="img/reviews/jack.webp" alt="Jack" loading="lazy">
+          <img src="img/reviews/jack.webp" alt="Jack" loading="lazy" width="394" height="393">
           <div class="test-play"><div class="play-ring"><div class="play-tri"></div></div></div>
         </div>
         <div class="test-body">
@@ -3455,7 +3463,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="test-card appear d2">
         <div class="test-thumb" data-video="https://sellvia.com/wp-content/uploads/reviews/ksenia_review%20(1080p).mp4" data-poster="img/reviews/ksenia.webp">
-          <img src="img/reviews/ksenia.webp" alt="Ksenia" loading="lazy">
+          <img src="img/reviews/ksenia.webp" alt="Ksenia" loading="lazy" width="394" height="393">
           <div class="test-play"><div class="play-ring"><div class="play-tri"></div></div></div>
         </div>
         <div class="test-body">
@@ -3467,7 +3475,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="test-card appear d3">
         <div class="test-thumb" data-video="https://sellvia.com/wp-content/uploads/reviews/miandra_review%20(1080p).mp4" data-poster="img/reviews/miandra.webp">
-          <img src="img/reviews/miandra.webp" alt="Miandra" loading="lazy">
+          <img src="img/reviews/miandra.webp" alt="Miandra" loading="lazy" width="394" height="393">
           <div class="test-play"><div class="play-ring"><div class="play-tri"></div></div></div>
         </div>
         <div class="test-body">
