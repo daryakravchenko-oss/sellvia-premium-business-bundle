@@ -935,7 +935,7 @@ section { padding: 120px 24px; }
 /* Selectors target #bonus / .bonus-section. The legacy reference rule for
    .bonus-section (background + padding) above is harmless — both rules merge cleanly. */
 .bonus-section.is-bento {
-  background: var(--c-lightbg);
+  background: #ffffff;
   position: relative;
   overflow: hidden;
 }
@@ -972,28 +972,35 @@ section { padding: 120px 24px; }
 .get-card:nth-child(6) { grid-column: span 2; }
 .get-card:nth-child(7) { grid-column: span 4; }
 
-/* ── Card: Stripe modular-solutions-bento-card pattern ── */
+/* ── Card: 3 large light-gold blobs, shared via background-attachment: fixed
+   so the gradient appears as one continuous fill across all cards. The
+   section's own bg stays pure white, hiding the gradient between cards. ── */
 .get-card {
   position: relative;
-  background: #fff;
+  background-color: #ffffff;
+  background-image:
+    radial-gradient(60% 55% at 18% 28%, rgba(212, 160, 74, 0.32) 0%, rgba(212, 160, 74, 0.18) 25%, transparent 70%),
+    radial-gradient(50% 50% at 75% 60%, rgba(255, 215, 130, 0.30) 0%, rgba(255, 215, 130, 0.16) 25%, transparent 70%),
+    radial-gradient(58% 50% at 50% 92%, rgba(245, 197, 96, 0.28) 0%, rgba(245, 197, 96, 0.14) 25%, transparent 70%);
+  background-attachment: fixed;
   border-radius: 20px;
   padding: 32px 32px 28px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.05);
   isolation: isolate;
   cursor: default;
   transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), border-color 0.35s var(--ease);
 }
 .get-card::before {
-  /* Stripe-like gradient border on hover */
+  /* Soft gold gradient border on hover (single hue, tied to the gold theme) */
   content: '';
   position: absolute;
   inset: -1px;
   border-radius: 21px;
   padding: 1px;
-  background: linear-gradient(135deg, var(--card-c1, #f5a623), var(--card-c2, #ff6820));
+  background: linear-gradient(135deg, rgba(212, 160, 74, 0.7), rgba(255, 215, 130, 0.85), rgba(212, 160, 74, 0.7));
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
@@ -1004,78 +1011,76 @@ section { padding: 120px 24px; }
 }
 .get-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 18px 48px rgba(0,0,0,0.08);
+  box-shadow: 0 18px 48px rgba(184, 134, 46, 0.10);
   border-color: transparent;
 }
 .get-card:hover::before { opacity: 1; }
-
-/* ── Background graphic blob (Stripe bento-card __graphic equivalent) ── */
-.get-card-bg {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-  border-radius: inherit;
-}
-.get-card-bg::after {
-  content: '';
-  position: absolute;
-  width: 70%;
-  height: 130%;
-  right: -20%;
-  bottom: -30%;
-  background: radial-gradient(circle at center, var(--card-c1, #f5a623) 0%, var(--card-c2, #ff6820) 55%, transparent 75%);
-  opacity: 0.14;
-  filter: blur(20px);
-  transition: opacity 0.4s var(--ease), transform 0.6s var(--ease);
-}
-.get-card:hover .get-card-bg::after {
-  opacity: 0.22;
-  transform: scale(1.05);
+/* iOS Safari falls back to local attachment — graceful degradation:
+   each card just shows the gradient relative to itself. */
+@supports (-webkit-touch-callout: none) {
+  .get-card { background-attachment: scroll; }
 }
 
-/* Inner content sits above the graphic */
-.get-card > .get-icon,
+/* The empty .get-card-bg div is no longer used for visuals — keep it
+   inert in case it's referenced elsewhere. */
+.get-card-bg { display: none; }
+
+/* Inner content (h3, p) sits above the watermark number */
 .get-card > h3,
 .get-card > p { position: relative; z-index: 2; }
 
-/* ── Numbered badge (Stripe dialog-entry style: small, with card colour) ── */
+/* ── Watermark number — top-right corner, very large, subtle gold tint ── */
 .get-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 11px;
-  background: var(--card-icon-bg, rgba(245,166,35,0.12));
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 22px;
-  overflow: hidden;
+  position: absolute;
+  top: 18px;
+  right: 28px;
+  width: auto;
+  height: auto;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  pointer-events: none;
+  z-index: 1;
+  display: block;
+  overflow: visible;
   flex-shrink: 0;
 }
 .get-num {
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--card-c1, var(--c-amber));
-  line-height: 1;
-  letter-spacing: -0.03em;
+  display: block;
+  font-size: clamp(80px, 9vw, 140px);
+  font-weight: 900;
+  color: rgba(184, 134, 46, 0.18);
+  line-height: 0.85;
+  letter-spacing: -0.06em;
   font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+/* Hero / wide cards (1 and 7) get even bigger numbers — they have more space */
+.get-card:nth-child(1) .get-num,
+.get-card:nth-child(7) .get-num {
+  font-size: clamp(120px, 12vw, 200px);
+  letter-spacing: -0.07em;
 }
 
-/* ── Title — Stripe md heading on regular cards, lg on hero/wide ── */
+/* ── Title & body ── */
 .get-card h3 {
   font-size: 22px;
   font-weight: 700;
   color: var(--c-near);
   letter-spacing: -0.02em;
   margin-bottom: 10px;
+  margin-top: 28px;
   line-height: 1.2;
+  /* Leave room next to the watermark number on the right */
+  padding-right: 20px;
 }
 .get-card:nth-child(1) h3,
 .get-card:nth-child(7) h3 {
   font-size: clamp(26px, 2.4vw, 32px);
   letter-spacing: -0.025em;
   margin-bottom: 12px;
+  margin-top: 36px;
 }
 .get-card p {
   font-size: 15px;
@@ -1090,15 +1095,6 @@ section { padding: 120px 24px; }
   font-size: 16px;
   max-width: 540px;
 }
-
-/* ── Per-card colour palette (Stripe-style) ── */
-.get-card:nth-child(1) { --card-c1: #f5a623; --card-c2: #ff6820; --card-icon-bg: rgba(245,166,35,0.12); }
-.get-card:nth-child(2) { --card-c1: #0071e3; --card-c2: #5eaaff; --card-icon-bg: rgba(0,113,227,0.12); --card-icon-filter: invert(34%) sepia(95%) saturate(2200%) hue-rotate(202deg) brightness(95%); }
-.get-card:nth-child(3) { --card-c1: #ff9900; --card-c2: #ffb84d; --card-icon-bg: rgba(255,153,0,0.14); --card-icon-filter: invert(60%) sepia(70%) saturate(2400%) hue-rotate(1deg) brightness(102%); }
-.get-card:nth-child(4) { --card-c1: #8b5cf6; --card-c2: #c084fc; --card-icon-bg: rgba(139,92,246,0.13); --card-icon-filter: invert(40%) sepia(72%) saturate(2200%) hue-rotate(238deg) brightness(95%); }
-.get-card:nth-child(5) { --card-c1: #34a853; --card-c2: #6dd58c; --card-icon-bg: rgba(52,168,83,0.13); --card-icon-filter: invert(48%) sepia(80%) saturate(540%) hue-rotate(85deg) brightness(95%); }
-.get-card:nth-child(6) { --card-c1: #14b8a6; --card-c2: #5eead4; --card-icon-bg: rgba(20,184,166,0.13); --card-icon-filter: invert(60%) sepia(85%) saturate(450%) hue-rotate(135deg) brightness(95%); }
-.get-card:nth-child(7) { --card-c1: #ec4899; --card-c2: #f0abfc; --card-icon-bg: rgba(236,72,153,0.12); --card-icon-filter: invert(50%) sepia(90%) saturate(2400%) hue-rotate(303deg) brightness(95%); }
 
 /* ── Tablet: 4-col grid, simpler asymmetry ── */
 @media (max-width: 1100px) {
@@ -1540,22 +1536,101 @@ section { padding: 120px 24px; }
 .faq-cta .faq-cta-fine { font-size: 13px; color: rgba(255,255,255,0.3); text-align: center; margin-top: 14px; margin-bottom: 0; }
 @media(max-width:820px) { .faq-layout { grid-template-columns: 1fr; } .faq-cta { position: static; } .faq-cta h3, .faq-cta p { text-align: center; } }
 
-/* ════ FINAL CTA ════ */
+/* ════ FINAL CTA — echoes the Hero V2 gold-aurora vibe, brighter ════ */
 .final-sec {
-  background: linear-gradient(180deg, #1d1d1f 0%, #000 100%);
-  padding: 120px 24px;
+  background: #02040c;
+  padding: 140px 24px 130px;
   text-align: center;
   position: relative;
   overflow: hidden;
+  isolation: isolate;
 }
+/* Hero-style gold aurora — same blob pattern as the hero, brighter (opacity .8) */
+.final-aurora {
+  position: absolute; inset: -10%;
+  z-index: 0; pointer-events: none;
+  filter: blur(80px) saturate(1.4);
+  opacity: 0.8;
+}
+.final-aurora .blob { position: absolute; border-radius: 50%; mix-blend-mode: screen; will-change: transform, opacity; }
+.final-aurora .b1 { width: 60%; height: 65%; left: -10%; top: -15%;
+  background: radial-gradient(circle at center, #f0c977 0%, transparent 65%);
+  animation: finalDrift1 22s ease-in-out infinite; }
+.final-aurora .b2 { width: 55%; height: 60%; right: -8%; top: -12%;
+  background: radial-gradient(circle at center, #ffd576 0%, transparent 65%);
+  animation: finalDrift2 26s ease-in-out infinite; }
+.final-aurora .b3 { width: 65%; height: 60%; left: 15%; bottom: -22%;
+  background: radial-gradient(circle at center, #d4a04a 0%, transparent 65%);
+  animation: finalDrift3 30s ease-in-out infinite; }
+.final-aurora .b4 { width: 50%; height: 55%; right: 8%; bottom: -15%;
+  background: radial-gradient(circle at center, #e8b873 0%, transparent 65%);
+  animation: finalDrift4 34s ease-in-out infinite; }
+.final-aurora .b5 { width: 45%; height: 50%; left: 38%; top: 28%;
+  background: radial-gradient(circle at center, #b8862e 0%, transparent 65%);
+  animation: finalDrift5 28s ease-in-out infinite; }
+@keyframes finalDrift1 { 0%,100%{transform:translate(0,0)scale(1);opacity:1}    33%{transform:translate(10%,8%)scale(1.15);opacity:1.05} 66%{transform:translate(-5%,12%)scale(.95);opacity:.85} }
+@keyframes finalDrift2 { 0%,100%{transform:translate(0,0)scale(1);opacity:.85}  50%{transform:translate(-12%,10%)scale(1.18);opacity:1.05} }
+@keyframes finalDrift3 { 0%,100%{transform:translate(0,0)scale(1);opacity:.9}   40%{transform:translate(8%,-10%)scale(1.12);opacity:1.05} 70%{transform:translate(-10%,-5%)scale(.92);opacity:.75} }
+@keyframes finalDrift4 { 0%,100%{transform:translate(0,0)scale(1);opacity:.7}   50%{transform:translate(-14%,-12%)scale(1.2);opacity:1} }
+@keyframes finalDrift5 { 0%,100%{transform:translate(0,0)scale(.95);opacity:.65} 50%{transform:translate(10%,-7%)scale(1.12);opacity:.95} }
+
+/* Faint diagonal grid (matches hero) */
+.final-sec::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(232,184,115,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232,184,115,0.05) 1px, transparent 1px);
+  background-size: 80px 80px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 95%);
+          mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 95%);
+  z-index: 1; pointer-events: none;
+}
+
+/* Floating gold sparks (same as hero, mid-density) */
+.final-spark {
+  position: absolute; pointer-events: none; border-radius: 50%;
+  mix-blend-mode: screen; will-change: transform, opacity;
+  animation-timing-function: ease-in-out; animation-iteration-count: infinite;
+}
+.final-spark.s1 { left: 10%; top: 30%; width: 14px; height: 14px;
+  background: radial-gradient(circle, #f4d28a 0%, rgba(244,210,138,.35) 35%, transparent 70%);
+  box-shadow: 0 0 26px 7px rgba(244,210,138,.5);
+  z-index: 2; animation-name: finalSpark1; animation-duration: 18s; }
+.final-spark.s2 { right: 12%; top: 22%; width: 10px; height: 10px;
+  background: radial-gradient(circle, #e8b873 0%, rgba(232,184,115,.35) 35%, transparent 70%);
+  box-shadow: 0 0 22px 6px rgba(232,184,115,.45);
+  z-index: 2; animation-name: finalSpark2; animation-duration: 22s; }
+.final-spark.s3 { left: 20%; bottom: 18%; width: 8px; height: 8px;
+  background: radial-gradient(circle, #fff0c8 0%, rgba(255,240,200,.4) 35%, transparent 70%);
+  box-shadow: 0 0 18px 5px rgba(255,240,200,.55);
+  z-index: 2; animation-name: finalSpark3; animation-duration: 26s; }
+.final-spark.s4 { right: 18%; bottom: 22%; width: 16px; height: 16px;
+  background: radial-gradient(circle, #d4a04a 0%, rgba(212,160,74,.3) 35%, transparent 70%);
+  box-shadow: 0 0 30px 8px rgba(212,160,74,.4);
+  z-index: 2; animation-name: finalSpark4; animation-duration: 30s; }
+@keyframes finalSpark1 { 0%,100%{transform:translate(0,0);opacity:.7} 25%{transform:translate(50px,-40px);opacity:1} 50%{transform:translate(100px,15px);opacity:.6} 75%{transform:translate(30px,50px);opacity:.9} }
+@keyframes finalSpark2 { 0%,100%{transform:translate(0,0);opacity:.65} 33%{transform:translate(-60px,40px);opacity:1} 66%{transform:translate(20px,70px);opacity:.55} }
+@keyframes finalSpark3 { 0%,100%{transform:translate(0,0);opacity:.55} 25%{transform:translate(70px,-60px);opacity:1} 50%{transform:translate(140px,-25px);opacity:.75} 75%{transform:translate(90px,40px);opacity:.95} }
+@keyframes finalSpark4 { 0%,100%{transform:translate(0,0);opacity:.7} 50%{transform:translate(-80px,-80px);opacity:1} }
+
+/* Soft vignette to keep edges dark (matches hero) */
+.final-vignette {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, transparent 0%, rgba(2,4,12,0.55) 100%),
+    linear-gradient(180deg, rgba(2,4,12,0.25) 0%, transparent 30%, transparent 70%, rgba(2,4,12,0.45) 100%);
+}
+
+/* Legacy .final-glow still rendered — keep it as a soft top crown */
 .final-glow {
   position: absolute;
-  top: 0; left: 50%; transform: translateX(-50%);
-  width: 600px; height: 400px;
-  background: radial-gradient(ellipse at center top, rgba(245,166,35,0.12) 0%, transparent 65%);
+  top: -50px; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 500px;
+  background: radial-gradient(ellipse at center top, rgba(245,166,35,0.20) 0%, transparent 70%);
   pointer-events: none;
+  z-index: 1;
 }
-.final-in { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+.final-in { position: relative; z-index: 3; max-width: 720px; margin: 0 auto; }
 .final-h2 {
   font-size: clamp(44px, 7vw, 80px);
   font-weight: 700;
@@ -3570,10 +3645,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- ═══ FINAL CTA ═══ -->
 <section class="final-sec">
+  <!-- Hero-style gold aurora behind the CTA — brighter than hero (opacity .8) -->
+  <div class="final-aurora" aria-hidden="true">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+    <div class="blob b4"></div>
+    <div class="blob b5"></div>
+  </div>
+  <div class="final-vignette" aria-hidden="true"></div>
+  <span class="final-spark s1" aria-hidden="true"></span>
+  <span class="final-spark s2" aria-hidden="true"></span>
+  <span class="final-spark s3" aria-hidden="true"></span>
+  <span class="final-spark s4" aria-hidden="true"></span>
   <div class="final-glow"></div>
   <div class="final-in">
     <h2 class="final-h2 appear">This could be the day<br>everything changes.</h2>
-    <p class="final-sub appear d1">Your store, your products, your $2,599 Premium Business Bundle — ready to go.</p>
+    <p class="final-sub appear d1">Your store, your products, your Premium Business Bundle — ready to go.</p>
     <div class="final-btns appear d2">
       <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled">Claim my free bundle</a>
     </div>
