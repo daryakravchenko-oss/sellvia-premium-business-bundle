@@ -2044,16 +2044,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     radial-gradient(ellipse 80% 60% at 50% 50%, transparent 0%, rgba(2,4,12,0.55) 100%),
     linear-gradient(180deg, rgba(2,4,12,0.25) 0%, transparent 30%, transparent 70%, rgba(2,4,12,0.45) 100%);
 }
-.hero--devin-v2::before {
-  content: ''; position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(232,184,115,0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(232,184,115,0.045) 1px, transparent 1px);
-  background-size: 80px 80px;
-  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 90%);
-          mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 0%, transparent 90%);
-  z-index: 2; pointer-events: none;
-}
+.hero--devin-v2::before { content: none; }
 
 /* Floating gold sparks */
 .hero--devin-v2 .spark {
@@ -2114,6 +2105,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   transform-origin: 30% 60%;
   will-change: transform, opacity;
   overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center;
 }
 .hero--devin-v2 .card::before {
   content: ''; position: absolute; inset: 0;
@@ -2161,8 +2153,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 }
 
 .hero--devin-v2 .card-eyebrow {
-  font-family: var(--font-text); font-size: 12px; font-weight: 500;
-  color: rgba(245,225,185,0.7); letter-spacing: 0.01em; margin-bottom: 18px;
+  position: absolute; top: 14px; left: 22px;
+  font-family: var(--font-sans); font-size: 54px; font-weight: 900;
+  letter-spacing: -0.04em; margin: 0; line-height: 1;
+  background: linear-gradient(180deg, rgba(245,225,185,0.9) 0%, rgba(245,225,185,0.06) 100%);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
 }
 .hero--devin-v2 .card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
 .hero--devin-v2 .card-icon {
@@ -2359,68 +2355,68 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- LEFT – animated card stack of 7 bundle items -->
     <div class="stack" id="heroStack">
       <div class="card" data-pos="0">
-        <div class="card-eyebrow">01 · Your online store</div>
+        <div class="card-eyebrow">01</div>
         <div class="card-head">
           <div class="card-icon" style="background: linear-gradient(135deg, #4f9dff, #2563eb)">◆</div>
           <div class="card-title">Turnkey Online Store</div>
         </div>
         <div class="card-line">Products, payments, custom domain – launched for you in minutes.</div>
-        <div class="card-input"><span>Connect your domain…</span><span class="arrow">→</span></div>
+        <div class="card-input"><span>Launch your store…</span><span class="arrow">→</span></div>
       </div>
       <div class="card" data-pos="1">
-        <div class="card-eyebrow">02 · Ad credit</div>
+        <div class="card-eyebrow">02</div>
         <div class="card-head">
           <div class="card-icon" style="background: linear-gradient(135deg, #a78bfa, #7c3aed)">✱</div>
           <div class="card-title">$40 Ad Credit</div>
         </div>
         <div class="card-line">Free advertising credit added to your account on signup.</div>
-        <div class="card-input"><span>Apply credit to first campaign…</span><span class="arrow">→</span></div>
+        <div class="card-input"><span>Apply $40 to your first campaign…</span><span class="arrow">→</span></div>
       </div>
       <div class="card" data-pos="2">
-        <div class="card-eyebrow">03 · Amazon seller kit</div>
+        <div class="card-eyebrow">03</div>
         <div class="card-head">
           <div class="card-icon" style="background: linear-gradient(135deg, #f5a623, #ff6820)">▲</div>
           <div class="card-title">Bonus Amazon Seller Kit</div>
         </div>
         <div class="card-line">Setup guide, ready product feed, and Seller University access.</div>
-        <div class="card-input"><span>Open Amazon Seller Kit…</span><span class="arrow">→</span></div>
+        <div class="card-input"><span>Start selling on Amazon…</span><span class="arrow">→</span></div>
       </div>
       <div class="card" data-pos="3">
-        <div class="card-eyebrow">04 · Premium design</div>
+        <div class="card-eyebrow">04</div>
         <div class="card-head">
           <div class="card-icon" style="background: linear-gradient(135deg, #ec4899, #f43f5e)">●</div>
           <div class="card-title">Premium Store Design</div>
         </div>
         <div class="card-line">Custom theme, polished layout, optimized for conversions.</div>
-        <div class="card-input"><span>Preview your store theme…</span><span class="arrow">→</span></div>
+        <div class="card-input"><span>Preview your store design…</span><span class="arrow">→</span></div>
       </div>
       <div class="card" data-pos="4">
-        <div class="card-eyebrow">05 · Google promotion gift</div>
+        <div class="card-eyebrow">05</div>
         <div class="card-head">
           <div class="card-icon" style="background: linear-gradient(135deg, #14b8a6, #06b6d4)">◇</div>
           <div class="card-title">Google promotion gift</div>
         </div>
         <div class="card-line">A free ad campaign run by our team to bring real buyers from day one.</div>
-        <div class="card-input"><span>Brief our ad team…</span><span class="arrow">→</span></div>
+        <div class="card-input"><span>Launch your Google ad campaign…</span><span class="arrow">→</span></div>
       </div>
       <div class="card" data-pos="5">
-        <div class="card-eyebrow">06 · Personal manager</div>
+        <div class="card-eyebrow">06</div>
         <div class="card-head">
           <div class="card-icon" style="background: linear-gradient(135deg, #22c55e, #16a34a)">▶</div>
           <div class="card-title">Personal manager</div>
         </div>
         <div class="card-line">A real human in your corner for strategy, onboarding and growth.</div>
-        <div class="card-input"><span>Meet your manager…</span><span class="arrow">→</span></div>
+        <div class="card-input"><span>Chat with your personal manager…</span><span class="arrow">→</span></div>
       </div>
       <div class="card" data-pos="6">
-        <div class="card-eyebrow">07 · 1-on-1 business training</div>
+        <div class="card-eyebrow">07</div>
         <div class="card-head">
           <div class="card-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6)">✦</div>
           <div class="card-title">1-on-1 business training, live with your coach</div>
         </div>
         <div class="card-line">Personal coaching sessions on marketing, sales and scaling – tailored to your store and your goals.</div>
         <div class="card-line">Most people pay $399+ per session for this.</div>
-        <div class="card-input"><span>Schedule your first session…</span><span class="arrow">→</span></div>
+        <div class="card-input"><span>Book your 1-on-1 coaching session…</span><span class="arrow">→</span></div>
       </div>
     </div>
 
@@ -2431,14 +2427,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         LIMITED TIME · 7-IN-1 PREMIUM BUNDLE INCLUDED FREE
       </div>
       <h1>
-        Get a <span class="blue">free online store</span> with a <span class="amber">7-in-1 Premium Bundle</span> on top.
+        Get a <span class="blue">free online store</span> with a <span class="amber">Premium Bundle</span> on top.
       </h1>
       <p class="lede">
         Get a ready-made store, products people actually want to buy, and a real
         expert to guide you – all for free. Plus a $2,599 business bundle, on us.
       </p>
       <div class="actions">
-        <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="cta">Get my free store + bundle</a>
+        <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="cta">Get my free store + VIP Bundle</a>
         <button type="button" onclick="SellviaChat.open()" class="cta-link">
           Get free consultation
           <svg class="cta-link-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -3317,7 +3313,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
     <div style="text-align:center;margin-top:64px" class="appear">
-      <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled" id="bundleCtaBtn">Get my free store + bundle</a>
+      <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled" id="bundleCtaBtn">Get my free store + VIP Bundle</a>
       <p style="margin-top:14px;font-size:13px;color:var(--c-gray3)">Get started in less than 60 seconds • Cancel anytime</p>
     </div>
   </div>
@@ -3499,7 +3495,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 
   <div class="store-cta appear d3">
-    <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled">Get my free store + bundle</a>
+    <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled">Get my free store + VIP Bundle</a>
   </div>
 </div>
 
@@ -3541,7 +3537,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 
   <div style="text-align:center;margin-top:48px;" class="appear">
-    <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled">Get my free store + bundle</a>
+    <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled">Get my free store + VIP Bundle</a>
     <p style="margin-top:14px;font-size:12px;color:rgba(255,255,255,0.35)">All products are pre-loaded in your store – no extra cost</p>
   </div>
 </section>
@@ -3769,7 +3765,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="faq-cta appear d2">
           <h3>Claim your free store + Premium Bundle.</h3>
           <p>Seven done-for-you assets, $2,599 in value, yours at no cost. Free 14-day trial.</p>
-          <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled" style="height:60px;font-size:17px">Get my free store + bundle</a>
+          <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled" style="height:60px;font-size:17px">Get my free store + VIP Bundle</a>
           <p class="faq-cta-fine">Get started in less than 60 seconds • Cancel anytime</p>
           <div style="margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;gap:8px">
             <span style="width:8px;height:8px;border-radius:50%;background:#30d158;flex-shrink:0;animation:pulse 2s infinite"></span>
@@ -3801,7 +3797,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2 class="final-h2 appear">This could be the day<br>everything changes.</h2>
     <p class="final-sub appear d1">Your store, your products, your Premium Business Bundle – ready to go.</p>
     <div class="final-btns appear d2">
-      <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled">Get my free store + bundle</a>
+      <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled">Get my free store + VIP Bundle</a>
     </div>
     <p class="final-fine appear d3">Get started in less than 60 seconds • Cancel anytime</p>
   </div>
@@ -3817,7 +3813,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- ═══ STICKY CTA (all screens) ═══ -->
 <div class="sticky-cta" id="stickyCta">
-  <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting">Get my free store + bundle</a>
+  <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting">Get my free store + VIP Bundle</a>
 </div>
 
 
