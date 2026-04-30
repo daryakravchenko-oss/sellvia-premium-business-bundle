@@ -1141,9 +1141,10 @@ section { padding: 120px 24px; }
 }
 
 /* ── Title & body — pinned to the bottom of each card via margin-top: auto.
-   The auto margin absorbs all free space above h3 in the flex column, so
-   title + lead sit at the bottom while the watermark number stays anchored
-   at the top-right. ── */
+   All cards share identical type sizes (no hero-specific variants).
+   max-width on h3 caps long titles at ~2 lines via text-wrap: balance.
+   p's max-width is calibrated so its right edge sits roughly under h3's
+   right edge in pixels (22ch × 22px ≈ 32ch × 15px). ── */
 .get-card h3 {
   font-size: 22px;
   font-weight: 700;
@@ -1152,24 +1153,16 @@ section { padding: 120px 24px; }
   margin-top: auto;
   margin-bottom: 10px;
   line-height: 1.2;
-}
-.get-card:nth-child(1) h3,
-.get-card:nth-child(7) h3 {
-  font-size: clamp(26px, 2.4vw, 32px);
-  letter-spacing: -0.025em;
-  margin-bottom: 12px;
+  max-width: 24ch;     /* forces long titles (cards 1 & 7, ~47 chars) into 2 lines */
+  text-wrap: balance;
 }
 .get-card p {
   font-size: 15px;
   color: var(--c-gray2);
   line-height: 1.55;
   letter-spacing: -0.005em;
-  max-width: 460px;
-}
-.get-card:nth-child(1) p,
-.get-card:nth-child(7) p {
-  font-size: 16px;
-  max-width: 540px;
+  max-width: 35ch;     /* ≈ same pixel width as h3 (24ch×22px ≈ 35ch×15px) */
+  text-wrap: pretty;
 }
 
 /* ── Tablet: 4-col grid, simpler asymmetry ── */
