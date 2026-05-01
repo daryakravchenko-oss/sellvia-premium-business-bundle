@@ -716,6 +716,21 @@ button { cursor: pointer; font-family: var(--font); outline: none; border: none;
   margin-top: 8px;
   display: block;
 }
+.stat-num-row {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.18em;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1;
+}
+.stat-num-row .stat-n { font-size: inherit; display: inline; }
+.stat-icon {
+  width: calc(1em - 4px);
+  height: calc(1em - 4px);
+  flex-shrink: 0;
+  color: var(--c-amber);
+}
 @media(max-width:600px){ .stat-bar-inner { grid-template-columns:1fr; } .stat-bar { padding: 56px 16px; } }
 
 /* ════ SECTIONS ════ */
@@ -886,13 +901,15 @@ section { padding: 120px 24px; }
 @media(max-width:760px) { .prod-card { flex: 0 0 220px; } }
 
 /* ════ SECTION 3: HOW IT WORKS ════ */
-.how-sec { background: #fff; }
+.how-sec { background: #f5f5f7; }
 .how-steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0;
   margin-top: 72px;
   background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
 }
 .how-step {
   background: #fff;
@@ -994,43 +1011,9 @@ section { padding: 120px 24px; }
   box-shadow: 0 18px 48px rgba(184, 134, 46, 0.10);
 }
 
-/* Per-card blob positions – match reference image (trail of light) */
-.get-card:nth-child(1) {
-  --card-blob: radial-gradient(45% 70% at 32% 62%,
-    rgba(255, 215, 130, 0.55) 0%,
-    rgba(245, 197, 96, 0.22) 30%,
-    transparent 65%);
-}
-.get-card:nth-child(2) {
-  --card-blob: radial-gradient(80% 100% at 95% 95%,
-    rgba(255, 215, 130, 0.55) 0%,
-    rgba(245, 197, 96, 0.20) 30%,
-    transparent 65%);
-}
-.get-card:nth-child(3) {
-  --card-blob: radial-gradient(80% 100% at 15% 22%,
-    rgba(255, 215, 130, 0.55) 0%,
-    rgba(245, 197, 96, 0.20) 30%,
-    transparent 65%);
-}
-.get-card:nth-child(4) {
-  /* Clean – trail passes through, no blob */
-  --card-blob: none;
-}
-.get-card:nth-child(5) {
-  --card-blob: radial-gradient(80% 100% at 88% 22%,
-    rgba(255, 215, 130, 0.55) 0%,
-    rgba(245, 197, 96, 0.20) 30%,
-    transparent 65%);
-}
-.get-card:nth-child(6) {
-  --card-blob: radial-gradient(80% 100% at 92% 92%,
-    rgba(255, 215, 130, 0.55) 0%,
-    rgba(245, 197, 96, 0.20) 30%,
-    transparent 65%);
-}
-.get-card:nth-child(7) {
-  --card-blob: radial-gradient(40% 75% at 23% 58%,
+/* Uniform gradient – every card carries the same gold blob from the top-right corner */
+.get-card {
+  --card-blob: radial-gradient(80% 100% at 100% 0%,
     rgba(255, 215, 130, 0.55) 0%,
     rgba(245, 197, 96, 0.22) 30%,
     transparent 65%);
@@ -1053,54 +1036,46 @@ section { padding: 120px 24px; }
 .get-card::before {
   content: '';
   position: absolute;
-  inset: -1.5px;
+  inset: -2px;
   border-radius: 22px;
-  padding: 1.5px;
+  padding: 2px;
   background: conic-gradient(
     from var(--ring-from),
-    transparent 0%,
-    rgba(255, 220, 130, 0.45) 5%,
-    rgba(255, 245, 200, 1) 10%,
-    rgba(255, 220, 130, 0.55) 16%,
-    transparent 24%,
-    transparent 100%
+    rgba(255, 220, 130, 0.45) 0%,
+    rgba(255, 245, 220, 0.95) 30%,
+    rgba(255, 255, 250, 1) 50%,
+    rgba(255, 245, 220, 0.95) 70%,
+    rgba(255, 220, 130, 0.45) 100%
   );
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
-  opacity: 0;
+  opacity: 0.7;
   pointer-events: none;
   z-index: 3;
   animation: bentoRingFlow 14s linear infinite;
+  filter: drop-shadow(0 0 4px rgba(255, 230, 150, 0.6)) drop-shadow(0 0 12px rgba(255, 200, 80, 0.35));
 }
 
-/* Sequential animation-delays: cycle 1 → 2 → 5 → 4 → 3 → 6 → 7 */
-.get-card:nth-child(1)::before { animation-delay: 0s; }
-.get-card:nth-child(2)::before { animation-delay: -12s; } /* active at +2s */
-.get-card:nth-child(5)::before { animation-delay: -10s; } /* +4s */
-.get-card:nth-child(4)::before { animation-delay: -8s; }  /* +6s */
-.get-card:nth-child(3)::before { animation-delay: -6s; }  /* +8s */
-.get-card:nth-child(6)::before { animation-delay: -4s; }  /* +10s */
-.get-card:nth-child(7)::before { animation-delay: -2s; }  /* +12s */
+/* Per-card variations: different speeds, starting moments and directions */
+.get-card:nth-child(1)::before { animation-duration: 14s; animation-delay: 0s; }
+.get-card:nth-child(2)::before { animation-duration: 11s; animation-delay: -3s; animation-direction: reverse; }
+.get-card:nth-child(3)::before { animation-duration: 13s; animation-delay: -6s; }
+.get-card:nth-child(4)::before { animation-duration: 16s; animation-delay: -9s; animation-direction: reverse; }
+.get-card:nth-child(5)::before { animation-duration: 12s; animation-delay: -2s; }
+.get-card:nth-child(6)::before { animation-duration: 15s; animation-delay: -7s; animation-direction: reverse; }
+.get-card:nth-child(7)::before { animation-duration: 10s; animation-delay: -4s; }
 
-/* Hover: also ignite the ring instantly */
+/* Hover: brighten and pause the shimmer */
 .get-card:hover::before { opacity: 1; animation-play-state: paused; }
 
 @keyframes bentoRingFlow {
-  /* 14s cycle. The active window is the first ~14% (≈2s).
-     During active window: fade in, rotate -360deg (CCW = down-right
-     from top-left), fade out. After: invisible. */
-  0%   { opacity: 0;    --ring-from: -90deg; }
-  3%   { opacity: 0.5;  --ring-from: -90deg; }
-  6%   { opacity: 1;    --ring-from: -180deg; }
-  10%  { opacity: 1;    --ring-from: -360deg; }
-  13%  { opacity: 0.5;  --ring-from: -450deg; }
-  16%  { opacity: 0;    --ring-from: -450deg; }
-  100% { opacity: 0;    --ring-from: -450deg; }
+  0%   { --ring-from: 0deg; }
+  100% { --ring-from: 360deg; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .get-card::before { animation: none; opacity: 0; }
+  .get-card::before { animation: none; opacity: 0.7; }
   .get-card:hover::before { opacity: 1; }
 }
 
@@ -1718,6 +1693,28 @@ section { padding: 120px 24px; }
 }
 .final-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 .final-fine { font-size: 13px; color: rgba(255,255,255,0.25); margin-top: 24px; }
+.final-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  padding: 0;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: rgba(255,255,255,0.92);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+.final-cta-link:hover { color: #f5a623; }
+.final-cta-link svg { width: 16px; height: 16px; flex-shrink: 0; transition: transform 0.2s; }
+.final-cta-link:hover svg { transform: translateX(3px); }
 @media(max-width:480px) { .final-sec { padding: 56px 16px; } }
 
 /* ════ FOOTER ════ */
@@ -1980,7 +1977,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </a>
     <!-- CENTER: links -->
     <ul class="nav-links">
-      <li><a href="#bonus">7-in-1 Bundle</a></li>
+      <li><a href="#bonus">VIP Bundle</a></li>
+      <li><a href="#get">What's free</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
     <!-- RIGHT: actions -->
@@ -2559,14 +2557,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="stat-bar">
   <div class="stat-bar-inner">
     <div class="stat-item">
-      <span class="stat-n"
-            data-countup
-            data-prefix=""
-            data-suffix=""
-            data-from="1"
-            data-to="7"
-            data-decimals="0"
-            data-duration="1800">7</span>
+      <span class="stat-num-row">
+        <span class="stat-n"
+              data-countup
+              data-prefix=""
+              data-suffix=""
+              data-from="1"
+              data-to="7"
+              data-decimals="0"
+              data-duration="1800">7</span>
+        <svg class="stat-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M5.3182 2.5H18.6818L22.5 9.15L12 21.5L1.5 9.15L5.3182 2.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5.31812 2.5L12 21.5L18.6818 2.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M1.5 9.15002H22.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7.70459 9.15L12 2.5L16.2955 9.15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
       <span class="stat-l">Assets in your Premium Bundle</span>
     </div>
     <div class="stat-item">
@@ -3587,6 +3593,232 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 
 
+<!-- ═══ INCLUDED – What do I get for free ═══ -->
+<style>
+.get-sec { background: #FAEFDE; position: relative; overflow: hidden; }
+.get-sec .sec-in { position: relative; z-index: 2; }
+.get-sec .sec-title-xl { color: var(--c-near); }
+
+/* Cursor glow orb */
+.get-sec .glow-orb {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245,166,35,0.7) 0%, rgba(245,166,35,0.25) 35%, rgba(245,166,35,0) 70%);
+  pointer-events: none;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  will-change: left, top, width, height, opacity;
+}
+.get-sec .glow-orb.visible { opacity: 1; }
+.get-sec .glow-orb.btn-absorb {
+  transition: width 2s cubic-bezier(0.4,0,0.2,1),
+              height 2s cubic-bezier(0.4,0,0.2,1),
+              opacity 2s cubic-bezier(0.4,0,0.2,1),
+              left 0.15s ease, top 0.15s ease;
+}
+
+.get-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 72px;
+  background: transparent;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
+.get-tile {
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  padding: 44px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition: background 0.3s;
+}
+.get-tile:hover { background: rgba(255,255,255,0.72); }
+.get-tile-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: rgba(245, 166, 35, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.get-tile-icon img { width: 26px; height: 26px; filter: invert(72%) sepia(60%) saturate(600%) hue-rotate(3deg) brightness(105%); }
+.get-tile h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--c-near);
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+  line-height: 1.25;
+}
+.get-tile p { font-size: 14px; color: var(--c-gray2); line-height: 1.65; }
+@media(max-width:800px) { .get-list { grid-template-columns: 1fr 1fr; } }
+@media(max-width:500px) { .get-list { grid-template-columns: 1fr; } }
+</style>
+
+<section class="get-sec" id="get">
+  <div class="glow-orb" id="glowOrb"></div>
+  <div class="sec-in">
+    <div class="appear" style="text-align:center">
+      <div class="sec-label" style="color:var(--c-amber)">Included</div>
+      <h2 class="sec-title-xl">What do I get for free?</h2>
+      <p style="font-size:19px;color:var(--c-gray2);line-height:1.5;max-width:500px;margin:0 auto">Everything you need to sell online and succeed!</p>
+    </div>
+    <div class="get-list">
+      <div class="get-tile appear d1">
+        <div class="get-tile-icon"><img src="img/icons/shop.svg" alt="store" loading="lazy"></div>
+        <h3>Top-notch online store</h3>
+        <p>A fully hosted standalone ecommerce website, domain name &amp; SSL included.</p>
+      </div>
+      <div class="get-tile appear d2">
+        <div class="get-tile-icon"><img src="img/icons/designtools.svg" alt="design" loading="lazy"></div>
+        <h3>Professional design</h3>
+        <p>Switchable, mobile-friendly design with vibrant visuals that turn shoppers into buyers.</p>
+      </div>
+      <div class="get-tile appear d3">
+        <div class="get-tile-icon"><img src="img/icons/shopping-bag.svg" alt="products" loading="lazy"></div>
+        <h3>Thousands of best-sellers</h3>
+        <p>Access to handpicked collections of the trendiest items. Add as many products as you like.</p>
+      </div>
+      <div class="get-tile appear d4">
+        <div class="get-tile-icon"><img src="img/icons/card.svg" alt="payment" loading="lazy"></div>
+        <h3>Payment system</h3>
+        <p>Your store is fully ready to accept payments through credit cards, debit cards, PayPal, and more.</p>
+      </div>
+      <div class="get-tile appear d5">
+        <div class="get-tile-icon"><img src="img/icons/profile-tick.svg" alt="manager" loading="lazy"></div>
+        <h3>Personal manager</h3>
+        <p>Your dedicated manager will guide you through all the steps of your business launch and growth.</p>
+      </div>
+      <div class="get-tile appear d6">
+        <div class="get-tile-icon"><img src="img/icons/24-support.svg" alt="support" loading="lazy"></div>
+        <h3>24/7 tech support</h3>
+        <p>Feel free to contact our friendly support team whenever you have any technical issues.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:56px" class="appear">
+      <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled" id="getCtaBtn">Get my free store + VIP Bundle</a>
+      <p style="margin-top:12px;font-size:13px;color:#6e6e73">Get started in less than 60 seconds • Cancel anytime</p>
+    </div>
+  </div>
+</section>
+
+<script>
+/* GLOW ORB – cursor-follow inside Included section, absorbs into CTA on hover */
+;(function() {
+  const sec = document.getElementById('get');
+  const orb = document.getElementById('glowOrb');
+  const btn = document.getElementById('getCtaBtn');
+  if (!sec || !orb || !btn) return;
+
+  const ORB_SIZE = 600;
+  let onBtn = false;
+  let absorbed = false;
+
+  function resetOrb() {
+    orb.classList.remove('btn-absorb');
+    orb.style.width = ORB_SIZE + 'px';
+    orb.style.height = ORB_SIZE + 'px';
+    orb.style.opacity = '';
+    absorbed = false;
+  }
+
+  function moveOrb(cx, cy) {
+    if (absorbed) return;
+    const rect = sec.getBoundingClientRect();
+    const x = cx - rect.left;
+    const y = cy - rect.top;
+
+    orb.style.left = x + 'px';
+    orb.style.top = y + 'px';
+
+    if (!orb.classList.contains('visible')) {
+      orb.classList.add('visible');
+    }
+
+    const btnRect = btn.getBoundingClientRect();
+    const overBtn = cx >= btnRect.left && cx <= btnRect.right &&
+                    cy >= btnRect.top && cy <= btnRect.bottom;
+
+    if (overBtn && !onBtn) {
+      onBtn = true;
+      absorbed = true;
+      orb.classList.add('btn-absorb');
+      const sr = sec.getBoundingClientRect();
+      orb.style.left = (btnRect.left - sr.left + btnRect.width / 2) + 'px';
+      orb.style.top = (btnRect.top - sr.top + btnRect.height / 2) + 'px';
+      orb.style.width = '0px';
+      orb.style.height = '0px';
+      orb.style.opacity = '0';
+    } else if (!overBtn && onBtn) {
+      onBtn = false;
+      resetOrb();
+    }
+  }
+
+  sec.addEventListener('mousemove', function(e) { moveOrb(e.clientX, e.clientY); });
+  sec.addEventListener('mouseleave', function() {
+    orb.classList.remove('visible');
+    onBtn = false;
+    resetOrb();
+  });
+
+  let touching = false;
+  sec.addEventListener('touchstart', function(e) {
+    const t = e.touches[0];
+    const rect = sec.getBoundingClientRect();
+    if (t.clientY >= rect.top && t.clientY <= rect.bottom) {
+      touching = true;
+      resetOrb();
+      moveOrb(t.clientX, t.clientY);
+    }
+  }, { passive: true });
+  sec.addEventListener('touchmove', function(e) {
+    if (!touching) return;
+    const t = e.touches[0];
+    moveOrb(t.clientX, t.clientY);
+  }, { passive: true });
+  sec.addEventListener('touchend', function() {
+    touching = false;
+    setTimeout(function() {
+      if (!touching) {
+        orb.classList.remove('visible');
+        onBtn = false;
+        resetOrb();
+      }
+    }, 600);
+  });
+
+  let wasOut = false;
+  const glowObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) {
+        wasOut = true;
+        orb.classList.remove('visible');
+        onBtn = false;
+        resetOrb();
+      } else if (wasOut) {
+        wasOut = false;
+        resetOrb();
+      }
+    });
+  }, { threshold: 0 });
+  glowObs.observe(sec);
+})();
+</script>
+
+
 <!-- ═══ WHAT WILL I SELL ═══ -->
 <section class="sell-sec" id="sell">
   <div class="sec-in-wide">
@@ -3859,6 +4091,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="https://sellvia.com/checkout/?product=custom&type_custom=free_basic_hosting" class="btn btn-filled">Get my free store + VIP Bundle</a>
     </div>
     <p class="final-fine appear d3">Get started in less than 60 seconds • Cancel anytime</p>
+    <button type="button" onclick="SellviaChat.open()" class="final-cta-link appear d4">
+      Get free consultation
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M8.91 19.92l6.52-6.52c.77-.77.77-2.03 0-2.8L8.91 4.08" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
   </div>
 </section>
 
