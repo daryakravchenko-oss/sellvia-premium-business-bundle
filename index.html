@@ -1273,25 +1273,147 @@ section { padding: 120px 24px; }
 
 /* ════ AWARDS ════ */
 .awards-sec { background: var(--c-lightbg); text-align: center; }
-.awards-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  margin-top: 64px;
-  background: #f5f5f7;
-  border-radius: 24px;
+/* Awards as a 3-card carousel — center focused, sides peek, JS-driven step rotation */
+.awards-slider {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  margin: 64px auto 0;
   overflow: hidden;
+  -webkit-mask: linear-gradient(to right, transparent 0%, #000 16%, #000 84%, transparent 100%);
+          mask: linear-gradient(to right, transparent 0%, #000 16%, #000 84%, transparent 100%);
+  user-select: none;
+  cursor: grab;
+  isolation: isolate;
+}
+.awards-slider:active { cursor: grabbing; }
+.awards-track {
+  display: flex;
+  gap: 40px;
+  width: max-content;
+  transition: transform 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+  will-change: transform;
 }
 .award-card {
+  flex: 0 0 760px;
   background: #fff;
-  padding: 44px 32px;
+  border-radius: 14px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0;
+  text-align: left;
 }
-.award-card + .award-card { border-left: 1px solid rgba(0,0,0,0.06); }
-.award-logo { height: 72px; margin-bottom: 18px; object-fit: contain; }
+
+/* Top plashka – gold or dark-violet gradient, white text, iridescent shine */
+.award-card-bar {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 22px 36px;
+  text-align: left;
+}
+.award-card-bar.gold-bar {
+  background: linear-gradient(135deg, #a87a1a 0%, #d4a850 25%, #f1ca60 50%, #c8932a 75%, #8d6515 100%);
+}
+.award-card-bar.plat-bar {
+  background: linear-gradient(135deg, #1c1c34 0%, #3e3260 25%, #6e5fa0 50%, #3e3260 75%, #14142a 100%);
+}
+.award-card-bar::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0) 30%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 70%, transparent 100%);
+  animation: pillShine 5s ease-in-out 1.5s infinite;
+  pointer-events: none;
+}
+@keyframes pillShine {
+  0%   { left: -100%; }
+  40%  { left: 150%; }
+  100% { left: 150%; }
+}
+
+/* Body – equal padding, statue +15%, bigger fonts, company logo above title.
+   align-items: start so logos line up at the same Y across cards. The statue
+   stays vertically centered via align-self. */
+.award-card-body {
+  display: grid;
+  grid-template-columns: 207px 1fr;
+  gap: 28px;
+  padding: 32px;
+  align-items: start;
+}
+.award-card-statue {
+  width: 100%;
+  height: 230px;
+  object-fit: contain;
+  display: block;
+  align-self: center;
+}
+.award-card-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+}
+.award-card-logo {
+  height: 44px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 14px; /* doubles the gap between logo and the title */
+}
+.award-card-logo--small { height: 40px; } /* 10% smaller — used on Titan */
+.award-card-text h3 {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--c-near);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0;
+}
+.award-card-text p {
+  font-size: 28px;
+  color: var(--c-gray2);
+  line-height: 1.25;
+  font-weight: 500;
+  margin: 0;
+}
+
+@media(max-width:1100px) {
+  .award-card { flex-basis: 600px; }
+  .award-card-body { grid-template-columns: 180px 1fr; gap: 22px; padding: 28px; }
+  .award-card-statue { height: 200px; }
+  .award-card-bar { padding: 18px 28px; font-size: 14px; }
+  .award-card-text h3 { font-size: 30px; }
+  .award-card-text p { font-size: 22px; }
+  .award-card-logo { height: 36px; margin-bottom: 12px; }
+  .award-card-logo--small { height: 32px; }
+}
+@media(max-width:720px) {
+  .awards-slider {
+    -webkit-mask: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+            mask: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
+  }
+  .award-card { flex-basis: 360px; }
+  .award-card-body { grid-template-columns: 115px 1fr; gap: 14px; padding: 18px; }
+  .award-card-statue { height: 130px; }
+  .award-card-bar { padding: 14px 18px; font-size: 12px; letter-spacing: 0.03em; }
+  .award-card-text h3 { font-size: 22px; }
+  .award-card-text p { font-size: 15px; }
+  .award-card-logo { height: 28px; margin-bottom: 10px; }
+  .award-card-logo--small { height: 25px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .awards-track { transition: none; }
+}
 
 /* Featured logos marquee */
 .featured-marquee {
@@ -1330,41 +1452,6 @@ section { padding: 120px 24px; }
   0%   { transform: translateX(0); }
   100% { transform: translateX(-25%); }
 }
-.award-medal {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  padding: 4px 12px;
-  border-radius: 100px;
-  margin-top: 14px;
-  display: inline-block;
-}
-.gold { background: #fff8e6; color: #7a5200; position: relative; overflow: hidden; }
-.plat { background: #f0f0ff; color: #3a2fa0; position: relative; overflow: hidden; }
-.award-medal::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0) 30%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 70%, transparent 100%);
-  animation: pillShine 6s ease-in-out 2s infinite;
-}
-@keyframes pillShine {
-  0%   { left: -100%; }
-  40%  { left: 150%; }
-  100% { left: 150%; }
-}
-.award-card h3 {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--c-near);
-  letter-spacing: -0.015em;
-  margin-bottom: 6px;
-  line-height: 1.2;
-}
-.award-card p { font-size: 14px; color: var(--c-gray2); }
 .press-row {
   display: flex;
   justify-content: center;
@@ -1383,8 +1470,6 @@ section { padding: 120px 24px; }
 }
 .press-item strong { color: var(--c-near); }
 @media(max-width:700px) {
-  .awards-grid { grid-template-columns: 1fr; }
-  .award-card + .award-card { border-left: none; border-top: 1px solid rgba(0,0,0,0.06); }
   @keyframes featuredScroll {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -1715,6 +1800,43 @@ section { padding: 120px 24px; }
 .final-cta-link:hover { color: #f5a623; }
 .final-cta-link svg { width: 16px; height: 16px; flex-shrink: 0; transition: transform 0.2s; }
 .final-cta-link:hover svg { transform: translateX(3px); }
+
+/* Floating product images on the sides – mirror hero floaters, reuse dvFloaterCycle */
+.final-sec .floater {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  width: clamp(220px, 22vw, 320px);
+  height: auto;
+  opacity: 0;
+  filter: drop-shadow(0 18px 36px rgba(0,0,0,0.55));
+  will-change: transform, opacity;
+  user-select: none;
+  animation: dvFloaterCycle 12s ease-in-out infinite;
+}
+.final-sec .floater.f1 {
+  top: 12%;
+  left: 3%;
+  --rot: -6deg;
+  --peak: 0.8;
+  animation-delay: 0s;
+}
+.final-sec .floater.f3 {
+  bottom: 10%;
+  right: 4%;
+  --rot: -3deg;
+  --peak: 0.5;
+  animation-delay: -6s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .final-sec .floater { animation: none; opacity: var(--peak); transform: rotate(var(--rot)); }
+}
+@media (max-width: 1100px) {
+  .final-sec .floater { width: clamp(170px, 20vw, 240px); }
+}
+@media (max-width: 720px) {
+  .final-sec .floater { display: none; }
+}
 @media(max-width:480px) { .final-sec { padding: 56px 16px; } }
 
 /* ════ FOOTER ════ */
@@ -2613,7 +2735,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ═══ FREEBASIC ═══ -->
 <style>
 .freebasic-section {
-  background: #ffffff;
+  background: #f5f5f7;
   padding: 120px 24px;
   width: 100%;
 }
@@ -2931,80 +3053,93 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   .freebasic-section .pv-fc-3 { left:  -10px; }
   .freebasic-section .pv-fc-4 { left:  -10px; }
 }
+
+/* ── Community composition (8 avatars + center woman + 2 floating graphic cards) ── */
+.composition-stage {
+  position: relative;
+  width: calc(100% + 60px);
+  max-width: 640px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto 0 -40px;
+}
+.comp-avatar {
+  position: absolute;
+  border-radius: 50%;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  will-change: transform;
+  z-index: 2;
+}
+.comp-woman {
+  position: absolute;
+  border-radius: 28px;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  z-index: 1;
+}
+.comp-graphic {
+  position: absolute;
+  z-index: 3;
+  border-radius: 12px;
+  will-change: transform;
+}
+
+/* Avatar layout (matches reference 7389 trail) */
+.comp-p1 { top: calc(8% - 7px);  left: 9%;   width: 17%;   z-index: 0;  animation: compPulse 4.2s ease-in-out 0s     infinite; }
+.comp-p2 { top: 4%;              left: 44%;  width: 10%;   animation: compPulse 5.1s ease-in-out -1s    infinite; }
+.comp-p3 { top: calc(10% - 7px); left: 67%;  width: 13%;   z-index: 0;  animation: compPulse 4.6s ease-in-out -2s    infinite; }
+.comp-p4 { top: 38%;             left: 4%;   width: 8%;    animation: compPulse 4.8s ease-in-out -1.5s  infinite; }
+.comp-p5 { top: 52%;             left: 80%;  width: 11%;   animation: compPulse 4.4s ease-in-out -2.5s  infinite; }
+.comp-p7 { top: 76%;             left: 64%;  width: 14%;   z-index: 0;  animation: compPulse 4.7s ease-in-out -3s   infinite; }
+.comp-p8 { top: 80%;             left: 26%;  width: 11%;   animation: compPulse 5.0s ease-in-out -1.7s  infinite; }
+
+/* Center woman – larger, like reference 7390 */
+.comp-woman { top: 16%; left: 21%; width: 58%; }
+
+/* Side floating graphic cards – pushed out to the stage edges */
+.comp-grafic1 { top: 56%; left: 0%;  width: 32%; animation: compFloat 6s ease-in-out -1s infinite; }
+.comp-grafic2 { top: calc(22% + 20px); right: 0%; width: 30%; animation: compFloat 7s ease-in-out -3s infinite; }
+
+/* Out-of-focus avatars – everyone except the woman + foreground graphics gets a soft blur */
+.comp-p1, .comp-p2, .comp-p3, .comp-p4, .comp-p5, .comp-p7, .comp-p8 {
+  filter: blur(4px);
+}
+
+@keyframes compPulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.07); }
+}
+@keyframes compFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .comp-avatar, .comp-graphic { animation: none; }
+}
+
+@media(max-width:860px){
+  .composition-stage { width: 100%; max-width: 480px; margin: 0 auto; }
+}
 </style>
 
 <section class="freebasic-section" id="freebasic">
   <div class="bonus-inner freebasic-inner">
 
-    <!-- LEFT – phone mockup with editable HTML cards (vector, no raster) -->
-    <div class="bonus-right pv-stage" aria-label="Store visual">
-      <div class="pv-phone-wrap">
-
-        <!-- Stat overlays on top of phone -->
-        <img class="pv-stat pv-stat-new"   src="img/freebasic/New%20order.webp"      alt="New order received" width="640" height="196" loading="lazy">
-        <picture>
-          <source media="(max-width: 768px)" srcset="img/freebasic/Today's%20Orders_m.webp">
-          <img class="pv-stat pv-stat-today" src="img/freebasic/Today's%20Orders.webp" alt="Today's orders summary" width="700" height="937" loading="lazy">
-        </picture>
-
-        <!-- Top-right floating card: revenue (Figma: dollar-circle) -->
-        <div class="pv-float-card pv-fc-1">
-          <div class="pv-float-card-top">
-            <span class="pv-float-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M8.67188 14.3298C8.67188 15.6198 9.66188 16.6598 10.8919 16.6598H13.4019C14.4719 16.6598 15.3419 15.7498 15.3419 14.6298C15.3419 13.4098 14.8119 12.9798 14.0219 12.6998L9.99187 11.2998C9.20187 11.0198 8.67188 10.5898 8.67188 9.36984C8.67188 8.24984 9.54187 7.33984 10.6119 7.33984H13.1219C14.3519 7.33984 15.3419 8.37984 15.3419 9.66984" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12 6V18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-            <span class="pv-float-card-badge">↑ 18%</span>
-          </div>
-          <div class="pv-float-card-val">$4,340</div>
-          <div class="pv-float-card-label">Monthly revenue</div>
-        </div>
-
-        <!-- Bottom-left floating card: store rating (Figma: star) -->
-        <div class="pv-float-card pv-fc-2">
-          <div class="pv-float-card-top">
-            <span class="pv-float-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M15.39 5.21L16.8 8.02999C16.99 8.41999 17.5 8.78999 17.93 8.86999L20.48 9.28999C22.11 9.55999 22.49 10.74 21.32 11.92L19.33 13.91C19 14.24 18.81 14.89 18.92 15.36L19.49 17.82C19.94 19.76 18.9 20.52 17.19 19.5L14.8 18.08C14.37 17.82 13.65 17.82 13.22 18.08L10.83 19.5C9.12 20.51 8.08001 19.76 8.53001 17.82L9.10002 15.36C9.21002 14.9 9.02001 14.25 8.69001 13.91L6.70002 11.92C5.53002 10.75 5.91002 9.56999 7.54002 9.28999L10.09 8.86999C10.52 8.79999 11.03 8.41999 11.22 8.02999L12.63 5.21C13.38 3.68 14.62 3.68 15.39 5.21Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M8 5H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M5 19H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M3 12H2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-            <span class="pv-float-card-badge">Top rated</span>
-          </div>
-          <div class="pv-float-card-val">4.9</div>
-          <div class="pv-float-card-label">Store rating</div>
-        </div>
-
-        <!-- Mid-left floating card: orders (Figma: box) -->
-        <div class="pv-float-card pv-fc-3">
-          <div class="pv-float-card-top">
-            <span class="pv-float-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M3.17001 7.44L12 12.55L20.77 7.46997" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12 21.61V12.54" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M9.92999 2.48L4.59 5.45003C3.38 6.12003 2.39001 7.80001 2.39001 9.18001V14.83C2.39001 16.21 3.38 17.89 4.59 18.56L9.92999 21.53C11.07 22.16 12.94 22.16 14.08 21.53L19.42 18.56C20.63 17.89 21.62 16.21 21.62 14.83V9.18001C21.62 7.80001 20.63 6.12003 19.42 5.45003L14.08 2.48C12.93 1.84 11.07 1.84 9.92999 2.48Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M17 13.24V9.58002L7.51001 4.09998" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-            <span class="pv-float-card-badge">↑ 24%</span>
-          </div>
-          <div class="pv-float-card-val">187</div>
-          <div class="pv-float-card-label">Orders this month</div>
-        </div>
-
-        <!-- Phone -->
-        <div class="pv-phone">
-          <div class="pv-phone-screen">
-            <img class="pv-screen-img" src="img/freebasic/screen2.webp" alt="Mobile store screen" width="1200" height="3011" loading="lazy">
-          </div>
-        </div>
-
-      </div>
+    <!-- LEFT – community composition: 8 customer avatars around a centered woman + two floating graphic cards -->
+    <div class="bonus-right composition-stage" aria-label="Customers happy with their stores">
+      <img class="comp-woman"                src="img/freebasic/woman.webp"   alt="" loading="lazy">
+      <img class="comp-graphic comp-grafic1" src="img/freebasic/grafic1.webp" alt="" loading="lazy">
+      <img class="comp-graphic comp-grafic2" src="img/freebasic/grafic2.webp" alt="" loading="lazy">
+      <img class="comp-avatar comp-p1" src="img/freebasic/p1_2x.webp" alt="" loading="lazy">
+      <img class="comp-avatar comp-p2" src="img/freebasic/p2_2x.webp" alt="" loading="lazy">
+      <img class="comp-avatar comp-p3" src="img/freebasic/p3_2x.webp" alt="" loading="lazy">
+      <img class="comp-avatar comp-p4" src="img/freebasic/p4_2x.webp" alt="" loading="lazy">
+      <img class="comp-avatar comp-p5" src="img/freebasic/p5_2x.webp" alt="" loading="lazy">
+      <img class="comp-avatar comp-p7" src="img/freebasic/p7_2x.webp" alt="" loading="lazy">
+      <img class="comp-avatar comp-p8" src="img/freebasic/p8_2x.webp" alt="" loading="lazy">
     </div>
 
     <!-- RIGHT (text) -->
@@ -3870,26 +4005,148 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2 class="sec-title-xl on-light">Award-winning quality.</h2>
       <p class="sec-body" style="max-width:520px;margin:0 auto">Here's just a part of the industry rewards our turnkey stores and ecommerce platform have achieved.</p>
     </div>
-    <div class="awards-grid">
-      <div class="award-card appear d1">
-        <img class="award-logo" src="img/Awards/1_logo_m.webp" alt="Hermes Awards" width="1300" height="500" loading="lazy">
-        <h3>Hermes Awards</h3>
-        <p>Best IT Product 2025–2026</p>
-        <span class="award-medal gold">Gold Winner</span>
-      </div>
-      <div class="award-card appear d2">
-        <img class="award-logo" src="img/Awards/2_logo_m.webp?v=2" alt="MarCom Awards" width="941" height="500" loading="lazy">
-        <h3>MarCom Awards</h3>
-        <p>Best Ecommerce Platform</p>
-        <span class="award-medal plat">Platinum Winner</span>
-      </div>
-      <div class="award-card appear d3">
-        <img class="award-logo" src="img/Awards/3_logo_m.webp" alt="dotCOMM Awards" width="1311" height="501" loading="lazy">
-        <h3>dotCOMM Awards</h3>
-        <p>Best Ecommerce Ecosystem</p>
-        <span class="award-medal gold">Gold Winner</span>
+    <div class="awards-slider">
+      <div class="awards-track">
+        <article class="award-card">
+          <div class="award-card-bar gold-bar">Gold Winner</div>
+          <div class="award-card-body">
+            <img class="award-card-statue" src="img/Awards/image_23.07.25_04.21.47%201_1x.webp" alt="Hermes Awards gold statue" loading="lazy">
+            <div class="award-card-text">
+              <img class="award-card-logo" src="img/Awards/1_logo_m.webp" alt="Hermes Creative Awards" loading="lazy">
+              <h3>Hermes Awards</h3>
+              <p>Best IT Product 2025–2026</p>
+            </div>
+          </div>
+        </article>
+        <article class="award-card">
+          <div class="award-card-bar plat-bar">Platinum Winner</div>
+          <div class="award-card-body">
+            <img class="award-card-statue" src="img/Awards/gold-preview1%201_1x.webp" alt="Titan Business Awards platinum statue" loading="lazy">
+            <div class="award-card-text">
+              <img class="award-card-logo award-card-logo--small" src="img/Awards/titan.webp" alt="Titan Business Awards" loading="lazy">
+              <h3>Titan Business Awards</h3>
+              <p>Best Ecommerce Platform</p>
+            </div>
+          </div>
+        </article>
+        <article class="award-card">
+          <div class="award-card-bar gold-bar">Gold Winner</div>
+          <div class="award-card-body">
+            <img class="award-card-statue" src="img/Awards/gold-preview1%202_1x.webp" alt="dotCOMM Awards gold statue" loading="lazy">
+            <div class="award-card-text">
+              <img class="award-card-logo" src="img/Awards/3_logo_m.webp" alt="dotCOMM Awards" loading="lazy">
+              <h3>dotCOMM Awards</h3>
+              <p>Best Ecommerce Ecosystem</p>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
+    <script>
+    /* AWARDS CAROUSEL — track-translation marquee (cards slide off left as new ones slide in from right).
+       3 originals are cloned into duplicates so the loop is seamless; the track snaps back invisibly
+       every N steps. */
+    ;(function() {
+      const slider = document.querySelector('.awards-slider');
+      if (!slider) return;
+      const track  = slider.querySelector('.awards-track');
+      const originals = Array.from(track.querySelectorAll('.award-card'));
+      const N = originals.length;
+      if (N < 3) return;
+
+      // Clone the originals so we can scroll forward without ever exposing an empty slot
+      originals.forEach(card => {
+        const clone = card.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        track.appendChild(clone);
+      });
+
+      const STEP_MS = 3000;
+      const TRANSITION_MS = 1500;
+      const GAP = 40;
+
+      let position = 1;          // start with the 2nd card visually centered
+      let timer = null;
+      let isHolding = false;
+      let isAnimating = false;
+
+      function getStep() {
+        return originals[0].offsetWidth + GAP;
+      }
+      function getBase() {
+        return (slider.clientWidth - originals[0].offsetWidth) / 2;
+      }
+
+      function applyPosition(animate) {
+        if (!animate) {
+          track.style.transition = 'none';
+        }
+        track.style.transform = `translateX(${getBase() - position * getStep()}px)`;
+        if (!animate) {
+          // Force reflow so the no-transition jump commits, then re-enable transitions
+          // eslint-disable-next-line no-unused-expressions
+          track.offsetWidth;
+          requestAnimationFrame(() => { track.style.transition = ''; });
+        }
+      }
+
+      function advance(delta) {
+        if (delta === 0 || isAnimating) return;
+        isAnimating = true;
+        position += delta;
+        applyPosition(true);
+        setTimeout(() => {
+          // Snap back invisibly when we've stepped past the original set
+          if (position >= 1 + N) {
+            position -= N;
+            applyPosition(false);
+          } else if (position < 1) {
+            position += N;
+            applyPosition(false);
+          }
+          isAnimating = false;
+        }, TRANSITION_MS);
+      }
+
+      function startTimer() {
+        stopTimer();
+        timer = setInterval(() => advance(1), STEP_MS);
+      }
+      function stopTimer() {
+        if (timer) { clearInterval(timer); timer = null; }
+      }
+
+      // Press-and-hold pauses
+      slider.addEventListener('mousedown',  () => { isHolding = true; stopTimer(); });
+      slider.addEventListener('touchstart', () => { isHolding = true; stopTimer(); }, { passive: true });
+      document.addEventListener('mouseup',  () => { if (isHolding) { isHolding = false; startTimer(); } });
+      document.addEventListener('touchend', () => { if (isHolding) { isHolding = false; startTimer(); } });
+
+      // Click in left third / right third to step manually
+      slider.addEventListener('click', (e) => {
+        const rect = slider.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const w = rect.width;
+        if (x < w * 0.33) advance(-1);
+        else if (x > w * 0.67) advance(1);
+      });
+
+      // Pause when section is offscreen
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) startTimer();
+          else stopTimer();
+        });
+      }, { threshold: 0.1 });
+      obs.observe(slider);
+
+      // Recompute base offset when the viewport resizes
+      window.addEventListener('resize', () => applyPosition(false));
+
+      // Initial placement
+      applyPosition(false);
+    })();
+    </script>
   </div>
 </section>
 
@@ -4084,6 +4341,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <span class="final-spark s3" aria-hidden="true"></span>
   <span class="final-spark s4" aria-hidden="true"></span>
   <div class="final-glow"></div>
+  <img class="floater f1" src="https://work1.sellvia.com/images/7305.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+  <img class="floater f3" src="https://work1.sellvia.com/images/7307.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
   <div class="final-in">
     <h2 class="final-h2 appear">This could be the day<br>everything changes.</h2>
     <p class="final-sub appear d1">Your store, your products, your Premium Business Bundle – ready to go.</p>
