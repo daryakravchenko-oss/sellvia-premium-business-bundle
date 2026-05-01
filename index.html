@@ -1168,7 +1168,8 @@ section { padding: 120px 24px; }
   .get-card:nth-child(6),
   .get-card:nth-child(7) { grid-column: span 1; }
   .get-card { padding: 28px 26px 26px; }
-  .get-head { margin-bottom: 40px; }
+  .get-head { margin-bottom: 40px; text-align: center; }
+  .get-head .bonus-pill { margin-left: auto; margin-right: auto; }
 }
 
 /* ════ SECTION 5: BONUS (Amazon) ════ */
@@ -2440,16 +2441,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     min-height: auto;
   }
   .hero--devin-v2 .stack { width: 360px; height: 340px; margin: 0 auto; order: 2; }
-  .hero--devin-v2 .copy { padding-right: 0; order: 1; }
+  /* Single-column copy: everything centred horizontally */
+  .hero--devin-v2 .copy {
+    padding-right: 0;
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   .hero--devin-v2 .copy h1 { font-size: clamp(40px, 8vw, 60px); }
   .hero--devin-v2 .cta { width: 100%; max-width: 360px; }
-  /* On narrow viewports allow the row to wrap, with both items centred */
-  .hero--devin-v2 .actions { justify-content: center; flex-wrap: wrap; }
+  /* Hoist .actions children up to .copy via display:contents so cta-link can be ordered last */
+  .hero--devin-v2 .actions { display: contents; }
+  .hero--devin-v2 .cta-link { order: 1; margin-top: 16px; }
   .hero--devin-v2 .cta-fine { text-align: center; }
   .hero--devin-v2 .limited,
   .hero--devin-v2 .copy h1,
-  .hero--devin-v2 .lede { text-align: left; }
+  .hero--devin-v2 .lede { text-align: center; }
   .hero--devin-v2 .lede { max-width: 100%; }
+}
+@media (max-width: 768px) {
+  /* Push the icon + title block (and everything below it) down by 30px
+     so the card-eyebrow number stays put while the rest sits lower. */
+  .hero--devin-v2 .card-head { margin-top: 30px; }
 }
 @media (max-width: 480px) {
   .hero--devin-v2 .grid { padding: 88px 20px 48px; }
@@ -2610,8 +2624,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="card-icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6)">✦</div>
           <div class="card-title">1-on-1 business training, live with your coach</div>
         </div>
-        <div class="card-line">Personal coaching sessions on marketing, sales and scaling – tailored to your store and your goals.</div>
-        <div class="card-line">Most people pay $399+ per session for this.</div>
+        <div class="card-line">Coaching on marketing, sales and scaling – tailored to you.</div>
         <div class="card-input"><span>Book your 1-on-1 coaching session…</span><span class="arrow">→</span></div>
       </div>
     </div>
@@ -2620,7 +2633,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="copy">
       <div class="limited">
         <span class="pulse"></span>
-        LIMITED TIME · 7-IN-1 VIP BUNDLE INCLUDED FREE
+        LIMITED TIME · VIP BUNDLE INCLUDED FREE
       </div>
       <h1>
         Get a <span class="blue">free online store</span> with a <span class="amber">Premium Bundle</span> on top.
